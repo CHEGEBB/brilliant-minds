@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useEffect, useState, useRef } from "react"
-import { motion, useScroll, useTransform, useInView, AnimatePresence } from "framer-motion"
+import { motion, useInView, AnimatePresence } from "framer-motion"
 import {
   Heart,
   Lightbulb,
@@ -31,9 +31,10 @@ const AboutPage = () => {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false)
   const [currentTeamMember, setCurrentTeamMember] = useState(0)
   const videoRef = useRef<HTMLVideoElement>(null)
-  const { scrollYProgress } = useScroll()
-  const parallaxY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"])
-  const scaleTransform = useTransform(scrollYProgress, [0, 0.5], [1, 1.1])
+  // Remove these lines that cause flickering:
+  // const { scrollYProgress } = useScroll()
+  // const parallaxY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"])
+  // const scaleTransform = useTransform(scrollYProgress, [0, 0.5], [1, 1.1])
 
   const coreValues = [
     {
@@ -197,6 +198,7 @@ const AboutPage = () => {
         initial={{ opacity: 0, y: 50 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
+        viewport={{ once: true }}
         className={className}
       >
         {children}
@@ -226,10 +228,11 @@ const AboutPage = () => {
 
       {/* Mission & Vision Section */}
       <section id="mission" className="py-20 bg-white relative overflow-hidden">
-        <motion.div style={{ y: parallaxY }} className="absolute inset-0 opacity-5">
+        {/* Simplified background without parallax */}
+        <div className="absolute inset-0 opacity-3">
           <div className="absolute top-0 left-0 w-96 h-96 bg-blue-500 rounded-full blur-3xl" />
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-500 rounded-full blur-3xl" />
-        </motion.div>
+        </div>
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -265,22 +268,21 @@ const AboutPage = () => {
 
             <AnimatedSection>
               <div className="relative">
-                <motion.div
-                  style={{ scale: scaleTransform }}
-                  className="relative rounded-2xl overflow-hidden shadow-2xl"
-                >
+                {/* Removed scale transform to prevent flickering */}
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                   <img
                     src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
                     alt="Team collaboration"
                     className="w-full h-96 object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-tr from-blue-900/30 to-purple-900/30" />
-                </motion.div>
+                </div>
 
                 <motion.div
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.8, delay: 0.3 }}
+                  viewport={{ once: true }}
                   className="absolute -bottom-6 -right-6 bg-white rounded-2xl p-6 shadow-xl border border-gray-100"
                 >
                   <div className="flex items-center space-x-4">
@@ -330,6 +332,7 @@ const AboutPage = () => {
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: index * 0.2 }}
+                    viewport={{ once: true }}
                     className="bg-white rounded-xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300"
                   >
                     <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Mail, Phone, MapPin, Twitter, Linkedin, Github } from 'lucide-react';
 import "@/sass/Footer.scss"
+import Image from 'next/image';
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   
@@ -12,10 +13,15 @@ const Footer = () => {
           {/* Brand Column */}
           <div className="col-span-1 md:col-span-1 lg:col-span-1">
             <div className="flex items-center mb-6">
-              <div className="h-10 w-10 mr-2 bg-blue-500 rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-xl">B</span>
-              </div>
-              <span className="font-bold text-xl">BrilliantMinds</span>
+            <Link href="/" className="flex items-center">
+            <Image
+              src="/assets/logo.png"
+              alt="Brilliant Minds Logo"
+              width={180}
+              height={40}
+              className=""
+            />
+          </Link>
             </div>
             <p className="text-gray-400 mb-6 text-sm">
               Revolutionizing systems through technology to solve key societal challenges.
