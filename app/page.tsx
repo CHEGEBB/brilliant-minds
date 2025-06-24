@@ -370,54 +370,108 @@ function Homepage() {
 
       {/* Call to Action Section */}
       <section 
-        id="cta" 
-        ref={partnersRef}
-        className="py-20 lg:py-32 relative bg-gradient-to-r from-blue-900 to-purple-900 text-white"
+      id="cta" 
+      className="py-20 lg:py-32 relative text-white overflow-hidden"
+    >
+      {/* Background Image */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: "url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')"
+        }}
       >
-        <div className="absolute inset-0 overflow-hidden">
-          <svg className="absolute left-0 bottom-0 h-full opacity-10" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <path d="M0,0 L100,0 L100,100 L0,100 Z" fill="url(#grad1)" />
-            <defs>
-              <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#FFFFFF" />
-                <stop offset="100%" stopColor="#FFFFFF" />
-              </linearGradient>
-            </defs>
-          </svg>
-        </div>
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-purple-900/90"></div>
+      </div>
 
-        <div className="container mx-auto px-4 relative z-10">
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            className="text-center max-w-3xl mx-auto"
+      {/* Decorative Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-white/10 rounded-full blur-xl animate-pulse"></div>
+        <div className="absolute bottom-1/3 right-1/4 w-48 h-48 bg-blue-400/10 rounded-full blur-2xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 right-1/2 w-24 h-24 bg-purple-400/10 rounded-full blur-xl animate-pulse delay-500"></div>
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8 }}
+          className="text-center max-w-4xl mx-auto"
+        >
+          <motion.h2 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent"
           >
-            <h2 className="text-3xl md:text-5xl font-bold mb-6">Ready to Create Impact Together?</h2>
-            <p className="text-xl text-white/80 mb-10">
-              Join our network of partners and help us solve the world's most pressing challenges through innovative technology solutions.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <motion.a
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                href="/partners"
-                className="px-8 py-4 rounded-full bg-white text-blue-900 font-semibold text-lg hover:shadow-lg transition-all duration-300"
-              >
-                Become a Partner
-              </motion.a>
-              <motion.a
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                href="/contact"
-                className="px-8 py-4 rounded-full bg-transparent border-2 border-white text-white font-semibold text-lg hover:bg-white/10 transition-all duration-300"
-              >
-                Schedule a Call
-              </motion.a>
+            Ready to Create Impact Together?
+          </motion.h2>
+          
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="text-xl md:text-2xl text-white/90 mb-10 leading-relaxed"
+          >
+            Join our network of partners and help us solve the world's most pressing challenges through innovative technology solutions.
+          </motion.p>
+          
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-6"
+          >
+            <motion.a
+              whileHover={{ 
+                scale: 1.05,
+                boxShadow: "0 20px 40px rgba(255, 255, 255, 0.2)"
+              }}
+              whileTap={{ scale: 0.95 }}
+              href="/partners"
+              className="px-10 py-5 rounded-full bg-white text-blue-900 font-bold text-lg hover:bg-blue-50 transition-all duration-300 shadow-lg backdrop-blur-sm"
+            >
+              Become a Partner
+            </motion.a>
+            
+            <motion.a
+              whileHover={{ 
+                scale: 1.05,
+                backgroundColor: "rgba(255, 255, 255, 0.15)"
+              }}
+              whileTap={{ scale: 0.95 }}
+              href="/contact"
+              className="px-10 py-5 rounded-full bg-transparent border-2 border-white/80 text-white font-bold text-lg hover:border-white transition-all duration-300 backdrop-blur-sm"
+            >
+              Schedule a Call
+            </motion.a>
+          </motion.div>
+
+          {/* Additional Visual Elements */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.8 }}
+            className="mt-16 flex justify-center items-center space-x-8"
+          >
+            <div className="text-center">
+              <div className="text-2xl font-bold text-white">2.5M+</div>
+              <div className="text-sm text-white/70">Lives Impacted</div>
+            </div>
+            <div className="w-px h-12 bg-white/30"></div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-white">50+</div>
+              <div className="text-sm text-white/70">Countries</div>
+            </div>
+            <div className="w-px h-12 bg-white/30"></div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-white">95%</div>
+              <div className="text-sm text-white/70">Success Rate</div>
             </div>
           </motion.div>
-        </div>
-      </section>
+        </motion.div>
+      </div>
+    </section>
 
       {/* Features Grid Section */}
       <section className="py-20 lg:py-32 bg-white">

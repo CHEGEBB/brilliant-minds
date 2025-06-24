@@ -32,6 +32,7 @@ const Navbar = () => {
   ];
 
   const navItems = [
+    { title: 'Home', href: '/', hasDropdown: false },
     { title: 'Solutions', href: '/solutions', hasDropdown: true },
     { title: 'Impact', href: '/impact', hasDropdown: false },
     { title: 'About', href: '/about', hasDropdown: false },
