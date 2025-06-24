@@ -33,9 +33,10 @@ const Navbar = () => {
 
   const navItems = [
     { title: 'Home', href: '/', hasDropdown: false },
-    { title: 'Solutions', href: '/solutions', hasDropdown: true },
-    { title: 'Impact', href: '/impact', hasDropdown: false },
     { title: 'About', href: '/about', hasDropdown: false },
+    { title: 'Solutions', href: '/solutions', hasDropdown: true },
+    { title: 'Get-Involved', href: '/get-involved', hasDropdown: false },
+    { title: 'Impact', href: '/impact', hasDropdown: false },
     { title: 'Contact', href: '/contact', hasDropdown: false },
   ];
 
@@ -65,22 +66,24 @@ const Navbar = () => {
             {navItems.map((item) => (
               <div key={item.title} className="relative group">
                 {item.hasDropdown ? (
-                  <button
-                    className={`flex items-center group ${
-                      isScrolled ? 'text-white' : 'text-white'
-                    } hover:text-blue-400 transition-colors`}
-                    onClick={() => setIsSolutionsOpen(!isSolutionsOpen)}
-                    onMouseEnter={() => setIsSolutionsOpen(true)}
-                    onMouseLeave={() => setIsSolutionsOpen(false)}
-                  >
-                    {item.title}
-                    <ChevronDown
-                      size={16}
-                      className={`ml-1 transition-transform duration-200 ${
-                        isSolutionsOpen ? 'rotate-180' : 'rotate-0'
-                      }`}
-                    />
-                  </button>
+                  <div className="relative">
+                    <Link
+                      href={item.href}
+                      className={`flex items-center group ${
+                        isScrolled ? 'text-white' : 'text-white'
+                      } hover:text-blue-400 transition-colors`}
+                      onMouseEnter={() => setIsSolutionsOpen(true)}
+                      onMouseLeave={() => setIsSolutionsOpen(false)}
+                    >
+                      {item.title}
+                      <ChevronDown
+                        size={16}
+                        className={`ml-1 transition-transform duration-200 ${
+                          isSolutionsOpen ? 'rotate-180' : 'rotate-0'
+                        }`}
+                      />
+                    </Link>
+                  </div>
                 ) : (
                   <Link
                     href={item.href}
@@ -156,18 +159,26 @@ const Navbar = () => {
                 <div key={item.title} className="py-2">
                   {item.hasDropdown ? (
                     <div>
-                      <button
-                        className="flex items-center justify-between w-full text-white hover:text-blue-400 transition-colors"
-                        onClick={() => setIsSolutionsOpen(!isSolutionsOpen)}
-                      >
-                        <span>{item.title}</span>
-                        <ChevronDown
-                          size={16}
-                          className={`transition-transform duration-200 ${
-                            isSolutionsOpen ? 'rotate-180' : 'rotate-0'
-                          }`}
-                        />
-                      </button>
+                      <div className="flex items-center justify-between">
+                        <Link
+                          href={item.href}
+                          className="text-white hover:text-blue-400 transition-colors"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          {item.title}
+                        </Link>
+                        <button
+                          className="text-white hover:text-blue-400 transition-colors p-1"
+                          onClick={() => setIsSolutionsOpen(!isSolutionsOpen)}
+                        >
+                          <ChevronDown
+                            size={16}
+                            className={`transition-transform duration-200 ${
+                              isSolutionsOpen ? 'rotate-180' : 'rotate-0'
+                            }`}
+                          />
+                        </button>
+                      </div>
 
                       <AnimatePresence>
                         {isSolutionsOpen && (
