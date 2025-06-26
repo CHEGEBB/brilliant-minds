@@ -22,13 +22,12 @@ import {
 } from "lucide-react"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
+import Image from "next/image"
 
 const SolutionsPage = () => {
   const [currentHeroIndex, setCurrentHeroIndex] = useState(0)
   const [currentSolutionIndex, setCurrentSolutionIndex] = useState(0)
   const [currentFeatureIndex, setCurrentFeatureIndex] = useState(0)
-  const [heroImageLoaded, setHeroImageLoaded] = useState(false)
-  const [preloadedImages, setPreloadedImages] = useState<string[]>([])
 
   const heroImages = [
     "https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
@@ -36,30 +35,6 @@ const SolutionsPage = () => {
     "https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
   ]
-
-  // Preload images to ensure smooth transitions
-  useEffect(() => {
-    const preloadImages = async () => {
-      const promises = heroImages.map((src) => {
-        return new Promise<string>((resolve, reject) => {
-          const img = new Image()
-          img.src = src
-          img.onload = () => resolve(src)
-          img.onerror = reject
-        })
-      })
-      
-      try {
-        const loadedImages = await Promise.all(promises)
-        setPreloadedImages(loadedImages)
-        setHeroImageLoaded(true)
-      } catch (error) {
-        console.error("Failed to preload images", error)
-      }
-    }
-    
-    preloadImages()
-  }, [])
 
   const solutions = [
     {
@@ -295,7 +270,7 @@ const SolutionsPage = () => {
   useEffect(() => {
     const heroInterval = setInterval(() => {
       setCurrentHeroIndex((prev) => (prev + 1) % heroImages.length)
-    }, 5000)
+    }, 3000) // Changed from 5000 to 3000 for faster cycling
 
     const solutionInterval = setInterval(() => {
       setCurrentSolutionIndex((prev) => (prev + 1) % solutions.length)
@@ -334,19 +309,25 @@ const SolutionsPage = () => {
     <div className="min-h-screen bg-gray-50">
       <Navbar />
 
-      {/* Hero Section with Animated Background */}
+      {/* Hero Section with Quick Animated Background */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Animated Background Images */}
+        {/* Quick Animated Background Images */}
         <div className="absolute inset-0">
-          {heroImageLoaded && (
-            <div
-              className="absolute inset-0 bg-cover bg-center transition-opacity duration-300"
-              style={{
-                backgroundImage: `url(${heroImages[currentHeroIndex]})`,
-                opacity: 1
-              }}
-            />
-          )}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentHeroIndex}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15, ease: "easeInOut" }}
+              className="absolute inset-0"
+            >
+              <div
+                className="w-full h-full bg-cover bg-center"
+                style={{ backgroundImage: `url(${heroImages[currentHeroIndex]})` }}
+              />
+            </motion.div>
+          </AnimatePresence>
           <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 via-purple-900/80 to-indigo-900/80" />
         </div>
 
@@ -427,19 +408,19 @@ const SolutionsPage = () => {
               <AnimatedSection key={solution.id}>
                 <motion.div
                   whileHover={{ y: -10, scale: 1.02 }}
-                  className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden group cursor-pointer"
+                  className="bg-white  shadow-lg border border-gray-100 overflow-hidden group cursor-pointer"
                 >
                   <div className="relative h-48">
-                    <img
+                    <Image
                       src={solution.image || "/placeholder.svg"}
                       alt={solution.title}
+                      width={800}
+                      height={300}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                     />
-                    <div className={`absolute inset-0 bg-gradient-to-br ${solution.bgGradient}`} />
+                    <div className={`absolute inset-0`} />
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-16 h-16 bg-white/20 backdrop-blur-lg rounded-full flex items-center justify-center">
-                        {React.createElement(solution.icon, { className: "w-8 h-8 text-white" })}
-                      </div>
+                    
                     </div>
                   </div>
                   <div className="p-6">
