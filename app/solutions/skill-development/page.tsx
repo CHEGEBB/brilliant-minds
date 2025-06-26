@@ -698,9 +698,11 @@ const SkillDevelopmentPage = () => {
                 whileHover={{ scale: 1.02 }}
                 className="relative h-96 lg:h-[500px] rounded-2xl overflow-hidden shadow-2xl"
               >
-                <img
+                <Image
                   src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
                   alt="Interactive Webinars"
+                  width={600}
+                  height={400}
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/30 to-teal-900/30" />
@@ -790,9 +792,11 @@ const SkillDevelopmentPage = () => {
                   className="bg-white rounded-2xl overflow-hidden shadow-xl border border-gray-100"
                 >
                   <div className="relative h-48">
-                    <img
+                    <Image
                       src={testimonial.image || "/placeholder.svg"}
                       alt={testimonial.name}
+                      width={600}
+                      height={300}
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1">
