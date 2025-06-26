@@ -44,7 +44,7 @@ const AboutPage = () => {
         "We embrace creative thinking and novel approaches to solve complex challenges facing underserved communities.",
       color: "from-yellow-400 to-orange-500",
       bgImage:
-        "https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1531297484001-80022131f5a1?q=80&w=820&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       stats: "50+ Innovative Solutions",
     },
     {
@@ -81,7 +81,7 @@ const AboutPage = () => {
 
   const teamMembers = [
     {
-      name: "Michael Chen",
+      name: "John Doe",
       role: "Chief Executive Officer",
       bio: "Visionary leader with 15+ years in social impact technology. Former Google executive passionate about digital equity.",
       image:
@@ -91,24 +91,24 @@ const AboutPage = () => {
       location: "San Francisco, CA",
     },
     {
-      name: "Sarah Johnson",
+      name: "Jane Doe",
       role: "Chief Technology Officer",
       bio: "AI and machine learning expert dedicated to creating accessible technology solutions for underserved communities.",
       image:
-        "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1607746882042-944635dfe10e?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       expertise: ["AI/ML", "Software Architecture", "Digital Accessibility"],
       achievements: "Published 25+ research papers",
       location: "Austin, TX",
     },
     {
-      name: "David Okafor",
+      name: "David Smith",
       role: "Head of Community Impact",
       bio: "Community organizer and social entrepreneur with deep experience in grassroots development and digital inclusion.",
       image:
-        "https://images.unsplash.com/photo-1472099645785-5658abf48d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1654110455429-cf322b40a906?q=80&w=580&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       expertise: ["Community Development", "Program Management", "Partnership Building"],
       achievements: "Impacted 500K+ individuals",
-      location: "Lagos, Nigeria",
+      location: "New York, NY",
     },
     {
       name: "Maria Rodriguez",
@@ -223,7 +223,7 @@ const AboutPage = () => {
           href: "#team",
         }}
         backgroundType="image"
-        backgroundSrc="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+        backgroundSrc="https://images.unsplash.com/photo-1637191624218-a757a2456908?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
       />
 
       {/* Mission & Vision Section */}
@@ -540,7 +540,7 @@ const AboutPage = () => {
                   poster="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
                 >
                   <source
-                    src="https://assets.mixkit.co/videos/preview/mixkit-team-working-together-in-an-office-4622-large.mp4"
+                    src="/assets/team.mp4"
                     type="video/mp4"
                   />
                 </video>

@@ -57,7 +57,7 @@ function Homepage() {
     {
       title: "Skill Development",
       description: "Empowering individuals with cutting-edge skills and certifications that align with tomorrow's job market demands.",
-      icon: <Award className="h-8 w-8 text-rose-500" />,
+      icon: <Award className="h-8 w-8 text-red-500" />,
       image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
       color: "from-rose-500 to-rose-700"
     }
@@ -183,7 +183,7 @@ function Homepage() {
               style={{ opacity: opacityTransform }}
               className="w-full lg:w-1/2 mb-10 lg:mb-0 lg:pr-10"
             >
-              <div className="relative h-[400px] md:h-[500px] rounded-2xl overflow-hidden shadow-2xl">
+              <div className="relative h-[400px] md:h-[500px] rounded-md overflow-hidden shadow-2xl">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={currentSlide}
