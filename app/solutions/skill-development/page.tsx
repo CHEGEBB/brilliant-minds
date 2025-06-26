@@ -25,6 +25,7 @@ import {
 } from "lucide-react"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
+import Image from "next/image"
 
 const SkillDevelopmentPage = () => {
   const [currentHeroIndex, setCurrentHeroIndex] = useState(0)
@@ -294,7 +295,7 @@ const SkillDevelopmentPage = () => {
     }, 6000)
 
     return () => clearInterval(heroInterval)
-  }, [])
+  }, [heroSlides.length])
 
   const AnimatedSection = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {
     const ref = useRef(null)
@@ -660,9 +661,11 @@ const SkillDevelopmentPage = () => {
                     className={`relative ${index % 2 === 1 ? "lg:col-start-1" : ""}`}
                   >
                     <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl">
-                      <img
+                      <Image
                         src={category.image || "/placeholder.svg"}
                         alt={category.title}
+                        width={600}
+                        height={400}
                         className="w-full h-full object-cover"
                       />
                       <div className={`absolute inset-0 bg-gradient-to-br ${category.gradient}`} />

@@ -5,6 +5,7 @@ import { motion, useInView, AnimatePresence, useScroll, useTransform } from "fra
 import { BookOpen, Play, Award, Clock, Target, CheckCircle, Star, TrendingUp, Brain, Globe } from "lucide-react"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
+import Image from "next/image"
 
 const ELearningPage = () => {
   const [currentHeroIndex, setCurrentHeroIndex] = useState(0)
@@ -327,9 +328,11 @@ const ELearningPage = () => {
                     transition={{ duration: 1 }}
                     className="absolute inset-0 rounded-2xl overflow-hidden shadow-2xl"
                   >
-                    <img
+                    <Image
                       src={heroContent[currentHeroIndex].image || "/placeholder.svg"}
                       alt={heroContent[currentHeroIndex].title}
+                      width={800}
+                      height={400}
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-tr from-blue-900/20 to-cyan-900/20" />
@@ -465,9 +468,11 @@ const ELearningPage = () => {
                     <motion.div whileHover={{ scale: 1.02 }} className="relative">
                       <DeviceFrame device={feature.device}>
                         <div className="relative h-64 lg:h-80">
-                          <img
+                          <Image
                             src={feature.image || "/placeholder.svg"}
                             alt={feature.title}
+                            width={600}
+                            height={400}
                             className="w-full h-full object-cover"
                           />
                           <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-20`} />
@@ -561,9 +566,11 @@ const ELearningPage = () => {
                   className="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-xl border border-gray-100"
                 >
                   <div className="flex items-center mb-6">
-                    <img
+                    <Image
                       src={story.image || "/placeholder.svg"}
                       alt={story.name}
+                      width={64}
+                      height={64}
                       className="w-16 h-16 rounded-full object-cover mr-4"
                     />
                     <div>
