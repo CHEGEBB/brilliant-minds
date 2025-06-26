@@ -8,22 +8,23 @@ import Navbar from '@/components/Navbar';
 import { 
   Wifi, BookOpen, Briefcase, Award, 
   Users, Globe, Heart, BarChart4, 
-  ArrowRight, User, Code, PenTool 
+  ArrowRight, Code, PenTool 
 } from 'lucide-react';
+import Image from 'next/image';
 
 function Homepage() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
+  const [, setIsVisible] = useState(false);
   const solutionsRef = useRef(null);
   const impactRef = useRef(null);
   const testimonialRef = useRef(null);
-  const partnersRef = useRef(null);
 
   const { scrollYProgress: solutionsScroll } = useScroll({
     target: solutionsRef,
     offset: ["start end", "end start"]
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { scrollYProgress: impactScroll } = useScroll({
     target: impactRef,
     offset: ["start end", "end start"]
@@ -262,7 +263,7 @@ function Homepage() {
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Impact</h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Real numbers that demonstrate the positive change we're creating in communities worldwide.
+              Real numbers that demonstrate the positive change we&apos;re creating in communities worldwide.
             </p>
             <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto mt-6"></div>
           </motion.div>
@@ -338,9 +339,11 @@ function Homepage() {
                 <div className="p-8">
                   <div className="flex items-center mb-6">
                     <div className="w-14 h-14 rounded-full overflow-hidden mr-4">
-                      <img 
+                      <Image
                         src={testimonial.image} 
                         alt="" 
+                        width={56}
+                        height={56}
                         className="w-full h-full object-cover"
                       />
                     </div>
@@ -350,7 +353,7 @@ function Homepage() {
                     </div>
                   </div>
 
-                  <p className="text-gray-700 italic">"{testimonial.quote}"</p>
+                  <p className="text-gray-700 italic">&ldquo;{testimonial.quote}&rdquo;</p>
 
                   <div className="mt-6">
                     <div className="flex">
@@ -413,7 +416,7 @@ function Homepage() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-xl md:text-2xl text-white/90 mb-10 leading-relaxed"
           >
-            Join our network of partners and help us solve the world's most pressing challenges through innovative technology solutions.
+            Join our network of partners and help us solve the world&apos;s most pressing challenges through innovative technology solutions.
           </motion.p>
           
           <motion.div 

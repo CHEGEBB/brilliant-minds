@@ -19,6 +19,7 @@ import {
 } from "lucide-react"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
+import Image from "next/image"
 
 const GigEconomyPage = () => {
   const [currentHeroIndex, setCurrentHeroIndex] = useState(0)
@@ -250,7 +251,7 @@ const GigEconomyPage = () => {
     return () => {
       clearInterval(heroInterval)
     }
-  }, [])
+  }, [heroContent.length])
 
   const AnimatedSection = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {
     const ref = useRef(null)
@@ -304,9 +305,11 @@ const GigEconomyPage = () => {
                     transition={{ duration: 1, ease: "easeInOut" }}
                     className="absolute inset-0 rounded-2xl overflow-hidden shadow-2xl"
                   >
-                    <img
+                    <Image
                       src={heroContent[currentHeroIndex].image || "/placeholder.svg"}
                       alt={heroContent[currentHeroIndex].title}
+                      width={800}
+                      height={400}
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-tr from-purple-900/20 to-cyan-900/20" />
@@ -504,9 +507,11 @@ const GigEconomyPage = () => {
                   <div className={`relative ${index % 2 === 0 ? "lg:col-start-1" : ""}`}>
                     <motion.div whileHover={{ scale: 1.02 }} className="relative">
                       <div className="relative h-64 lg:h-80 rounded-2xl overflow-hidden shadow-2xl">
-                        <img
+                        <Image
                           src={solution.image || "/placeholder.svg"}
                           alt={solution.title}
+                          width={500}
+                          height={500}
                           className="w-full h-full object-cover"
                         />
                         <div className={`absolute inset-0 bg-gradient-to-br ${solution.gradient} opacity-20`} />
@@ -590,7 +595,7 @@ const GigEconomyPage = () => {
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Our Gig Economy Impact</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-purple-500 to-cyan-600 mx-auto mb-8" />
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Real numbers that demonstrate how we're transforming the freelancing landscape
+              Real numbers that demonstrate how we&pos;re transforming the freelancing landscape
             </p>
           </AnimatedSection>
 
@@ -635,9 +640,11 @@ const GigEconomyPage = () => {
                   className="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-xl border border-gray-100"
                 >
                   <div className="flex items-center mb-6">
-                    <img
+                    <Image
                       src={story.image || "/placeholder.svg"}
                       alt={story.name}
+                      width={64}
+                      height={64}
                       className="w-16 h-16 rounded-full object-cover mr-4"
                     />
                     <div>
@@ -654,7 +661,7 @@ const GigEconomyPage = () => {
                       {story.category}
                     </span>
                   </div>
-                  <p className="text-gray-700 italic mb-6 leading-relaxed">"{story.quote}"</p>
+                  <p className="text-gray-700 italic mb-6 leading-relaxed">&ldquo;{story.quote}&rdquo;</p>
                   <div className="flex items-center justify-between">
                     <div className="flex space-x-1">
                       {[...Array(story.rating)].map((_, i) => (

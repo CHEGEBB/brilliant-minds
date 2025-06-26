@@ -8,7 +8,7 @@ import Footer from "@/components/Footer"
 
 const ELearningPage = () => {
   const [currentHeroIndex, setCurrentHeroIndex] = useState(0)
-  const [currentPlatformIndex, setCurrentPlatformIndex] = useState(0)
+  const [, setCurrentPlatformIndex] = useState(0)
   const { scrollYProgress } = useScroll()
   const heroParallax = useTransform(scrollYProgress, [0, 0.3], [0, -50])
 
@@ -187,7 +187,7 @@ const ELearningPage = () => {
       clearInterval(heroInterval)
       clearInterval(platformInterval)
     }
-  }, [])
+  }, [heroContent.length, platformFeatures.length])
 
   const AnimatedSection = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {
     const ref = useRef(null)
@@ -571,7 +571,7 @@ const ELearningPage = () => {
                       <p className="text-gray-600">{story.role}</p>
                     </div>
                   </div>
-                  <p className="text-gray-700 italic mb-6 leading-relaxed">"{story.quote}"</p>
+                  <p className="text-gray-700 italic mb-6 leading-relaxed">&ldquo;`&ldquo;{story.quote}&rdquo;</p>
                   <div className="flex items-center justify-between">
                     <div className="flex space-x-1">
                       {[...Array(story.rating)].map((_, i) => (

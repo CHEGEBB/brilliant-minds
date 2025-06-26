@@ -27,7 +27,7 @@ import Image from "next/image"
 const SolutionsPage = () => {
   const [currentHeroIndex, setCurrentHeroIndex] = useState(0)
   const [currentSolutionIndex, setCurrentSolutionIndex] = useState(0)
-  const [currentFeatureIndex, setCurrentFeatureIndex] = useState(0)
+  const [, setCurrentFeatureIndex] = useState(0)
 
   const heroImages = [
     "https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
@@ -285,7 +285,7 @@ const SolutionsPage = () => {
       clearInterval(solutionInterval)
       clearInterval(featureInterval)
     }
-  }, [])
+  }, [heroImages.length, impactCards.length, solutions.length])
 
   const AnimatedSection = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {
     const ref = useRef(null)
@@ -404,7 +404,7 @@ const SolutionsPage = () => {
           </AnimatedSection>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {solutions.map((solution, index) => (
+            {solutions.map((solution) => (
               <AnimatedSection key={solution.id}>
                 <motion.div
                   whileHover={{ y: -10, scale: 1.02 }}
@@ -653,9 +653,11 @@ const SolutionsPage = () => {
       {/* CTA Section */}
       <section className="py-20 relative overflow-hidden">
         <div className="absolute inset-0">
-          <img
+          <Image
             src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
             alt="Transform your community"
+            width={1920}
+            height={1080}
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 via-purple-900/90 to-indigo-900/90" />
@@ -666,7 +668,7 @@ const SolutionsPage = () => {
             <h2 className="text-4xl lg:text-6xl font-bold text-white mb-8">Ready to Transform Your Community?</h2>
             <p className="text-xl text-gray-200 mb-12 max-w-4xl mx-auto leading-relaxed">
               Partner with BrilliantMinds to bring digital empowerment, education, and economic opportunities to your
-              community. Let's create lasting change together.
+              community. Let&apos;s create lasting change together.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
               <motion.button

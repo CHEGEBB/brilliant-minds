@@ -43,6 +43,7 @@ const ContactForm = () => {
       // } else {
       //   throw new Error('Failed to send message');
       // }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
       setError('Failed to send message. Please try again later.');
     } finally {
@@ -69,7 +70,7 @@ const ContactForm = () => {
           </div>
           <h3 className="text-xl font-semibold text-green-800 mb-2">Message Sent!</h3>
           <p className="text-green-700 mb-4">
-            Thank you for reaching out. We'll get back to you as soon as possible.
+            Thank you for reaching out. We&apos;ll get back to you as soon as possible.
           </p>
           <button
             onClick={() => setSuccess(false)}

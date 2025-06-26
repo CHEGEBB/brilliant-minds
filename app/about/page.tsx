@@ -176,7 +176,7 @@ const AboutPage = () => {
       clearInterval(interval)
       clearInterval(teamInterval)
     }
-  }, [])
+  }, [coreValues.length, teamMembers.length])
 
   const toggleVideo = () => {
     if (videoRef.current) {
@@ -271,9 +271,11 @@ const AboutPage = () => {
               <div className="relative">
                 {/* Removed scale transform to prevent flickering */}
                 <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                  <img
+                  <Image
                     src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
                     alt="Team collaboration"
+                    width={800}
+                    height={600}
                     className="w-full h-96 object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-tr from-blue-900/30 to-purple-900/30" />
@@ -622,9 +624,11 @@ const AboutPage = () => {
       {/* Impact Metrics */}
       <section className="py-20 relative overflow-hidden">
         <div className="absolute inset-0">
-          <img
+          <Image
             src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
             alt="Impact background"
+            width={1920}
+            height={1080}
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-purple-900/90" />
