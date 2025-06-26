@@ -462,7 +462,7 @@ const SolutionsPage = () => {
                 >
                   <div className="flex items-center space-x-4">
                     <div
-                      className={`w-16 h-16 rounded-full bg-gradient-to-r ${solutions[currentSolutionIndex].color} flex items-center justify-center`}
+                      className={`w-16 h-16 bg-gradient-to-r ${solutions[currentSolutionIndex].color} flex items-center justify-center`}
                     >
                       {React.createElement(solutions[currentSolutionIndex].icon, { className: "w-8 h-8 text-white" })}
                     </div>
@@ -477,7 +477,7 @@ const SolutionsPage = () => {
                   <div className="grid grid-cols-2 gap-4">
                     {solutions[currentSolutionIndex].features.map((feature, idx) => (
                       <div key={idx} className="flex items-start space-x-3">
-                        <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                        <div className="w-8 h-8 bg-blue-100  flex items-center justify-center flex-shrink-0 mt-1">
                           {React.createElement(feature.icon, { className: "w-4 h-4 text-blue-600" })}
                         </div>
                         <div>
@@ -518,14 +518,16 @@ const SolutionsPage = () => {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 1.1 }}
                   transition={{ duration: 0.8 }}
-                  className="absolute inset-0 rounded-2xl overflow-hidden shadow-2xl"
+                  className="absolute inset-0  overflow-hidden shadow-2xl"
                 >
-                  <img
+                  <Image
                     src={solutions[currentSolutionIndex].image || "/placeholder.svg"}
                     alt={solutions[currentSolutionIndex].title}
+                    width={800}
+                    height={500}
                     className="w-full h-full object-cover"
                   />
-                  <div className={`absolute inset-0 bg-gradient-to-tr ${solutions[currentSolutionIndex].bgGradient}`} />
+                  <div className={`absolute inset-0`} />
                   <div className="absolute bottom-6 left-6 text-white">
                     <div className="flex items-center space-x-3 mb-3">
                       <div className="w-12 h-12 bg-white/20 backdrop-blur-lg rounded-full flex items-center justify-center">
