@@ -538,6 +538,7 @@ const AboutPage = () => {
                   ref={videoRef}
                   className="w-full h-full object-cover"
                   poster="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+                  autoPlay={isVideoPlaying}
                 >
                   <source
                     src="/assets/team.mp4"

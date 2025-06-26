@@ -27,6 +27,8 @@ const SolutionsPage = () => {
   const [currentHeroIndex, setCurrentHeroIndex] = useState(0)
   const [currentSolutionIndex, setCurrentSolutionIndex] = useState(0)
   const [currentFeatureIndex, setCurrentFeatureIndex] = useState(0)
+  const [heroImageLoaded, setHeroImageLoaded] = useState(false)
+  const [preloadedImages, setPreloadedImages] = useState<string[]>([])
 
   const heroImages = [
     "https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
@@ -34,6 +36,30 @@ const SolutionsPage = () => {
     "https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
   ]
+
+  // Preload images to ensure smooth transitions
+  useEffect(() => {
+    const preloadImages = async () => {
+      const promises = heroImages.map((src) => {
+        return new Promise<string>((resolve, reject) => {
+          const img = new Image()
+          img.src = src
+          img.onload = () => resolve(src)
+          img.onerror = reject
+        })
+      })
+      
+      try {
+        const loadedImages = await Promise.all(promises)
+        setPreloadedImages(loadedImages)
+        setHeroImageLoaded(true)
+      } catch (error) {
+        console.error("Failed to preload images", error)
+      }
+    }
+    
+    preloadImages()
+  }, [])
 
   const solutions = [
     {
@@ -312,21 +338,15 @@ const SolutionsPage = () => {
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Animated Background Images */}
         <div className="absolute inset-0">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentHeroIndex}
-              initial={{ scale: 1.2, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              transition={{ duration: 2, ease: "easeInOut" }}
-              className="absolute inset-0"
-            >
-              <div
-                className="w-full h-full bg-cover bg-center"
-                style={{ backgroundImage: `url(${heroImages[currentHeroIndex]})` }}
-              />
-            </motion.div>
-          </AnimatePresence>
+          {heroImageLoaded && (
+            <div
+              className="absolute inset-0 bg-cover bg-center transition-opacity duration-300"
+              style={{
+                backgroundImage: `url(${heroImages[currentHeroIndex]})`,
+                opacity: 1
+              }}
+            />
+          )}
           <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 via-purple-900/80 to-indigo-900/80" />
         </div>
 
