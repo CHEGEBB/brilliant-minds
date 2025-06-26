@@ -39,28 +39,28 @@ function Homepage() {
       description: "Breaking down barriers to technology access and ensuring everyone has the tools and skills needed to participate in the digital economy.",
       icon: <Wifi className="h-8 w-8 text-blue-500" />,
       image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-      color: "from-blue-500 to-blue-700"
+      color: "from-blue-500/20 to-blue-700/40"
     },
     {
       title: "E-Learning Revolution",
       description: "Transforming education through innovative digital platforms that make quality learning accessible to everyone, everywhere.",
       icon: <BookOpen className="h-8 w-8 text-green-500" />,
       image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-      color: "from-green-500 to-green-700"
+      color: "from-green-500/20 to-green-700/40"
     },
     {
       title: "Gig Economy Integration",
       description: "Connecting freelancers and businesses through smart platforms that create sustainable economic opportunities for all.",
       icon: <Briefcase className="h-8 w-8 text-purple-500" />,
       image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-      color: "from-purple-500 to-purple-700"
+      color: "from-purple-500/20 to-purple-700/40"
     },
     {
       title: "Skill Development",
       description: "Empowering individuals with cutting-edge skills and certifications that align with tomorrow's job market demands.",
       icon: <Award className="h-8 w-8 text-red-500" />,
       image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-      color: "from-rose-500 to-rose-700"
+      color: "from-rose-500/20 to-rose-700/40"
     }
   ];
 
@@ -184,7 +184,7 @@ function Homepage() {
               style={{ opacity: opacityTransform }}
               className="w-full lg:w-1/2 mb-10 lg:mb-0 lg:pr-10"
             >
-              <div className="relative h-[400px] md:h-[500px] rounded-md overflow-hidden shadow-2xl">
+              <div className="relative h-[400px] md:h-[500px] overflow-hidden shadow-2xl">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={currentSlide}
@@ -205,8 +205,10 @@ function Homepage() {
                         <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white/10 backdrop-blur-lg mb-6">
                           {solutions[currentSlide].icon}
                         </div>
-                        <h3 className="text-3xl font-bold text-white mb-4">{solutions[currentSlide].title}</h3>
-                        <p className="text-white/90 text-lg max-w-md mx-auto">{solutions[currentSlide].description}</p>
+                        <div className="bg-blue-500/40 rounded-xl p-2">
+                        <h3 className="text-4xl font-bold text-white font- mb-4">{solutions[currentSlide].title}</h3>
+                        <p className="text-white text-xl font-semibold max-w-md mx-auto">{solutions[currentSlide].description}</p>
+                        </div>
                       </div>
                     </div>
                   </motion.div>
