@@ -25,6 +25,7 @@ import {
 import HeroSection from "@/components/HeroSection"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
+import Image from "next/image"
 
 const AboutPage = () => {
   const [currentValueIndex, setCurrentValueIndex] = useState(0)
@@ -250,8 +251,8 @@ const AboutPage = () => {
                 <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-8 border border-blue-100">
                   <Quote className="w-8 h-8 text-blue-500 mb-4" />
                   <p className="text-lg text-gray-700 italic mb-4">
-                    "We work tirelessly to create sustainable solutions that address real needs, build capacity within
-                    communities, and create pathways to opportunity that might otherwise remain closed."
+                    &quot;We work tirelessly to create sustainable solutions that address real needs, build capacity within
+                    communities, and create pathways to opportunity that might otherwise remain closed.
                   </p>
                   <div className="flex items-center">
                     <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mr-3">
@@ -460,9 +461,11 @@ const AboutPage = () => {
                     className="bg-white rounded-2xl shadow-xl overflow-hidden"
                   >
                     <div className="relative h-80">
-                      <img
+                      <Image
                         src={teamMembers[currentTeamMember].image || "/placeholder.svg"}
                         alt={teamMembers[currentTeamMember].name}
+                        width={800}
+                        height={600}
                         className="w-full h-full object-cover"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
@@ -514,9 +517,11 @@ const AboutPage = () => {
                   }`}
                 >
                   <div className="relative h-48">
-                    <img
+                    <Image
                       src={member.image || "/placeholder.svg"}
                       alt={member.name}
+                      width={400}
+                      height={300}
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
@@ -630,7 +635,7 @@ const AboutPage = () => {
             <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">Making A Difference</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto mb-6" />
             <p className="text-xl text-gray-200 max-w-3xl mx-auto">
-              Real numbers that demonstrate the positive change we're creating in communities worldwide.
+              Real numbers that demonstrate the positive change we&apos;re creating in communities worldwide.
             </p>
           </AnimatedSection>
 

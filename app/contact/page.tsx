@@ -123,7 +123,7 @@ const ContactPage = () => {
                       <CheckCircle className="w-10 h-10 text-green-600" />
                     </div>
                     <h3 className="text-2xl font-bold text-gray-900 mb-2">Message Sent!</h3>
-                    <p className="text-gray-600">Thank you for contacting us. We'll get back to you soon.</p>
+                    <p className="text-gray-600">Thank you for contacting us. We&apos;ll get back to you soon.</p>
                   </motion.div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-6">
@@ -316,7 +316,7 @@ const ContactPage = () => {
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Why Choose BrilliantMinds?</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto mb-8" />
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We're committed to delivering exceptional results and building lasting partnerships
+              We&apos;re committed to delivering exceptional results and building lasting partnerships
             </p>
           </AnimatedSection>
 
@@ -372,7 +372,7 @@ const ContactPage = () => {
           <AnimatedSection className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-900 mb-6">Find Us</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Located in the heart of San Francisco's innovation district
+              Located in the heart of San Francisco&apos;s innovation district
             </p>
           </AnimatedSection>
 
@@ -388,7 +388,7 @@ const ContactPage = () => {
               <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-lg px-4 py-2">
                 <div className="flex items-center">
                   <MapPin className="w-4 h-4 text-blue-600 mr-2" />
-                  <span className="text-sm font-semibold text-gray-700">We're Here!</span>
+                  <span className="text-sm font-semibold text-gray-700">We&apos;re Here!</span>
                 </div>
               </div>
             </div>

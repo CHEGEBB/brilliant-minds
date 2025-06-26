@@ -230,7 +230,7 @@ const GetInvolvedPage = () => {
       clearInterval(impactInterval)
       clearInterval(volunteerInterval)
     }
-  }, [])
+  }, [donationImpacts.length, volunteerOpportunities.length])
 
   const AnimatedSection = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {
     const ref = useRef(null)
@@ -549,7 +549,7 @@ const GetInvolvedPage = () => {
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Donation Portal</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-pink-500 to-red-600 mx-auto mb-8" />
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Your contributions make our work possible. Choose the way you'd like to support communities worldwide.
+              Your contributions make our work possible. Choose the way you&apos;d like to support communities worldwide.
             </p>
           </AnimatedSection>
 
@@ -906,9 +906,11 @@ const GetInvolvedPage = () => {
                   className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100"
                 >
                   <div className="flex items-center mb-6">
-                    <img
+                    <Image
                       src={story.image || "/placeholder.svg"}
                       alt={story.name}
+                      width={64}
+                      height={64}
                       className="w-16 h-16 rounded-full object-cover mr-4"
                     />
                     <div>
@@ -917,7 +919,7 @@ const GetInvolvedPage = () => {
                       <p className="text-sm text-blue-600 font-semibold">{story.company}</p>
                     </div>
                   </div>
-                  <p className="text-gray-700 italic mb-6">"{story.quote}"</p>
+                  <p className="text-gray-700 italic mb-6">&ldquo;{story.quote}&rdquo;</p>
                   <div className="flex items-center justify-between">
                     <div className="flex space-x-1">
                       {[...Array(story.rating)].map((_, i) => (

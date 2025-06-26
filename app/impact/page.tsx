@@ -8,7 +8,7 @@ import Footer from "@/components/Footer"
 
 const ImpactPage = () => {
   const [currentHeroIndex, setCurrentHeroIndex] = useState(0)
-  const [currentStoryIndex, setCurrentStoryIndex] = useState(0)
+  const [, setCurrentStoryIndex] = useState(0)
   const { scrollYProgress } = useScroll()
   const heroRef = useRef(null)
   const storyRef = useRef(null)
