@@ -47,7 +47,7 @@ const SolutionsPage = () => {
       image:
         "https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       color: "from-blue-500 to-cyan-500",
-      bgGradient: "from-blue-900/90 to-cyan-900/90",
+      bgGradient: "from-blue-900/40 to-cyan-900/90",
       features: [
         {
           icon: Smartphone,
@@ -200,40 +200,40 @@ const SolutionsPage = () => {
       description: "AI enables communities to improve their efficiency, profitability and sustainability outcomes.",
       image:
         "https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-      gradient: "from-blue-600/90 to-purple-600/90",
+      gradient: "from-blue-600/30 to-purple-600/50",
     },
     {
       title: "Digital Innovation Hub",
       description: "Creating comprehensive digital solutions that address real community challenges.",
       image: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-      gradient: "from-green-600/90 to-teal-600/90",
+      gradient: "from-green-600/30 to-teal-600/50",
     },
     {
       title: "Enterprise-Grade Solutions",
       description: "Scalable platforms designed to grow with communities and organizations.",
       image:
-        "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-      gradient: "from-purple-600/90 to-pink-600/90",
+        "https://images.unsplash.com/photo-1531973576160-7125cd663d86?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      gradient: "from-purple-600/30 to-pink-600/50",
     },
     {
       title: "Smart Community Solutions",
       description: "IoT and AI solutions for building smarter, more connected communities.",
       image:
         "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-      gradient: "from-orange-600/90 to-red-600/90",
+      gradient: "from-orange-600/30 to-red-600/50",
     },
     {
       title: "Global Business Services",
       description: "Comprehensive consulting and implementation services worldwide.",
       image:
         "https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-      gradient: "from-indigo-600/90 to-blue-600/90",
+      gradient: "from-indigo-600/30 to-blue-600/50",
     },
     {
       title: "Future-Ready Infrastructure",
       description: "Building tomorrow's digital infrastructure for sustainable growth.",
       image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-      gradient: "from-teal-600/90 to-cyan-600/90",
+      gradient: "from-teal-600/30 to-cyan-600/50",
     },
   ]
 
@@ -243,7 +243,7 @@ const SolutionsPage = () => {
       description:
         "A remote village school gained access to high-speed internet and digital devices, increasing student engagement by 300%.",
       image:
-        "https://images.unsplash.com/photo-1497486751825-1233686d5d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1536337005238-94b997371b40?q=80&w=869&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       impact: "300% increase in engagement",
       location: "Rural Kenya",
     },
@@ -252,7 +252,7 @@ const SolutionsPage = () => {
       description:
         "Our e-learning platform helped Maria transition from unemployment to becoming a senior software developer in 8 months.",
       image:
-        "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1577375729152-4c8b5fcda381?q=80&w=580&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       impact: "Career transformation",
       location: "São Paulo, Brazil",
     },
@@ -261,9 +261,9 @@ const SolutionsPage = () => {
       description:
         "A local community center became a thriving tech hub, providing digital services to over 5,000 residents monthly.",
       image:
-        "https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1639472628910-ef02c5404b9c?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       impact: "5,000+ monthly users",
-      location: "Detroit, USA",
+      location: "Nairobi, Kenya",
     },
   ]
 
@@ -575,7 +575,7 @@ const SolutionsPage = () => {
               <AnimatedSection key={index}>
                 <motion.div
                   whileHover={{ y: -10 }}
-                  className="relative h-80 rounded-2xl overflow-hidden shadow-xl group cursor-pointer"
+                  className="relative h-80  overflow-hidden shadow-xl group cursor-pointer"
                 >
                   <div
                     className="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-700"
@@ -613,12 +613,14 @@ const SolutionsPage = () => {
               <AnimatedSection key={index}>
                 <motion.div
                   whileHover={{ y: -5 }}
-                  className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100"
+                  className="bg-white shadow-lg overflow-hidden border border-gray-100"
                 >
                   <div className="relative h-48">
-                    <img
+                    <Image
                       src={story.image || "/placeholder.svg"}
                       alt={story.title}
+                      width={800}
+                      height={300}
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1">
