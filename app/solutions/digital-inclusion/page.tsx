@@ -18,6 +18,7 @@ import {
 } from "lucide-react"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
+import Image from "next/image"
 
 const DigitalInclusionPage = () => {
   const [currentHeroIndex, setCurrentHeroIndex] = useState(0)
@@ -118,7 +119,7 @@ const DigitalInclusionPage = () => {
       title: "AI Mapping Solutions",
       description: "Real-time analysis and optimization of digital infrastructure",
       image:
-        "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+        "https://images.unsplash.com/photo-1674027444485-cec3da58eef4?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       gradient: "from-purple-600/90 to-violet-600/90",
       features: ["Coverage Analysis", "Infrastructure Planning", "Community Needs Assessment", "Resource Optimization"],
       impact: "Real-time network optimization",
@@ -168,12 +169,12 @@ const DigitalInclusionPage = () => {
 
   const successStories = [
     {
-      name: "Maria Santos",
-      location: "São Paulo, Brazil",
+      name: "John Doe",
+      location: "Nairobi, Kenya",
       story: "Received a refurbished laptop and internet access through our program",
       impact: "Started online tutoring business, increased income by 400%",
       image:
-        "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       quote: "Digital inclusion changed my life. Now I can support my family and help other students learn.",
       program: "Device Donation",
     },
@@ -182,7 +183,7 @@ const DigitalInclusionPage = () => {
       location: "Lagos, Nigeria",
       story: "Transformed into a digital hub serving 500+ community members monthly",
       impact: "85% of users gained new digital skills within 6 months",
-      image: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+      image: "https://images.unsplash.com/photo-1534134368327-3d2bd764f1ac?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       quote: "Our community center became the heart of digital transformation in our neighborhood.",
       program: "Co-Working Space",
     },
@@ -192,7 +193,7 @@ const DigitalInclusionPage = () => {
       story: "Connected 25 rural schools through our AI mapping and connectivity solutions",
       impact: "Student engagement increased by 300%, graduation rates improved by 45%",
       image:
-        "https://images.unsplash.com/photo-1497486751825-1233686d5d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1632215861513-130b66fe97f4?q=80&w=869&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       quote: "Technology brought the world to our classrooms. Our students now dream bigger.",
       program: "Connectivity Solutions",
     },
@@ -253,7 +254,6 @@ const DigitalInclusionPage = () => {
     <div className="min-h-screen bg-gray-50">
       <Navbar />
 
-      {/* Unique Hero Section with Horizontal Scrolling */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-900 via-cyan-800 to-blue-900">
         {/* Animated Background Pattern */}
         <div className="absolute inset-0 opacity-10">
@@ -331,7 +331,7 @@ const DigitalInclusionPage = () => {
               transition={{ duration: 1, delay: 0.5 }}
               className="relative"
             >
-              <div className="relative h-96 lg:h-[500px] overflow-hidden rounded-2xl ">
+              <div className="relative h-96 lg:h-[400px] overflow-hidden rounded-md  ">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={currentHeroIndex}
@@ -339,11 +339,13 @@ const DigitalInclusionPage = () => {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -300 }}
                     transition={{ duration: 1, ease: "easeInOut" }}
-                    className="absolute inset-0 rounded-2xl overflow-hidden shadow-2xl"
+                    className="absolute inset-0 overflow-hidden shadow-2xl"
                   >
-                    <img
+                    <Image
                       src={heroContent[currentHeroIndex].image || "/placeholder.svg"}
                       alt={heroContent[currentHeroIndex].title}
+                      width={800}
+                      height={400}
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-tr from-blue-900/20 to-cyan-900/20" />
@@ -448,7 +450,7 @@ const DigitalInclusionPage = () => {
 
                   <div className={`relative ${index % 2 === 1 ? "lg:col-start-1" : ""}`}>
                     <motion.div whileHover={{ scale: 1.02 }} className="relative">
-                      <div className="relative h-64 lg:h-80 rounded-2xl overflow-hidden shadow-2xl">
+                      <div className="relative h-64 lg:h-80 overflow-hidden shadow-2xl">
                         <img
                           src={feature.image || "/placeholder.svg"}
                           alt={feature.title}
@@ -515,12 +517,14 @@ const DigitalInclusionPage = () => {
               <AnimatedSection key={index}>
                 <motion.div
                   whileHover={{ y: -5, scale: 1.02 }}
-                  className="bg-gradient-to-br from-gray-50 to-white rounded-2xl overflow-hidden shadow-xl border border-gray-100"
+                  className="bg-gradient-to-br from-gray-50 to-white  overflow-hidden shadow-xl border border-gray-100"
                 >
                   <div className="relative h-48">
-                    <img
+                    <Image
                       src={story.image || "/placeholder.svg"}
                       alt={story.name}
+                      width={800}
+                      height={300}
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1">

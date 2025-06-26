@@ -294,7 +294,7 @@ const GigEconomyPage = () => {
               transition={{ duration: 1, delay: 0.5 }}
               className="relative order-2 lg:order-1"
             >
-              <div className="relative h-96 lg:h-[500px] overflow-hidden rounded-2xl">
+              <div className="relative h-96 lg:h-[400px] overflow-hidden rounded-2xl">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={currentHeroIndex}

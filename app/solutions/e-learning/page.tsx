@@ -317,7 +317,7 @@ const ELearningPage = () => {
               transition={{ duration: 1, delay: 0.5 }}
               className="relative"
             >
-              <div className="relative h-96 lg:h-[500px]">
+              <div className="relative h-96 lg:h-[400px]">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={currentHeroIndex}

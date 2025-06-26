@@ -26,6 +26,7 @@ import {
 } from "lucide-react"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
+import Image from "next/image"
 
 const GetInvolvedPage = () => {
   const [currentImpactIndex, setCurrentImpactIndex] = useState(0)
@@ -395,7 +396,7 @@ const GetInvolvedPage = () => {
               <AnimatedSection key={index}>
                 <motion.div
                   whileHover={{ y: -15, rotateY: 5 }}
-                  className="relative h-96 rounded-2xl overflow-hidden shadow-2xl group cursor-pointer"
+                  className="relative h-112 overflow-hidden shadow-2xl group cursor-pointer"
                 >
                   <div
                     className="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-700"
@@ -496,10 +497,12 @@ const GetInvolvedPage = () => {
 
             <AnimatedSection>
               <div className="relative">
-                <motion.div whileHover={{ scale: 1.02 }} className="relative rounded-2xl overflow-hidden shadow-2xl">
-                  <img
+                <motion.div whileHover={{ scale: 1.02 }} className="relative overflow-hidden shadow-2xl">
+                  <Image
                     src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
                     alt="Partnership meeting"
+                    width={800}
+                    height={300}
                     className="w-full h-96 object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-tr from-blue-900/30 to-purple-900/30" />
@@ -719,11 +722,13 @@ const GetInvolvedPage = () => {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 1.1 }}
                   transition={{ duration: 0.8 }}
-                  className="absolute inset-0 rounded-2xl overflow-hidden shadow-2xl"
+                  className="absolute inset-0 overflow-hidden shadow-2xl"
                 >
-                  <img
+                  <Image
                     src={volunteerOpportunities[currentVolunteerIndex].image || "/placeholder.svg"}
                     alt={volunteerOpportunities[currentVolunteerIndex].title}
+                    width={800}
+                    height={400}
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-tr from-green-900/80 to-teal-900/80" />
