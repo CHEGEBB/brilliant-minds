@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useEffect, useState, useRef } from "react"
-import { motion, useInView, AnimatePresence, useScroll, useTransform } from "framer-motion"
+import { motion, useInView, AnimatePresence } from "framer-motion"
 import {
   Wifi,
   Smartphone,
@@ -22,8 +22,6 @@ import Image from "next/image"
 
 const DigitalInclusionPage = () => {
   const [currentHeroIndex, setCurrentHeroIndex] = useState(0)
-  const { scrollYProgress } = useScroll()
-  const heroParallax = useTransform(scrollYProgress, [0, 0.3], [0, -50])
 
   const heroContent = [
     {
@@ -234,9 +232,9 @@ const DigitalInclusionPage = () => {
     return (
       <motion.div
         ref={ref}
-        initial={{ opacity: 0, y: 50 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        initial={{ opacity: 0 }}
+        animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
         className={className}
       >
         {children}
@@ -285,21 +283,21 @@ const DigitalInclusionPage = () => {
           />
         </div>
 
-        <motion.div style={{ y: heroParallax }} className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-screen py-20 sm:py-24 lg:py-0">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-screen py-20 sm:py-24 lg:py-16">
             {/* Content Side - Mobile First with Adequate Spacing */}
             <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               transition={{ duration: 1, delay: 0.3 }}
               className="text-white space-y-6 sm:space-y-8 pt-8 sm:pt-12 md:pt-0 px-2 sm:px-0"
             >
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentHeroIndex}
-                  initial={{ opacity: 0, x: -100 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 100 }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
                   transition={{ duration: 0.8 }}
                   className="space-y-4 sm:space-y-6"
                 >
@@ -345,20 +343,20 @@ const DigitalInclusionPage = () => {
 
             {/* Visual Side - Desktop and Tablet Only */}
             <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               transition={{ duration: 1, delay: 0.5 }}
               className="relative hidden md:block"
             >
-              <div className="relative h-80 lg:h-[400px] overflow-hidden rounded-2xl shadow-2xl">
+              <div className="relative h-80 lg:h-[400px]">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={currentHeroIndex}
-                    initial={{ opacity: 0, x: 300 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -300 }}
-                    transition={{ duration: 1, ease: "easeInOut" }}
-                    className="absolute inset-0 overflow-hidden"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 1 }}
+                    className="absolute inset-0 overflow-hidden rounded-2xl shadow-2xl"
                   >
                     <Image
                       src={heroContent[currentHeroIndex].image || "/placeholder.svg"}
@@ -375,7 +373,7 @@ const DigitalInclusionPage = () => {
               </div>
             </motion.div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Hero Navigation */}
         <div className="absolute bottom-16 sm:bottom-20 left-1/2 transform -translate-x-1/2 flex space-x-3 sm:space-x-4">
@@ -410,7 +408,7 @@ const DigitalInclusionPage = () => {
             {inclusionBenefits.map((benefit, index) => (
               <AnimatedSection key={index}>
                 <motion.div
-                  whileHover={{ y: -10, scale: 1.02 }}
+                  whileHover={{ scale: 1.02 }}
                   className="text-center p-6 sm:p-8 bg-gradient-to-br from-gray-50 to-white rounded-2xl shadow-lg border border-gray-100"
                 >
                   <div
@@ -510,7 +508,7 @@ const DigitalInclusionPage = () => {
             {impactMetrics.map((metric, index) => (
               <AnimatedSection key={index}>
                 <motion.div
-                  whileHover={{ y: -10, scale: 1.05 }}
+                  whileHover={{ scale: 1.05 }}
                   className="bg-white rounded-2xl p-6 sm:p-8 text-center shadow-xl border border-gray-100"
                 >
                   <div
@@ -544,7 +542,7 @@ const DigitalInclusionPage = () => {
             {successStories.map((story, index) => (
               <AnimatedSection key={index}>
                 <motion.div
-                  whileHover={{ y: -5, scale: 1.02 }}
+                  whileHover={{ scale: 1.02 }}
                   className="bg-gradient-to-br from-gray-50 to-white rounded-2xl overflow-hidden shadow-xl border border-gray-100"
                 >
                   <div className="relative h-40 sm:h-48">
@@ -604,7 +602,7 @@ const DigitalInclusionPage = () => {
             {partnershipOptions.map((option, index) => (
               <AnimatedSection key={index}>
                 <motion.div
-                  whileHover={{ y: -10, scale: 1.02 }}
+                  whileHover={{ scale: 1.02 }}
                   className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 sm:p-8 border border-white/20 text-center"
                 >
                   <div
