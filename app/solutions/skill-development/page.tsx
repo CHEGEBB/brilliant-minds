@@ -330,40 +330,40 @@ const SkillDevelopmentPage = () => {
         </div>
 
         {/* Content */}
-        <div className="container mx-auto px-4 relative z-10 text-center">
+        <div className="container mx-auto px-4 relative z-10 pt-20 sm:pt-0 sm:text-center text-left">
           <div className="content-animate max-w-4xl mx-auto text-white">
             <div
               key={currentHeroIndex}
-              className={`hero-content-slide space-y-6 ${currentHeroIndex >= 0 ? "active" : ""}`}
+              className={`hero-content-slide space-y-4 sm:space-y-6 ${currentHeroIndex >= 0 ? "active" : ""}`}
             >
-              <div className="inline-flex items-center bg-white/10 backdrop-blur-lg rounded-full px-4 py-2 mb-4">
-                <BookOpen className="w-4 h-4 mr-2 text-emerald-400" />
-                <span className="text-sm font-medium">Skill Development</span>
+              <div className="inline-flex items-center bg-white/10 backdrop-blur-lg rounded-full px-3 py-1.5 sm:px-4 sm:py-2 mb-2 sm:mb-4">
+                <BookOpen className="w-3 h-3 sm:w-4 sm:h-4 mr-2 text-emerald-400" />
+                <span className="text-xs sm:text-sm font-medium">Skill Development</span>
               </div>
 
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
                 {heroSlides[currentHeroIndex].title}
               </h1>
 
-              <p className="text-xl md:text-2xl text-emerald-300 font-semibold">
+              <p className="text-base sm:text-xl md:text-2xl text-emerald-300 font-semibold">
                 {heroSlides[currentHeroIndex].subtitle}
               </p>
 
-              <p className="text-lg md:text-xl text-gray-200 leading-relaxed max-w-3xl mx-auto">
+              <p className="text-sm sm:text-lg md:text-xl text-gray-200 leading-relaxed max-w-3xl sm:mx-auto">
                 {heroSlides[currentHeroIndex].description}
               </p>
 
-              <div className="flex items-center justify-center space-x-6 py-4">
-                <div className="bg-gradient-to-r from-emerald-500 to-teal-600 rounded-full px-6 py-3">
-                  <span className="text-lg font-bold text-white">{heroSlides[currentHeroIndex].stats}</span>
+              <div className="flex items-center sm:justify-center space-x-4 sm:space-x-6 py-2 sm:py-4">
+                <div className="bg-gradient-to-r from-emerald-500 to-teal-600 rounded-full px-4 py-2 sm:px-6 sm:py-3">
+                  <span className="text-sm sm:text-lg font-bold text-white">{heroSlides[currentHeroIndex].stats}</span>
                 </div>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-                <button className="px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold rounded-full hover:shadow-2xl transition-all duration-300 btn-hover">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 sm:justify-center pt-2 sm:pt-4">
+                <button className="px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold text-sm sm:text-base rounded-full hover:shadow-2xl transition-all duration-300 btn-hover">
                   Start Learning
                 </button>
-                <button className="px-8 py-4 bg-white/20 backdrop-blur-lg border-2 border-white/30 text-white font-bold rounded-full hover:bg-white/30 transition-all duration-300 btn-hover">
+                <button className="px-6 py-3 sm:px-8 sm:py-4 bg-white/20 backdrop-blur-lg border-2 border-white/30 text-white font-bold text-sm sm:text-base rounded-full hover:bg-white/30 transition-all duration-300 btn-hover">
                   View Courses
                 </button>
               </div>
@@ -372,7 +372,7 @@ const SkillDevelopmentPage = () => {
         </div>
 
         {/* Navigation Dots */}
-        <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 flex space-x-3">
+        <div className="absolute bottom-8 sm:bottom-20 left-1/2 transform -translate-x-1/2 flex space-x-2 sm:space-x-3">
           {heroSlides.map((_, index) => (
             <button
               key={index}
