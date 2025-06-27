@@ -302,7 +302,7 @@ const ImpactPage = () => {
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Impact Metrics</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto mb-8" />
             <p className="text-xl text-gray-600 max-w-4xl mx-auto">
-              Real metrics that demonstrate the tangible difference we're making in communities worldwide
+              Real metrics that demonstrate the tangible difference we&spos;re making in communities worldwide
             </p>
           </div>
 
@@ -364,7 +364,7 @@ const ImpactPage = () => {
                     <span className="text-sm">{story.location}</span>
                   </div>
                   <div className="text-sm text-blue-600 font-semibold mb-3">{story.program}</div>
-                  <p className="text-gray-700 mb-4 text-sm leading-relaxed italic">"{story.quote}"</p>
+                  <p className="text-gray-700 mb-4 text-sm leading-relaxed italic">&ldquo;{story.quote}&rdquo;</p>
                   <div className="space-y-2">
                     <div>
                       <span className="text-xs text-gray-600">Story:</span>
