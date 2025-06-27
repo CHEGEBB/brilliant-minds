@@ -41,7 +41,7 @@ const GetInvolvedPage = () => {
       description:
         "Your contributions make our work possible. Choose the way you'd like to support communities worldwide.",
       color: "from-red-500 to-pink-500",
-      bgImage: "/images/donation-impact.jpg",
+      bgImage: "/images/value-equity.jpg",
       stats: "$2.5M+ Raised",
       features: ["Financial Donations", "Device Donations", "Recurring Support", "Corporate Matching"],
     },
@@ -51,7 +51,7 @@ const GetInvolvedPage = () => {
       subtitle: "Share Your Skills",
       description: "Join our global community of volunteers and contribute your expertise to meaningful projects.",
       color: "from-blue-500 to-cyan-500",
-      bgImage: "/images/volunteer-mentor.jpg",
+      bgImage: "https://images.unsplash.com/photo-1461532257246-777de18cd58b?q=80&w=1176&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       stats: "5,000+ Volunteers",
       features: ["Skill-Based Volunteering", "Remote Opportunities", "Local Chapters", "Leadership Roles"],
     },
@@ -61,7 +61,7 @@ const GetInvolvedPage = () => {
       subtitle: "Strategic Collaboration",
       description: "Partner with BrilliantMinds to create meaningful impact through strategic collaboration.",
       color: "from-purple-500 to-indigo-500",
-      bgImage: "/images/partnership-meeting.png",
+      bgImage: "https://images.unsplash.com/photo-1521790797524-b2497295b8a0?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       stats: "200+ Partners",
       features: ["Corporate Partnerships", "NGO Collaboration", "Government Relations", "Academic Alliances"],
     },
@@ -113,7 +113,7 @@ const GetInvolvedPage = () => {
       commitment: "2-4 hours/week",
       location: "Remote",
       skills: ["Communication", "Patience", "Basic Tech"],
-      image: "/images/volunteer-mentor.png",
+      image: "/images/volunteer-mentor.jpg",
       impact: "50+ mentees supported",
     },
     {
@@ -122,7 +122,7 @@ const GetInvolvedPage = () => {
       commitment: "5-10 hours/week",
       location: "Remote",
       skills: ["Writing", "Design", "Video Editing"],
-      image: "/images/volunteer-creator.png",
+      image: "/images/volunteer-creator.jpg",
       impact: "100+ resources created",
     },
     {
@@ -131,7 +131,7 @@ const GetInvolvedPage = () => {
       commitment: "Weekend events",
       location: "On-site",
       skills: ["Public Speaking", "Leadership", "Cultural Sensitivity"],
-      image: "/images/volunteer-facilitator.png",
+      image: "/images/volunteer-facilitator.jpg",
       impact: "25+ workshops led",
     },
     {
@@ -140,7 +140,7 @@ const GetInvolvedPage = () => {
       commitment: "Flexible hours",
       location: "Remote/Hybrid",
       skills: ["Technical Expertise", "Problem Solving", "Customer Service"],
-      image: "/images/volunteer-tech.png",
+      image: "/images/volunteer-tech.jpg",
       impact: "500+ issues resolved",
     },
   ]
@@ -189,7 +189,7 @@ const GetInvolvedPage = () => {
       name: "Sarah Martinez",
       role: "Corporate Partner Lead",
       company: "TechCorp Solutions",
-      image: "/images/success-story-1.png",
+      image: "/images/success-story-1.jpg",
       quote:
         "Our partnership with BrilliantMinds has transformed how we approach corporate social responsibility. We've seen incredible engagement from our employees and measurable impact in communities.",
       impact: "Funded 50+ digital literacy programs",
@@ -199,7 +199,7 @@ const GetInvolvedPage = () => {
       name: "Marcus Johnson",
       role: "Volunteer Coordinator",
       company: "Independent Volunteer",
-      image: "/images/success-story-2.png",
+      image: "/images/success-story-2.jpg",
       quote:
         "Volunteering with BrilliantMinds has been incredibly rewarding. I've been able to use my tech skills to directly help people in my community gain digital literacy.",
       impact: "Trained 200+ community members",
@@ -407,7 +407,7 @@ const GetInvolvedPage = () => {
             <div className="section-reveal relative">
               <div className="relative overflow-hidden rounded-2xl shadow-2xl">
                 <Image
-                  src="/images/partnership-meeting.png"
+                  src="/images/partnership-meeting.jpg"
                   alt="Partnership meeting"
                   width={800}
                   height={600}
@@ -788,7 +788,7 @@ const GetInvolvedPage = () => {
       <section className="py-20 relative overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/images/final-cta-bg.png"
+            src="/images/final-cta-bg.jpg"
             alt="Final CTA background"
             fill
             sizes="100vw"

@@ -9,7 +9,7 @@ import "@/styles/impact-animation.scss"
 
 const ImpactPage = () => {
   const [currentHeroIndex, setCurrentHeroIndex] = useState(0)
-  const [visibleSections, setVisibleSections] = useState(new Set())
+  const [] = useState(new Set())
 
   const heroImages = [
     "/images/impact-hero-1.jpg",
@@ -263,7 +263,7 @@ const ImpactPage = () => {
               <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Impact</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-200 mb-12 max-w-4xl mx-auto leading-relaxed">
-              Transforming communities through technology, education, and empowerment. See the real difference we're
+              Transforming communities through technology, education, and empowerment. See the real difference we&apos;re
               making in lives around the world.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">

@@ -186,7 +186,7 @@ const SolutionsPage = () => {
     {
       title: "Digital Innovation Hub",
       description: "Creating comprehensive digital solutions that address real community challenges.",
-      image: "/images/innovation-hub.jpg",
+      image: "/images/gig-testimonial-2.jpg",
       gradient: "from-green-600/30 to-teal-600/50",
     },
     {
@@ -210,7 +210,7 @@ const SolutionsPage = () => {
     {
       title: "Future-Ready Infrastructure",
       description: "Building tomorrow's digital infrastructure for sustainable growth.",
-      image: "/images/future-infrastructure.jpg",
+      image: "/images/interactive-features.jpg",
       gradient: "from-teal-600/30 to-cyan-600/50",
     },
   ]
@@ -220,7 +220,7 @@ const SolutionsPage = () => {
       title: "Rural School Transformation",
       description:
         "A remote village school gained access to high-speed internet and digital devices, increasing student engagement by 300%.",
-      image: "/images/rural-school-success.jpg",
+      image: "/images/gig-testimonial-3.jpg",
       impact: "300% increase in engagement",
       location: "Rural Kenya",
     },
@@ -384,7 +384,7 @@ const SolutionsPage = () => {
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Our Solutions in Detail</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto mb-8" />
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Explore each solution and see how we're creating lasting impact in communities worldwide
+              Explore each solution and see how we&apos;re creating lasting impact in communities worldwide
             </p>
           </div>
 
