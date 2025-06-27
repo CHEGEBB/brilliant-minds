@@ -499,7 +499,7 @@ const GigEconomyPage = () => {
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Our Gig Economy Impact</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-purple-500 to-cyan-600 mx-auto mb-8" />
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Real numbers that demonstrate how we're transforming the freelancing landscape
+              Real numbers that demonstrate how we&apos;re transforming the freelancing landscape
             </p>
           </div>
 
@@ -562,7 +562,7 @@ const GigEconomyPage = () => {
                     {story.category}
                   </span>
                 </div>
-                <p className="text-gray-700 italic mb-6 leading-relaxed">"{story.quote}"</p>
+                <p className="text-gray-700 italic mb-6 leading-relaxed">&ldquo;{story.quote}&rdquo;</p>
                 <div className="flex items-center justify-between">
                   <div className="flex space-x-1">
                     {[...Array(story.rating)].map((_, i) => (

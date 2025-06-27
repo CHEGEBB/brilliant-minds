@@ -406,7 +406,7 @@ const DigitalInclusionPage = () => {
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Bridging the Digital Divide</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-cyan-600 mx-auto mb-8" />
             <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-              In today's digital world, access to technology is no longer a luxury—it's a necessity. Our Digital
+              In today&apos;s digital world, access to technology is no longer a luxury—it&apos;s a necessity. Our Digital
               Inclusion initiative focuses on providing device access, connectivity, and technical support to
               marginalized communities.
             </p>
@@ -501,7 +501,7 @@ const DigitalInclusionPage = () => {
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Our Digital Inclusion Impact</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-cyan-600 mx-auto mb-8" />
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Real metrics that demonstrate the tangible difference we're making in bridging the digital divide
+              Real metrics that demonstrate the tangible difference we&apos;re making in bridging the digital divide
             </p>
           </div>
 
@@ -530,10 +530,10 @@ const DigitalInclusionPage = () => {
         <div className="container mx-auto px-4">
           <div className="section-reveal text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Success Stories</h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-cyan-600 mx-auto mb-8" />
+            <div className="w-24 h-1 from-blue-500 to-cyan-600 mx-auto mb-8" />
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Our digital inclusion programs have transformed communities across the country. From rural villages to
-              urban neighborhoods, we're making a difference.
+              urban neighborhoods, we&apos;re making a difference.
             </p>
           </div>
 
@@ -562,7 +562,7 @@ const DigitalInclusionPage = () => {
                     <MapPin className="w-4 h-4 mr-1" />
                     <span className="text-sm">{story.location}</span>
                   </div>
-                  <p className="text-gray-700 mb-4 text-sm leading-relaxed italic">"{story.quote}"</p>
+                  <p className="text-gray-700 mb-4 text-sm leading-relaxed italic">&ldquo;{story.quote}&rdquo;</p>
                   <div className="space-y-2">
                     <div>
                       <span className="text-xs text-gray-600">Story:</span>

@@ -480,7 +480,7 @@ const ELearningPage = () => {
                     <p className="text-gray-600">{story.role}</p>
                   </div>
                 </div>
-                <p className="text-gray-700 italic mb-6 leading-relaxed">"{story.quote}"</p>
+                <p className="text-gray-700 italic mb-6 leading-relaxed">&ldquo;{story.quote}&rdquo;</p>
                 <div className="flex items-center justify-between">
                   <div className="flex space-x-1">
                     {[...Array(story.rating)].map((_, i) => (

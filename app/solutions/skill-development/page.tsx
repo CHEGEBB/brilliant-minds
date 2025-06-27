@@ -636,7 +636,7 @@ const SkillDevelopmentPage = () => {
                       ))}
                     </div>
                   </div>
-                  <p className="text-gray-700 italic leading-relaxed">"{testimonial.quote}"</p>
+                  <p className="text-gray-700 italic leading-relaxed">&ldquo;{testimonial.quote}&rdquo;</p>
                 </div>
               </div>
             ))}
