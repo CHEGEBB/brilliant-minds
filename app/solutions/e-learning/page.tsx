@@ -17,8 +17,7 @@ const ELearningPage = () => {
       subtitle: "Transform Your Learning Experience",
       description:
         "Innovative microlearning platform that makes education accessible, engaging, and effective for learners worldwide.",
-      image:
-        "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      image: "/images/elearning-hero-1.jpg",
       stats: "150K+ Skills Certified",
       highlight: "Bite-sized Learning",
     },
@@ -27,8 +26,7 @@ const ELearningPage = () => {
       subtitle: "Engaging Learning for Everyone",
       description:
         "Interactive features including quizzes, videos, and progress tracking that make learning fun and memorable.",
-      image:
-        "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      image: "/images/elearning-hero-2.jpg",
       stats: "95% Completion Rate",
       highlight: "Interactive Content",
     },
@@ -37,8 +35,7 @@ const ELearningPage = () => {
       subtitle: "Learn from Anywhere, Anytime",
       description:
         "Join a worldwide community of learners with courses covering academic topics, professional skills, and freelancing basics.",
-      image:
-        "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      image: "/images/elearning-hero-3.jpg",
       stats: "50+ Countries Served",
       highlight: "Global Access",
     },
@@ -48,7 +45,7 @@ const ELearningPage = () => {
     {
       title: "Content Sessions",
       description: "Bite-sized learning modules designed for maximum retention and engagement",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      image: "/images/content-sessions.jpg",
       features: [
         "Optimized for mobile learning on the go",
         "5-15 minute focused sessions",
@@ -61,8 +58,7 @@ const ELearningPage = () => {
     {
       title: "Interactive Features",
       description: "Engaging elements that make learning fun and effective with real-time feedback",
-      image:
-        "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      image: "/images/interactive-features.jpg",
       features: [
         "Interactive videos with embedded questions",
         "Gamified learning experiences",
@@ -75,8 +71,7 @@ const ELearningPage = () => {
     {
       title: "Content Areas",
       description: "Comprehensive course catalog covering academic subjects, professional skills, and freelancing",
-      image:
-        "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      image: "/images/content-areas.jpg",
       features: [
         "Academic subjects for all levels",
         "Professional development courses",
@@ -144,8 +139,7 @@ const ELearningPage = () => {
     {
       name: "Jessica Williams",
       role: "Marketing Professional",
-      image:
-        "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+      image: "/images/elearning-testimonial-1.jpg",
       quote:
         "The bite-sized lessons fit perfectly into my busy schedule. I was able to complete a digital marketing certification while working full-time.",
       achievement: "Completed 5 courses in 3 months",
@@ -154,8 +148,7 @@ const ELearningPage = () => {
     {
       name: "David Johnson",
       role: "Software Developer",
-      image:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+      image: "/images/elearning-testimonial-2.jpg",
       quote:
         "The interactive coding challenges and real-world projects helped me transition from a different field into tech successfully.",
       achievement: "Career change in 6 months",
@@ -164,8 +157,7 @@ const ELearningPage = () => {
     {
       name: "Michael Chen",
       role: "Freelance Designer",
-      image:
-        "https://images.unsplash.com/photo-1472099645785-5658abf48d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+      image: "/images/elearning-testimonial-3.jpg",
       quote:
         "The freelancing courses taught me not just design skills, but also how to run a successful business. My income doubled!",
       achievement: "200% income increase",

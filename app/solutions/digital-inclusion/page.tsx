@@ -29,8 +29,7 @@ const DigitalInclusionPage = () => {
       subtitle: "Bridging the Digital Divide",
       description:
         "Providing devices, internet connectivity, and access to co-working spaces for marginalized communities to enable digital participation.",
-      image:
-        "https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      image: "/images/digital-hero-1.jpg",
       stats: "2.5M+ Lives Connected",
     },
     {
@@ -38,8 +37,7 @@ const DigitalInclusionPage = () => {
       subtitle: "AI-Powered Network Solutions",
       description:
         "Using artificial intelligence to identify connectivity gaps and optimize network infrastructure for underserved communities.",
-      image:
-        "https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      image: "/images/digital-hero-2.jpg",
       stats: "95% Coverage Improvement",
     },
     {
@@ -47,8 +45,7 @@ const DigitalInclusionPage = () => {
       subtitle: "Spaces for Digital Growth",
       description:
         "Establishing co-working spaces equipped with high-speed internet and modern devices for community access and collaboration.",
-      image:
-        "https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      image: "/images/digital-hero-3.jpg",
       stats: "1,450+ Spaces Established",
     },
   ]
@@ -85,7 +82,7 @@ const DigitalInclusionPage = () => {
       icon: Smartphone,
       title: "Device Donation Program",
       description: "Comprehensive device refurbishment and distribution network",
-      image: "https://images.unsplash.com/photo-1556761175-b413da4baf72?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      image: "/images/device-donation.jpg",
       gradient: "from-blue-600/90 to-cyan-600/90",
       features: [
         "Laptop & Computer Donations",
@@ -99,8 +96,7 @@ const DigitalInclusionPage = () => {
       icon: Wifi,
       title: "Internet Connectivity",
       description: "Affordable and reliable internet access for underserved communities",
-      image:
-        "https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      image: "/images/connectivity.jpg",
       gradient: "from-green-600/90 to-emerald-600/90",
       features: ["Telecom Partnerships", "Community Wi-Fi", "Satellite Internet", "Mobile Hotspots"],
       impact: "95% connectivity improvement",
@@ -109,8 +105,7 @@ const DigitalInclusionPage = () => {
       icon: Network,
       title: "AI Mapping Solutions",
       description: "Real-time analysis and optimization of digital infrastructure",
-      image:
-        "https://images.unsplash.com/photo-1674027444485-cec3da58eef4?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image: "/images/ai-mapping.jpg",
       gradient: "from-purple-600/90 to-violet-600/90",
       features: ["Coverage Analysis", "Infrastructure Planning", "Community Needs Assessment", "Resource Optimization"],
       impact: "Real-time network optimization",
@@ -119,8 +114,7 @@ const DigitalInclusionPage = () => {
       icon: Building,
       title: "Co-Working Spaces",
       description: "Modern workspaces with technology access and community support",
-      image:
-        "https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      image: "/images/coworking-spaces.jpg",
       gradient: "from-orange-600/90 to-red-600/90",
       features: ["High-Speed Internet", "Modern Equipment", "Training Programs", "Community Events"],
       impact: "1,450+ spaces established",
@@ -164,8 +158,7 @@ const DigitalInclusionPage = () => {
       location: "Nairobi, Kenya",
       story: "Received a refurbished laptop and internet access through our program",
       impact: "Started online tutoring business, increased income by 400%",
-      image:
-        "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image: "/images/success-story-1.jpg",
       quote: "Digital inclusion changed my life. Now I can support my family and help other students learn.",
       program: "Device Donation",
     },
@@ -174,8 +167,7 @@ const DigitalInclusionPage = () => {
       location: "Lagos, Nigeria",
       story: "Transformed into a digital hub serving 500+ community members monthly",
       impact: "85% of users gained new digital skills within 6 months",
-      image:
-        "https://images.unsplash.com/photo-1534134368327-3d2bd764f1ac?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image: "/images/success-story-2.jpg",
       quote: "Our community center became the heart of digital transformation in our neighborhood.",
       program: "Co-Working Space",
     },
@@ -184,8 +176,7 @@ const DigitalInclusionPage = () => {
       location: "Kenya",
       story: "Connected 25 rural schools through our AI mapping and connectivity solutions",
       impact: "Student engagement increased by 300%, graduation rates improved by 45%",
-      image:
-        "https://images.unsplash.com/photo-1632215861513-130b66fe97f4?q=80&w=869&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image: "/images/success-story-3.jpg",
       quote: "Technology brought the world to our classrooms. Our students now dream bigger.",
       program: "Connectivity Solutions",
     },
