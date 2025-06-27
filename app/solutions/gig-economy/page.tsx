@@ -100,7 +100,7 @@ const GigEconomyPage = () => {
       icon: Globe,
       title: "International Work Sourcing",
       description: "Verified global opportunities across high-demand freelancing fields",
-      image: "/images/international-work.png",
+      image: "https://images.unsplash.com/photo-1588623731810-171b80f3c55e?q=80&w=1026&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       gradient: "from-green-600/90 to-emerald-600/90",
       features: [
         "HR & Recruitment Services",
@@ -285,40 +285,40 @@ const GigEconomyPage = () => {
         </div>
 
         {/* Content */}
-        <div className="container mx-auto px-4 relative z-10 text-center">
+        <div className="container mx-auto px-4 relative z-10 pt-20 sm:pt-0 sm:text-center text-left">
           <div className="content-animate max-w-4xl mx-auto text-white">
             <div
               key={currentHeroIndex}
-              className={`hero-content-slide space-y-6 ${currentHeroIndex >= 0 ? "active" : ""}`}
+              className={`hero-content-slide space-y-4 sm:space-y-6 ${currentHeroIndex >= 0 ? "active" : ""}`}
             >
-              <div className="inline-flex items-center bg-white/10 backdrop-blur-lg rounded-full px-4 py-2 mb-4">
-                <Briefcase className="w-4 h-4 mr-2 text-cyan-400" />
-                <span className="text-sm font-medium">{heroContent[currentHeroIndex].highlight}</span>
+              <div className="inline-flex items-center bg-white/10 backdrop-blur-lg rounded-full px-3 py-1.5 sm:px-4 sm:py-2 mb-2 sm:mb-4">
+                <Briefcase className="w-3 h-3 sm:w-4 sm:h-4 mr-2 text-cyan-400" />
+                <span className="text-xs sm:text-sm font-medium">{heroContent[currentHeroIndex].highlight}</span>
               </div>
 
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
                 {heroContent[currentHeroIndex].title}
               </h1>
 
-              <p className="text-xl md:text-2xl text-cyan-300 font-semibold">
+              <p className="text-base sm:text-xl md:text-2xl text-cyan-300 font-semibold">
                 {heroContent[currentHeroIndex].subtitle}
               </p>
 
-              <p className="text-lg md:text-xl text-gray-200 leading-relaxed max-w-3xl mx-auto">
+              <p className="text-sm sm:text-lg md:text-xl text-gray-200 leading-relaxed max-w-3xl sm:mx-auto">
                 {heroContent[currentHeroIndex].description}
               </p>
 
-              <div className="flex items-center justify-center space-x-6 py-4">
-                <div className="bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full px-6 py-3">
-                  <span className="text-lg font-bold text-white">{heroContent[currentHeroIndex].stats}</span>
+              <div className="flex items-center sm:justify-center space-x-4 sm:space-x-6 py-2 sm:py-4">
+                <div className="bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full px-4 py-2 sm:px-6 sm:py-3">
+                  <span className="text-sm sm:text-lg font-bold text-white">{heroContent[currentHeroIndex].stats}</span>
                 </div>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-                <button className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold rounded-full hover:shadow-2xl transition-all duration-300 btn-hover">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 sm:justify-center pt-2 sm:pt-4">
+                <button className="px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-sm sm:text-base rounded-full hover:shadow-2xl transition-all duration-300 btn-hover">
                   Join Platform
                 </button>
-                <button className="px-8 py-4 bg-white/20 backdrop-blur-lg border-2 border-white/30 text-white font-bold rounded-full hover:bg-white/30 transition-all duration-300 btn-hover">
+                <button className="px-6 py-3 sm:px-8 sm:py-4 bg-white/20 backdrop-blur-lg border-2 border-white/30 text-white font-bold text-sm sm:text-base rounded-full hover:bg-white/30 transition-all duration-300 btn-hover">
                   Browse Gigs
                 </button>
               </div>
@@ -327,7 +327,7 @@ const GigEconomyPage = () => {
         </div>
 
         {/* Navigation Dots */}
-        <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 flex space-x-3">
+        <div className="absolute bottom-8 sm:bottom-20 left-1/2 transform -translate-x-1/2 flex space-x-2 sm:space-x-3">
           {heroContent.map((_, index) => (
             <button
               key={index}

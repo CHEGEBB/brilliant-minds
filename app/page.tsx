@@ -143,11 +143,11 @@ function Homepage() {
         subtitle="Empowering communities with innovative solutions that bridge gaps, create opportunities, and build a more inclusive future for everyone."
         primaryCTA={{
           text: "Explore Solutions",
-          href: "#solutions"
+          href: "/solutions"
         }}
         secondaryCTA={{
           text: "Learn More",
-          href: "#about"
+          href: "/about"
         }}
         backgroundType="video"
         backgroundSrc="/assets/vid.mp4"
@@ -433,7 +433,7 @@ function Homepage() {
                 boxShadow: "0 20px 40px rgba(255, 255, 255, 0.2)"
               }}
               whileTap={{ scale: 0.95 }}
-              href="/partners"
+              href="/get-involved"
               className="px-10 py-5 rounded-full bg-white text-blue-900 font-bold text-lg hover:bg-blue-50 transition-all duration-300 shadow-lg backdrop-blur-sm"
             >
               Become a Partner
