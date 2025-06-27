@@ -39,7 +39,7 @@ const AboutPage = () => {
       title: "Innovation",
       description:
         "We embrace creative thinking and novel approaches to solve complex challenges facing underserved communities.",
-      color: "from-yellow-400 to-orange-500",
+      color: "from-yellow-400/20 to-orange-500/40",
       bgImage: "/images/value-innovation.jpg",
       stats: "50+ Innovative Solutions",
     },
@@ -48,7 +48,7 @@ const AboutPage = () => {
       title: "Collaboration",
       description:
         "We believe in the power of partnership and work closely with communities to create solutions that truly meet their needs.",
-      color: "from-blue-400 to-purple-500",
+      color: "from-blue-400/20 to-purple-500/40",
       bgImage: "https://images.unsplash.com/photo-1521790797524-b2497295b8a0?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       stats: "200+ Active Partners",
     },
@@ -57,7 +57,7 @@ const AboutPage = () => {
       title: "Empowerment",
       description:
         "We focus on building capacity and empowering individuals to create lasting impact and self-sufficiency.",
-      color: "from-green-400 to-teal-500",
+      color: "from-green-400/20 to-teal-500/40",
       bgImage: "/images/value-empowerment.jpg",
       stats: "2.5M+ Lives Empowered",
     },
@@ -66,7 +66,7 @@ const AboutPage = () => {
       title: "Equity",
       description:
         "We are committed to fair access and opportunity, ensuring our solutions address systemic barriers and promote inclusion.",
-      color: "from-pink-400 to-red-500",
+      color: "from-pink-400/20 to-red-500/40",
       bgImage: "/images/value-equity.jpg",
       stats: "95% Equity Score",
     },
