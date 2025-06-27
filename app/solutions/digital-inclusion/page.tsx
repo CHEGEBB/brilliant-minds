@@ -1,7 +1,6 @@
 "use client"
 
-import React, { useEffect, useState, useRef } from "react"
-import { motion, useInView, AnimatePresence } from "framer-motion"
+import React, { useEffect, useState } from "react"
 import {
   Wifi,
   Smartphone,
@@ -19,9 +18,11 @@ import {
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import Image from "next/image"
+import "@/styles/digital-inclusion-animations.scss"
 
 const DigitalInclusionPage = () => {
   const [currentHeroIndex, setCurrentHeroIndex] = useState(0)
+  const [currentFeatureIndex, setCurrentFeatureIndex] = useState(0)
 
   const heroContent = [
     {
@@ -206,441 +207,428 @@ const DigitalInclusionPage = () => {
     },
   ]
 
+  // Hero rotation
   useEffect(() => {
     const heroInterval = setInterval(() => {
       setCurrentHeroIndex((prev) => (prev + 1) % heroContent.length)
     }, 5000)
 
-    return () => {
-      clearInterval(heroInterval)
-    }
+    return () => clearInterval(heroInterval)
   }, [heroContent.length])
 
-  const AnimatedSection = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {
-    const ref = useRef(null)
-    const isInView = useInView(ref, { once: true, margin: "-100px" })
+  // Feature rotation
+  useEffect(() => {
+    const featureInterval = setInterval(() => {
+      setCurrentFeatureIndex((prev) => (prev + 1) % keyFeatures.length)
+    }, 4000)
 
-    return (
-      <motion.div
-        ref={ref}
-        initial={{ opacity: 0 }}
-        animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className={className}
-      >
-        {children}
-      </motion.div>
+    return () => clearInterval(featureInterval)
+  }, [keyFeatures.length])
+
+  // Scroll reveal
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible")
+          }
+        })
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
     )
-  }
+
+    const sections = document.querySelectorAll(".section-reveal")
+    sections.forEach((section) => observer.observe(section))
+
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
 
-      {/* Hero Section with Mobile-First Design */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-900 via-cyan-800 to-blue-900">
-        {/* Background Image - Only on Mobile, Behind Text */}
-        <div className="absolute inset-0 md:hidden">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentHeroIndex}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 1 }}
-              className="absolute inset-0"
-            >
+      {/* Enhanced Hero Section */}
+      <section className="stable-layout relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Dynamic Background Images */}
+        <div className="absolute inset-0">
+          {heroContent.map((content, index) => (
+            <div key={index} className={`hero-background ${index === currentHeroIndex ? "active" : ""}`}>
               <Image
-                src={heroContent[currentHeroIndex].image || "/placeholder.svg"}
-                alt={heroContent[currentHeroIndex].title}
+                src={content.image || "/placeholder.svg"}
+                alt={content.title}
                 fill
                 sizes="100vw"
                 className="object-cover"
-                priority
-                quality={75}
+                priority={index === 0}
+                quality={85}
               />
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-900/80 via-cyan-800/75 to-blue-900/80" />
-            </motion.div>
-          </AnimatePresence>
+            </div>
+          ))}
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-900/85 via-cyan-800/80 to-purple-900/85" />
         </div>
 
-        {/* Animated Background Pattern - Desktop Only */}
-        <div className="absolute inset-0 opacity-10 hidden md:block">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fillRule='evenodd'%3E%3Cg fill='%23ffffff' fillOpacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-            }}
-          />
-        </div>
-
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-screen py-20 sm:py-24 lg:py-16">
-            {/* Content Side - Mobile First with Adequate Spacing */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 0.3 }}
-              className="text-white space-y-6 sm:space-y-8 pt-8 sm:pt-12 md:pt-0 px-2 sm:px-0"
+        {/* Floating Elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {[...Array(8)].map((_, i) => (
+            <div
+              key={i}
+              className="floating-element absolute"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 6}s`,
+              }}
             >
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={currentHeroIndex}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.8 }}
-                  className="space-y-4 sm:space-y-6"
-                >
-                  <div className="inline-flex items-center bg-white/10 backdrop-blur-lg rounded-full px-3 py-1.5 sm:px-4 sm:py-2 mb-3 sm:mb-4">
-                    <span className="text-xs sm:text-sm font-medium">Digital Innovation</span>
+              <div className="w-2 h-2 bg-cyan-400/30 rounded-full" />
+            </div>
+          ))}
+        </div>
+
+        {/* Hero Content */}
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-12 items-center min-h-screen py-20">
+            {/* Content Side */}
+            <div className="text-white space-y-8">
+              <div className="content-animate space-y-6">
+                <div className="inline-flex items-center bg-white/10 backdrop-blur-lg rounded-full px-4 py-2 mb-4">
+                  <Wifi className="w-4 h-4 mr-2 pulse-icon" />
+                  <span className="text-sm font-medium">Digital Innovation Solution</span>
+                </div>
+
+                <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
+                  {heroContent[currentHeroIndex].title}
+                </h1>
+
+                <p className="text-2xl text-cyan-300 font-semibold">{heroContent[currentHeroIndex].subtitle}</p>
+
+                <p className="text-xl text-gray-200 leading-relaxed max-w-2xl">
+                  {heroContent[currentHeroIndex].description}
+                </p>
+
+                <div className="flex items-center space-x-6 py-4">
+                  <div className="bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full px-6 py-3">
+                    <span className="text-lg font-bold">{heroContent[currentHeroIndex].stats}</span>
                   </div>
+                  <div className="flex items-center space-x-2 text-cyan-300">
+                    <Signal className="w-5 h-5 pulse-icon" />
+                    <span className="text-sm font-medium">Live Impact</span>
+                  </div>
+                </div>
 
-                  <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                    {heroContent[currentHeroIndex].title}
-                  </h1>
-                  <p className="text-lg sm:text-xl md:text-2xl text-cyan-300 font-semibold">
-                    {heroContent[currentHeroIndex].subtitle}
-                  </p>
-                  <p className="text-base sm:text-lg md:text-xl text-gray-200 leading-relaxed max-w-2xl">
-                    {heroContent[currentHeroIndex].description}
-                  </p>
+                <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                  <button className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold rounded-full hover:shadow-2xl transition-all duration-300 btn-hover">
+                    Partner with Us
+                  </button>
+                  <button className="px-8 py-4 bg-white/20 backdrop-blur-lg border-2 border-white/30 text-white font-bold rounded-full hover:bg-white/30 transition-all duration-300 btn-hover">
+                    Donate a Device
+                  </button>
+                </div>
+              </div>
+            </div>
 
-                  <div className="flex items-center space-x-4 sm:space-x-6 py-2">
-                    <div className="bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full px-4 py-2 sm:px-6 sm:py-3">
-                      <span className="text-sm sm:text-lg font-bold">{heroContent[currentHeroIndex].stats}</span>
+            {/* Visual Side - Enhanced */}
+            <div className="relative hidden lg:block">
+              <div className="relative h-[500px]">
+                {/* Main Feature Display */}
+                <div
+                  key={currentFeatureIndex}
+                  className={`feature-showcase absolute inset-0 rounded-2xl overflow-hidden shadow-2xl ${
+                    currentFeatureIndex >= 0 ? "active" : ""
+                  }`}
+                >
+                  <Image
+                    src={keyFeatures[currentFeatureIndex].image || "/placeholder.svg"}
+                    alt={keyFeatures[currentFeatureIndex].title}
+                    fill
+                    sizes="50vw"
+                    className="object-cover"
+                    quality={85}
+                  />
+                  <div className={`absolute inset-0}`} />
+                  <div className="absolute inset-0 p-8 flex flex-col justify-end">
+                    <div className="bg-white/10 backdrop-blur-lg rounded-full p-3 w-fit mb-4">
+                      {React.createElement(keyFeatures[currentFeatureIndex].icon, {
+                        className: "w-8 h-8 text-white",
+                      })}
+                    </div>
+                    <h3 className="text-2xl font-bold text-white mb-2">{keyFeatures[currentFeatureIndex].title}</h3>
+                    <p className="text-gray-200 mb-4">{keyFeatures[currentFeatureIndex].description}</p>
+                    <div className="flex items-center text-cyan-300">
+                      <Zap className="w-4 h-4 mr-2" />
+                      <span className="text-sm font-semibold">{keyFeatures[currentFeatureIndex].impact}</span>
                     </div>
                   </div>
+                </div>
 
-                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4">
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-sm sm:text-base rounded-full hover:shadow-2xl transition-all duration-300"
-                    >
-                      Partner with Us
-                    </motion.button>
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="px-6 py-3 sm:px-8 sm:py-4 bg-white/20 backdrop-blur-lg border-2 border-white/30 text-white font-bold text-sm sm:text-base rounded-full hover:bg-white/30 transition-all duration-300"
-                    >
-                      Donate a Device
-                    </motion.button>
+                {/* Floating Stats */}
+                <div className="absolute -top-6 -right-6 bg-white/10 backdrop-blur-lg rounded-2xl p-4 border border-white/20">
+                  <div className="text-center">
+                    <p className="text-2xl font-bold text-white">2.5M+</p>
+                    <p className="text-xs text-cyan-300">Connected</p>
                   </div>
-                </motion.div>
-              </AnimatePresence>
-            </motion.div>
+                </div>
 
-            {/* Visual Side - Desktop and Tablet Only */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 0.5 }}
-              className="relative hidden md:block"
-            >
-              <div className="relative h-80 lg:h-[400px]">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={currentHeroIndex}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 1 }}
-                    className="absolute inset-0 overflow-hidden rounded-2xl shadow-2xl"
-                  >
-                    <Image
-                      src={heroContent[currentHeroIndex].image || "/placeholder.svg"}
-                      alt={heroContent[currentHeroIndex].title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      className="object-cover"
-                      priority
-                      quality={85}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-tr from-blue-900/20 to-cyan-900/20" />
-                  </motion.div>
-                </AnimatePresence>
+                <div className="absolute -bottom-6 -left-6 bg-white/10 backdrop-blur-lg rounded-2xl p-4 border border-white/20">
+                  <div className="text-center">
+                    <p className="text-2xl font-bold text-white">95%</p>
+                    <p className="text-xs text-cyan-300">Success Rate</p>
+                  </div>
+                </div>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
 
         {/* Hero Navigation */}
-        <div className="absolute bottom-16 sm:bottom-20 left-1/2 transform -translate-x-1/2 flex space-x-3 sm:space-x-4">
+        <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 flex space-x-4">
           {heroContent.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentHeroIndex(index)}
-              className={`h-3 w-3 sm:h-4 sm:w-4 rounded-full transition-all duration-500 ${
-                index === currentHeroIndex ? "bg-white w-8 sm:w-12" : "bg-white/50 hover:bg-white/70"
-              }`}
+              className={`nav-dot ${index === currentHeroIndex ? "active" : ""}`}
             />
           ))}
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className="scroll-indicator absolute bottom-8 left-1/2 transform -translate-x-1/2">
+          <div className="w-8 h-12 border-2 border-white/50 rounded-full flex justify-center p-2">
+            <div className="w-2 h-4 bg-white/70 rounded-full" />
+          </div>
         </div>
       </section>
 
       {/* Digital Inclusion Benefits */}
-      <section className="py-16 sm:py-20 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">
-              Bridging the Digital Divide
-            </h2>
-            <div className="w-20 sm:w-24 h-1 bg-gradient-to-r from-blue-500 to-cyan-600 mx-auto mb-6 sm:mb-8" />
-            <p className="text-lg sm:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed px-4">
-              In today&apos;s digital world, access to technology is no longer a luxury—it&apos;s a necessity. Our
-              Digital Inclusion initiative focuses on providing device access, connectivity, and technical support to
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="section-reveal text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Bridging the Digital Divide</h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-cyan-600 mx-auto mb-8" />
+            <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+              In today's digital world, access to technology is no longer a luxury—it's a necessity. Our Digital
+              Inclusion initiative focuses on providing device access, connectivity, and technical support to
               marginalized communities.
             </p>
-          </AnimatedSection>
+          </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {inclusionBenefits.map((benefit, index) => (
-              <AnimatedSection key={index}>
-                <motion.div
-                  whileHover={{ scale: 1.02 }}
-                  className="text-center p-6 sm:p-8 bg-gradient-to-br from-gray-50 to-white rounded-2xl shadow-lg border border-gray-100"
+              <div
+                key={index}
+                className="section-reveal card-hover text-center p-8 bg-gradient-to-br from-gray-50 to-white rounded-2xl shadow-lg border border-gray-100"
+              >
+                <div
+                  className={`w-20 h-20 bg-gradient-to-r ${benefit.color} rounded-full flex items-center justify-center mx-auto mb-6`}
                 >
-                  <div
-                    className={`w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r ${benefit.color} rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6`}
-                  >
-                    {React.createElement(benefit.icon, { className: "w-8 h-8 sm:w-10 sm:h-10 text-white" })}
-                  </div>
-                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">{benefit.title}</h3>
-                  <p className="text-gray-600 leading-relaxed text-sm sm:text-base">{benefit.description}</p>
-                </motion.div>
-              </AnimatedSection>
+                  {React.createElement(benefit.icon, { className: "w-10 h-10 text-white" })}
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">{benefit.title}</h3>
+                <p className="text-gray-600 leading-relaxed">{benefit.description}</p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
       {/* Key Features Section */}
-      <section className="py-16 sm:py-20 bg-gradient-to-br from-blue-50 to-cyan-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">
-              Our Digital Inclusion Solutions
-            </h2>
-            <div className="w-20 sm:w-24 h-1 bg-gradient-to-r from-blue-500 to-cyan-600 mx-auto mb-6 sm:mb-8" />
-            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-4">
+      <section className="py-20 bg-gradient-to-br from-blue-50 to-cyan-50">
+        <div className="container mx-auto px-4">
+          <div className="section-reveal text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Our Digital Inclusion Solutions</h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-cyan-600 mx-auto mb-8" />
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Comprehensive solutions designed to eliminate digital barriers and create opportunities for all
             </p>
-          </AnimatedSection>
+          </div>
 
-          <div className="space-y-12 sm:space-y-16">
+          <div className="space-y-16">
             {keyFeatures.map((feature, index) => (
-              <AnimatedSection key={index}>
-                <div
-                  className={`grid lg:grid-cols-2 gap-8 sm:gap-12 items-center ${
-                    index % 2 === 1 ? "lg:grid-flow-col-dense" : ""
-                  }`}
-                >
-                  <div className={`space-y-4 sm:space-y-6 px-4 sm:px-0 ${index % 2 === 1 ? "lg:col-start-2" : ""}`}>
-                    <div
-                      className={`inline-flex items-center bg-gradient-to-r ${feature.gradient} text-white rounded-full px-3 py-1.5 sm:px-4 sm:py-2 mb-3 sm:mb-4`}
-                    >
-                      {React.createElement(feature.icon, { className: "w-4 h-4 sm:w-5 sm:h-5 mr-2" })}
-                      <span className="text-xs sm:text-sm font-semibold">{feature.title}</span>
-                    </div>
-                    <h3 className="text-2xl sm:text-3xl font-bold text-gray-900">{feature.title}</h3>
-                    <p className="text-lg sm:text-xl text-gray-700 leading-relaxed">{feature.description}</p>
-                    <div className="space-y-2 sm:space-y-3">
-                      {feature.features.map((item, idx) => (
-                        <div key={idx} className="flex items-center space-x-3">
-                          <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-500 flex-shrink-0" />
-                          <span className="text-gray-700 text-sm sm:text-base">{item}</span>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="inline-flex items-center bg-green-50 rounded-full px-3 py-1.5 sm:px-4 sm:py-2">
-                      <Zap className="w-3 h-3 sm:w-4 sm:h-4 text-green-600 mr-2" />
-                      <span className="text-xs sm:text-sm font-semibold text-green-600">{feature.impact}</span>
-                    </div>
+              <div
+                key={index}
+                className={`section-reveal grid lg:grid-cols-2 gap-12 items-center ${
+                  index % 2 === 1 ? "lg:grid-flow-col-dense" : ""
+                }`}
+              >
+                <div className={`space-y-6 ${index % 2 === 1 ? "lg:col-start-2" : ""}`}>
+                  <div
+                    className={`inline-flex items-center bg-gradient-to-r ${feature.gradient} text-white rounded-full px-4 py-2 mb-4`}
+                  >
+                    {React.createElement(feature.icon, { className: "w-5 h-5 mr-2" })}
+                    <span className="text-sm font-semibold">{feature.title}</span>
                   </div>
-
-                  <div className={`relative ${index % 2 === 1 ? "lg:col-start-1" : ""}`}>
-                    <motion.div whileHover={{ scale: 1.02 }} className="relative">
-                      <div className="relative h-48 sm:h-64 lg:h-80 overflow-hidden rounded-2xl shadow-2xl">
-                        <Image
-                          src={feature.image || "/placeholder.svg"}
-                          alt={feature.title}
-                          fill
-                          sizes="(max-width: 768px) 100vw, 50vw"
-                          className="object-cover"
-                          quality={85}
-                        />
-                        <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-20`} />
+                  <h3 className="text-3xl font-bold text-gray-900">{feature.title}</h3>
+                  <p className="text-xl text-gray-700 leading-relaxed">{feature.description}</p>
+                  <div className="space-y-3">
+                    {feature.features.map((item, idx) => (
+                      <div key={idx} className="flex items-center space-x-3">
+                        <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
+                        <span className="text-gray-700">{item}</span>
                       </div>
-                    </motion.div>
+                    ))}
+                  </div>
+                  <div className="inline-flex items-center bg-green-50 rounded-full px-4 py-2">
+                    <Zap className="w-4 h-4 text-green-600 mr-2" />
+                    <span className="text-sm font-semibold text-green-600">{feature.impact}</span>
                   </div>
                 </div>
-              </AnimatedSection>
+
+                <div className={`relative ${index % 2 === 1 ? "lg:col-start-1" : ""}`}>
+                  <div className="card-hover relative">
+                    <div className="relative h-80 overflow-hidden rounded-2xl shadow-2xl">
+                      <Image
+                        src={feature.image || "/placeholder.svg"}
+                        alt={feature.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        className="object-cover"
+                        quality={85}
+                      />
+                      <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-20`} />
+                    </div>
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
       {/* Impact Metrics */}
-      <section className="py-16 sm:py-20 bg-gradient-to-br from-blue-50 to-cyan-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">
-              Our Digital Inclusion Impact
-            </h2>
-            <div className="w-20 sm:w-24 h-1 bg-gradient-to-r from-blue-500 to-cyan-600 mx-auto mb-6 sm:mb-8" />
-            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-4">
-              Real metrics that demonstrate the tangible difference we&apos;re making in bridging the digital divide
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="section-reveal text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Our Digital Inclusion Impact</h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-cyan-600 mx-auto mb-8" />
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Real metrics that demonstrate the tangible difference we're making in bridging the digital divide
             </p>
-          </AnimatedSection>
+          </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {impactMetrics.map((metric, index) => (
-              <AnimatedSection key={index}>
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  className="bg-white rounded-2xl p-6 sm:p-8 text-center shadow-xl border border-gray-100"
+              <div
+                key={index}
+                className="section-reveal card-hover bg-white rounded-2xl p-8 text-center shadow-xl border border-gray-100"
+              >
+                <div
+                  className={`w-20 h-20 bg-gradient-to-r ${metric.color} rounded-full flex items-center justify-center mx-auto mb-6`}
                 >
-                  <div
-                    className={`w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r ${metric.color} rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6`}
-                  >
-                    {React.createElement(metric.icon, { className: "w-8 h-8 sm:w-10 sm:h-10 text-white" })}
-                  </div>
-                  <div className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">{metric.number}</div>
-                  <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2 sm:mb-3">{metric.label}</h3>
-                  <p className="text-gray-600 text-xs sm:text-sm">{metric.description}</p>
-                </motion.div>
-              </AnimatedSection>
+                  {React.createElement(metric.icon, { className: "w-10 h-10 text-white" })}
+                </div>
+                <div className="text-4xl font-bold text-gray-900 mb-2">{metric.number}</div>
+                <h3 className="text-xl font-semibold text-gray-800 mb-3">{metric.label}</h3>
+                <p className="text-gray-600 text-sm">{metric.description}</p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
       {/* Success Stories */}
-      <section className="py-16 sm:py-20 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">Success Stories</h2>
-            <div className="w-20 sm:w-24 h-1 bg-gradient-to-r from-blue-500 to-cyan-600 mx-auto mb-6 sm:mb-8" />
-            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-4">
+      <section className="py-20 bg-gradient-to-br from-blue-50 to-cyan-50">
+        <div className="container mx-auto px-4">
+          <div className="section-reveal text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Success Stories</h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-cyan-600 mx-auto mb-8" />
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Our digital inclusion programs have transformed communities across the country. From rural villages to
-              urban neighborhoods, we&apos;re making a difference.
+              urban neighborhoods, we're making a difference.
             </p>
-          </AnimatedSection>
+          </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {successStories.map((story, index) => (
-              <AnimatedSection key={index}>
-                <motion.div
-                  whileHover={{ scale: 1.02 }}
-                  className="bg-gradient-to-br from-gray-50 to-white rounded-2xl overflow-hidden shadow-xl border border-gray-100"
-                >
-                  <div className="relative h-40 sm:h-48">
-                    <Image
-                      src={story.image || "/placeholder.svg"}
-                      alt={story.name}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      className="object-cover"
-                      quality={85}
-                    />
-                    <div className="absolute top-3 sm:top-4 right-3 sm:right-4 bg-white/90 backdrop-blur-sm rounded-full px-2 py-1 sm:px-3 sm:py-1">
-                      <span className="text-xs font-semibold text-gray-700">{story.program}</span>
+              <div
+                key={index}
+                className="section-reveal card-hover bg-white rounded-2xl overflow-hidden shadow-xl border border-gray-100"
+              >
+                <div className="relative h-48">
+                  <Image
+                    src={story.image || "/placeholder.svg"}
+                    alt={story.name}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover"
+                    quality={85}
+                  />
+                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1">
+                    <span className="text-xs font-semibold text-gray-700">{story.program}</span>
+                  </div>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-gray-900 mb-1">{story.name}</h3>
+                  <div className="flex items-center text-gray-600 mb-3">
+                    <MapPin className="w-4 h-4 mr-1" />
+                    <span className="text-sm">{story.location}</span>
+                  </div>
+                  <p className="text-gray-700 mb-4 text-sm leading-relaxed italic">"{story.quote}"</p>
+                  <div className="space-y-2">
+                    <div>
+                      <span className="text-xs text-gray-600">Story:</span>
+                      <p className="text-sm text-gray-700">{story.story}</p>
+                    </div>
+                    <div className="pt-2 border-t border-gray-100">
+                      <span className="text-xs text-gray-600">Impact:</span>
+                      <p className="text-sm font-semibold text-green-600">{story.impact}</p>
                     </div>
                   </div>
-                  <div className="p-4 sm:p-6">
-                    <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-1">{story.name}</h3>
-                    <div className="flex items-center text-gray-600 mb-3">
-                      <MapPin className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
-                      <span className="text-xs sm:text-sm">{story.location}</span>
-                    </div>
-                    <p className="text-gray-700 mb-4 text-xs sm:text-sm leading-relaxed italic">
-                      &ldquo;{story.quote}&rdquo;
-                    </p>
-                    <div className="space-y-2">
-                      <div>
-                        <span className="text-xs text-gray-600">Story:</span>
-                        <p className="text-xs sm:text-sm text-gray-700">{story.story}</p>
-                      </div>
-                      <div className="pt-2 border-t border-gray-100">
-                        <span className="text-xs text-gray-600">Impact:</span>
-                        <p className="text-xs sm:text-sm font-semibold text-green-600">{story.impact}</p>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              </AnimatedSection>
+                </div>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
       {/* Partnership Opportunities */}
-      <section className="py-16 sm:py-20 bg-gradient-to-br from-blue-900 via-purple-900 to-cyan-900 text-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
-              Join Our Digital Inclusion Initiative
-            </h2>
-            <div className="w-20 sm:w-24 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 mx-auto mb-6 sm:mb-8" />
-            <p className="text-lg sm:text-xl text-gray-200 max-w-4xl mx-auto px-4">
+      <section className="py-20 bg-gradient-to-br from-blue-900 via-purple-900 to-cyan-900 text-white">
+        <div className="container mx-auto px-4">
+          <div className="section-reveal text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6">Join Our Digital Inclusion Initiative</h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 mx-auto mb-8" />
+            <p className="text-xl text-gray-200 max-w-4xl mx-auto">
               Together, we can bridge the digital divide and create opportunities for all communities
             </p>
-          </AnimatedSection>
+          </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
             {partnershipOptions.map((option, index) => (
-              <AnimatedSection key={index}>
-                <motion.div
-                  whileHover={{ scale: 1.02 }}
-                  className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 sm:p-8 border border-white/20 text-center"
+              <div
+                key={index}
+                className="section-reveal card-hover bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 text-center"
+              >
+                <div
+                  className={`w-20 h-20 bg-gradient-to-r ${option.color} rounded-full flex items-center justify-center mx-auto mb-6`}
                 >
-                  <div
-                    className={`w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r ${option.color} rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6`}
-                  >
-                    {React.createElement(option.icon, { className: "w-8 h-8 sm:w-10 sm:h-10 text-white" })}
-                  </div>
-                  <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">{option.title}</h3>
-                  <p className="text-gray-200 mb-4 sm:mb-6 text-sm sm:text-base">{option.description}</p>
-                  <div className="space-y-2">
-                    {option.benefits.map((benefit, idx) => (
-                      <div key={idx} className="flex items-center text-gray-200 text-xs sm:text-sm">
-                        <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 mr-2 text-cyan-400 flex-shrink-0" />
-                        <span>{benefit}</span>
-                      </div>
-                    ))}
-                  </div>
-                </motion.div>
-              </AnimatedSection>
+                  {React.createElement(option.icon, { className: "w-10 h-10 text-white" })}
+                </div>
+                <h3 className="text-2xl font-bold mb-4">{option.title}</h3>
+                <p className="text-gray-200 mb-6">{option.description}</p>
+                <div className="space-y-2">
+                  {option.benefits.map((benefit, idx) => (
+                    <div key={idx} className="flex items-center text-gray-200 text-sm">
+                      <CheckCircle className="w-4 h-4 mr-2 text-cyan-400 flex-shrink-0" />
+                      <span>{benefit}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
 
-          <AnimatedSection className="text-center">
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="w-full sm:w-auto px-8 py-4 sm:px-10 sm:py-5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-sm sm:text-lg rounded-full hover:shadow-2xl transition-all duration-300"
-              >
+          <div className="section-reveal text-center">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+              <button className="px-10 py-5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-lg rounded-full hover:shadow-2xl transition-all duration-300 btn-hover">
                 Become a Partner
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="w-full sm:w-auto px-8 py-4 sm:px-10 sm:py-5 border-2 border-white text-white font-bold text-sm sm:text-lg rounded-full hover:bg-white hover:text-blue-900 transition-all duration-300"
-              >
+              </button>
+              <button className="px-10 py-5 border-2 border-white text-white font-bold text-lg rounded-full hover:bg-white hover:text-blue-900 transition-all duration-300 btn-hover">
                 Donate a Device
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="w-full sm:w-auto px-8 py-4 sm:px-10 sm:py-5 bg-white/20 backdrop-blur-lg text-white font-bold text-sm sm:text-lg rounded-full hover:bg-white/30 transition-all duration-300"
-              >
+              </button>
+              <button className="px-10 py-5 bg-white/20 backdrop-blur-lg text-white font-bold text-lg rounded-full hover:bg-white/30 transition-all duration-300 btn-hover">
                 Find a Co-Working Space
-              </motion.button>
+              </button>
             </div>
-          </AnimatedSection>
+          </div>
         </div>
       </section>
 
