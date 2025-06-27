@@ -1,4 +1,4 @@
-// E-Learning page animations - Simple and clean
+// Gig Economy page animations - Simple and clean
 
 // Hero background transitions
 .hero-background {
@@ -62,15 +62,6 @@
     }
   }
   
-  // Device frame animations
-  .device-frame {
-    transition: all 0.4s ease;
-  
-    &:hover {
-      transform: translateY(-5px) scale(1.02);
-    }
-  }
-  
   // Button hover effects
   .btn-hover {
     transition: all 0.3s ease;
@@ -119,10 +110,6 @@
   @media (max-width: 768px) {
     .card-hover:hover {
       transform: translateY(-5px) scale(1.01);
-    }
-  
-    .device-frame:hover {
-      transform: translateY(-3px) scale(1.01);
     }
   }
   
