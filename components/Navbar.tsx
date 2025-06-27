@@ -80,7 +80,7 @@ const Navbar = () => {
                       href={item.href}
                       className={`flex items-center px-4 py-3 rounded-lg transition-all duration-300 relative group ${
                         isActiveRoute(item.href)
-                          ? "text-white bg-gradient-to-r from-cyan-500/20 to-blue-500/20"
+                          ? "text-white"
                           : isScrolled
                             ? "text-white hover:text-cyan-400"
                             : "text-white hover:text-cyan-400"
@@ -123,7 +123,7 @@ const Navbar = () => {
                     href={item.href}
                     className={`flex items-center px-4 py-3 rounded-lg transition-all duration-300 relative group ${
                       isActiveRoute(item.href)
-                        ? "text-white bg-gradient-to-r from-cyan-500/20 to-blue-500/20"
+                        ? "text-white"
                         : isScrolled
                           ? "text-white hover:text-cyan-400"
                           : "text-white hover:text-cyan-400"
@@ -229,7 +229,7 @@ const Navbar = () => {
                           href={item.href}
                           className={`flex items-center py-3 px-3 rounded-lg transition-all duration-300 ${
                             isActiveRoute(item.href)
-                              ? "text-white bg-gradient-to-r from-cyan-500/20 to-blue-500/20"
+                              ? "text-white"
                               : "text-white hover:text-cyan-400 hover:bg-white/10"
                           }`}
                           onClick={() => setIsMobileMenuOpen(false)}
@@ -280,7 +280,7 @@ const Navbar = () => {
                       href={item.href}
                       className={`flex items-center py-3 px-3 rounded-lg transition-all duration-300 ${
                         isActiveRoute(item.href)
-                          ? "text-white bg-gradient-to-r from-cyan-500/20 to-blue-500/20"
+                          ? "text-white"
                           : "text-white hover:text-cyan-400 hover:bg-white/10"
                       }`}
                       onClick={() => setIsMobileMenuOpen(false)}
