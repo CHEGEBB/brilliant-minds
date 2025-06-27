@@ -361,7 +361,7 @@ const SolutionsPage = () => {
             {solutions.map((solution, index) => (
               <div
                 key={index}
-                className={`section-reveal card-hover ${solution.bgColor} rounded-2xl p-8 text-center border border-gray-100 shadow-lg`}
+                className={`section-reveal card-hover ${solution.bgColor} p-8 text-center border border-gray-100 shadow-lg`}
               >
                 <div
                   className={`w-16 h-16 bg-gradient-to-r ${solution.color} rounded-full flex items-center justify-center mx-auto mb-6`}
@@ -393,7 +393,7 @@ const SolutionsPage = () => {
             <div className="space-y-8">
               <div className="flex items-center space-x-4">
                 <div
-                  className={`w-16 h-16 bg-gradient-to-r ${solutions[currentSolutionIndex].color} rounded-2xl flex items-center justify-center`}
+                  className={`w-16 h-16 bg-gradient-to-r ${solutions[currentSolutionIndex].color}  flex items-center justify-center`}
                 >
                   {React.createElement(solutions[currentSolutionIndex].icon, { className: "w-8 h-8 text-white" })}
                 </div>
@@ -408,7 +408,7 @@ const SolutionsPage = () => {
               <div className="grid grid-cols-2 gap-4">
                 {solutions[currentSolutionIndex].features.map((feature, idx) => (
                   <div key={idx} className="flex items-start space-x-3">
-                    <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                    <div className="w-8 h-8 bg-blue-100  flex items-center justify-center flex-shrink-0 mt-1">
                       {React.createElement(feature.icon, { className: "w-4 h-4 text-blue-600" })}
                     </div>
                     <div>
@@ -420,7 +420,7 @@ const SolutionsPage = () => {
               </div>
 
               <div className="flex items-center space-x-3 mb-3">
-                <div className="w-12 h-12 bg-white/20 backdrop-blur-lg rounded-full flex items-center justify-center">
+                <div className="w-12 h-12 bg-white/20 backdrop-blur-lg  flex items-center justify-center">
                   {React.createElement(solutions[currentSolutionIndex].icon, { className: "w-6 h-6 text-blue-600" })}
                 </div>
                 <div>
@@ -432,7 +432,7 @@ const SolutionsPage = () => {
 
             {/* Dynamic Image */}
             <div className="relative h-96 lg:h-[500px]">
-              <div className="absolute inset-0 rounded-2xl overflow-hidden shadow-2xl">
+              <div className="absolute inset-0  overflow-hidden shadow-2xl">
                 <Image
                   src={solutions[currentSolutionIndex].image || "/placeholder.svg"}
                   alt={solutions[currentSolutionIndex].title}
@@ -452,7 +452,7 @@ const SolutionsPage = () => {
               <button
                 key={index}
                 onClick={() => setCurrentSolutionIndex(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                className={`w-3 h-3 transition-all duration-300 ${
                   index === currentSolutionIndex ? "bg-blue-500 w-8" : "bg-gray-300 hover:bg-gray-400"
                 }`}
               />
@@ -476,7 +476,7 @@ const SolutionsPage = () => {
             {impactCards.map((card, index) => (
               <div
                 key={index}
-                className="section-reveal card-hover relative h-80 rounded-2xl overflow-hidden shadow-xl group cursor-pointer"
+                className="section-reveal card-hover relative h-80  overflow-hidden shadow-xl group cursor-pointer"
               >
                 <Image
                   src={card.image || "/placeholder.svg"}
@@ -516,7 +516,7 @@ const SolutionsPage = () => {
             {successStories.map((story, index) => (
               <div
                 key={index}
-                className="section-reveal card-hover bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 h-full"
+                className="section-reveal card-hover bg-white  overflow-hidden shadow-lg border border-gray-100 h-full"
               >
                 <div className="relative h-48">
                   <Image
@@ -526,7 +526,7 @@ const SolutionsPage = () => {
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     className="object-cover"
                   />
-                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1">
+                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm  px-3 py-1">
                     <span className="text-xs font-semibold text-gray-700">{story.location}</span>
                   </div>
                 </div>
