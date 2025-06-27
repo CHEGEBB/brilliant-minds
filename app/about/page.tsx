@@ -22,6 +22,7 @@ import {
   Play,
   Pause,
 } from "lucide-react"
+import HeroSection from "@/components/HeroSection"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import Image from "next/image"
@@ -31,6 +32,10 @@ const AboutPage = () => {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false)
   const [currentTeamMember, setCurrentTeamMember] = useState(0)
   const videoRef = useRef<HTMLVideoElement>(null)
+  // Remove these lines that cause flickering:
+  // const { scrollYProgress } = useScroll()
+  // const parallaxY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"])
+  // const scaleTransform = useTransform(scrollYProgress, [0, 0.5], [1, 1.1])
 
   const coreValues = [
     {
@@ -39,7 +44,8 @@ const AboutPage = () => {
       description:
         "We embrace creative thinking and novel approaches to solve complex challenges facing underserved communities.",
       color: "from-yellow-400 to-orange-500",
-      bgImage: "/images/about-mission.jpg",
+      bgImage:
+        "https://images.unsplash.com/photo-1531297484001-80022131f5a1?q=80&w=820&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       stats: "50+ Innovative Solutions",
     },
     {
@@ -48,7 +54,8 @@ const AboutPage = () => {
       description:
         "We believe in the power of partnership and work closely with communities to create solutions that truly meet their needs.",
       color: "from-blue-400 to-purple-500",
-      bgImage: "/images/about-team-1.jpg",
+      bgImage:
+        "https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       stats: "200+ Active Partners",
     },
     {
@@ -57,7 +64,8 @@ const AboutPage = () => {
       description:
         "We focus on building capacity and empowering individuals to create lasting impact and self-sufficiency.",
       color: "from-green-400 to-teal-500",
-      bgImage: "/images/about-team-2.jpg",
+      bgImage:
+        "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       stats: "2.5M+ Lives Empowered",
     },
     {
@@ -66,7 +74,8 @@ const AboutPage = () => {
       description:
         "We are committed to fair access and opportunity, ensuring our solutions address systemic barriers and promote inclusion.",
       color: "from-pink-400 to-red-500",
-      bgImage: "/images/about-team-3.jpg",
+      bgImage:
+        "https://images.unsplash.com/photo-1559027615-cd4628902d4a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       stats: "95% Equity Score",
     },
   ]
@@ -76,7 +85,8 @@ const AboutPage = () => {
       name: "John Doe",
       role: "Chief Executive Officer",
       bio: "Visionary leader with 15+ years in social impact technology. Former Google executive passionate about digital equity.",
-      image: "/images/about-team-1.jpg",
+      image:
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
       expertise: ["Strategic Leadership", "Social Impact", "Technology Innovation"],
       achievements: "Led 3 successful social enterprises",
       location: "San Francisco, CA",
@@ -85,7 +95,8 @@ const AboutPage = () => {
       name: "Jane Doe",
       role: "Chief Technology Officer",
       bio: "AI and machine learning expert dedicated to creating accessible technology solutions for underserved communities.",
-      image: "/images/about-team-2.jpg",
+      image:
+        "https://images.unsplash.com/photo-1607746882042-944635dfe10e?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       expertise: ["AI/ML", "Software Architecture", "Digital Accessibility"],
       achievements: "Published 25+ research papers",
       location: "Austin, TX",
@@ -94,7 +105,8 @@ const AboutPage = () => {
       name: "David Smith",
       role: "Head of Community Impact",
       bio: "Community organizer and social entrepreneur with deep experience in grassroots development and digital inclusion.",
-      image: "/images/about-team-3.jpg",
+      image:
+        "https://images.unsplash.com/photo-1654110455429-cf322b40a906?q=80&w=580&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       expertise: ["Community Development", "Program Management", "Partnership Building"],
       achievements: "Impacted 500K+ individuals",
       location: "New York, NY",
@@ -103,7 +115,8 @@ const AboutPage = () => {
       name: "Maria Rodriguez",
       role: "Director of Education",
       bio: "Former educator and curriculum designer focused on creating inclusive learning experiences for diverse populations.",
-      image: "/images/about-team-4.jpg",
+      image:
+        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
       expertise: ["Educational Design", "Curriculum Development", "Learning Analytics"],
       achievements: "Designed 100+ courses",
       location: "Mexico City, MX",
@@ -183,9 +196,10 @@ const AboutPage = () => {
     return (
       <motion.div
         ref={ref}
-        initial={{ opacity: 0 }}
-        animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+        initial={{ opacity: 0, y: 50 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        viewport={{ once: true }}
         className={className}
       >
         {children}
@@ -198,167 +212,55 @@ const AboutPage = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0">
-          <Image
-            src="/images/about-hero.jpg"
-            alt="About BrilliantMinds"
-            fill
-            className="object-cover"
-            priority
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 via-purple-900/80 to-indigo-900/90" />
-        </div>
-
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-screen py-20 sm:py-24 lg:py-16">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 0.3 }}
-              className="text-white space-y-6 sm:space-y-8 pt-8 sm:pt-12 md:pt-0"
-            >
-              <div className="space-y-4 sm:space-y-6">
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.8, delay: 0.5 }}
-                  className="inline-flex items-center bg-white/10 backdrop-blur-lg rounded-full px-3 py-1.5 sm:px-4 sm:py-2"
-                >
-                  <span className="text-xs sm:text-sm font-medium">About BrilliantMinds</span>
-                </motion.div>
-
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight">
-                  Transforming Communities Through{" "}
-                  <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-                    Technology
-                  </span>
-                </h1>
-                <p className="text-lg sm:text-xl md:text-2xl text-purple-300 font-semibold">
-                  Creating Opportunities for Underserved Populations
-                </p>
-                <p className="text-base sm:text-lg md:text-xl text-gray-200 leading-relaxed max-w-2xl">
-                  We empower marginalized communities by bridging the digital divide and fostering equitable
-                  opportunities through innovation, collaboration, and sustainable solutions.
-                </p>
-
-                <div className="flex items-center space-x-4 sm:space-x-6 py-2">
-                  <div className="bg-gradient-to-r from-purple-500 to-indigo-600 rounded-full px-4 py-2 sm:px-6 sm:py-3">
-                    <span className="text-sm sm:text-lg font-bold">2.5M+ Lives Impacted</span>
-                  </div>
-                </div>
-
-                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4">
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-bold text-sm sm:text-base rounded-full hover:shadow-2xl transition-all duration-300"
-                  >
-                    Join Our Mission
-                  </motion.button>
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="px-6 py-3 sm:px-8 sm:py-4 bg-white/20 backdrop-blur-lg border-2 border-white/30 text-white font-bold text-sm sm:text-base rounded-full hover:bg-white/30 transition-all duration-300"
-                  >
-                    Meet Our Team
-                  </motion.button>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 0.5 }}
-              className="relative hidden lg:block"
-            >
-              <div className="relative h-80 lg:h-[400px] xl:h-[500px]">
-                <div className="absolute inset-0 rounded-2xl overflow-hidden shadow-2xl">
-                  <Image
-                    src="/images/about-hero.jpg"
-                    alt="About BrilliantMinds"
-                    fill
-                    className="object-cover"
-                    priority
-                    sizes="50vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-tr from-blue-900/20 to-purple-900/20" />
-                </div>
-
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.8, delay: 1 }}
-                  className="absolute top-6 -right-6 bg-white rounded-2xl p-4 sm:p-6 shadow-xl"
-                >
-                  <div className="flex items-center space-x-3 sm:space-x-4">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-green-400 to-teal-500 rounded-full flex items-center justify-center">
-                      <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-                    </div>
-                    <div>
-                      <p className="text-xl sm:text-2xl font-bold text-gray-900">2.5M+</p>
-                      <p className="text-xs sm:text-sm text-gray-600">Lives Impacted</p>
-                    </div>
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.8, delay: 1.2 }}
-                  className="absolute -bottom-6 -left-6 bg-white rounded-2xl p-4 sm:p-6 shadow-xl"
-                >
-                  <div className="flex items-center space-x-3 sm:space-x-4">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-purple-500 to-violet-500 rounded-full flex items-center justify-center">
-                      <Globe className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-                    </div>
-                    <div>
-                      <p className="text-xl sm:text-2xl font-bold text-gray-900">18</p>
-                      <p className="text-xs sm:text-sm text-gray-600">Countries</p>
-                    </div>
-                  </div>
-                </motion.div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+      <HeroSection
+        title="About BrilliantMinds"
+        subtitle="Transforming communities through technology and innovation, creating opportunities for underserved populations worldwide."
+        primaryCTA={{
+          text: "Join Our Mission",
+          href: "#mission",
+        }}
+        secondaryCTA={{
+          text: "Meet Our Team",
+          href: "#team",
+        }}
+        backgroundType="image"
+        backgroundSrc="https://images.unsplash.com/photo-1637191624218-a757a2456908?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      />
 
       {/* Mission & Vision Section */}
-      <section className="py-16 sm:py-20 bg-white relative overflow-hidden">
+      <section id="mission" className="py-20 bg-white relative overflow-hidden">
+        {/* Simplified background without parallax */}
         <div className="absolute inset-0 opacity-3">
           <div className="absolute top-0 left-0 w-96 h-96 bg-blue-500 rounded-full blur-3xl" />
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-500 rounded-full blur-3xl" />
         </div>
 
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
             <AnimatedSection>
-              <div className="space-y-6 sm:space-y-8">
+              <div className="space-y-8">
                 <div>
-                  <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">Our Mission</h2>
-                  <div className="w-20 sm:w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mb-6 sm:mb-8" />
-                  <p className="text-lg sm:text-xl text-gray-700 leading-relaxed mb-6 sm:mb-8">
+                  <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Our Mission</h2>
+                  <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mb-6" />
+                  <p className="text-xl text-gray-700 leading-relaxed mb-8">
                     To empower marginalized communities by bridging the digital divide and fostering equitable
                     opportunities through innovation, collaboration, and sustainable solutions.
                   </p>
                 </div>
 
-                <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-6 sm:p-8 border border-blue-100">
-                  <Quote className="w-6 h-6 sm:w-8 sm:h-8 text-blue-500 mb-3 sm:mb-4" />
-                  <p className="text-base sm:text-lg text-gray-700 italic mb-3 sm:mb-4">
-                    &quot;We work tirelessly to create sustainable solutions that address real needs, build capacity
-                    within communities, and create pathways to opportunity that might otherwise remain closed.&quot;
+                <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-8 border border-blue-100">
+                  <Quote className="w-8 h-8 text-blue-500 mb-4" />
+                  <p className="text-lg text-gray-700 italic mb-4">
+                    &quot;We work tirelessly to create sustainable solutions that address real needs, build capacity within
+                    communities, and create pathways to opportunity that might otherwise remain closed.
                   </p>
                   <div className="flex items-center">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mr-3">
-                      <span className="text-white font-bold text-sm sm:text-base">BM</span>
+                    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mr-3">
+                      <span className="text-white font-bold">BM</span>
                     </div>
                     <div>
-                      <p className="font-semibold text-gray-900 text-sm sm:text-base">BrilliantMinds Team</p>
-                      <p className="text-xs sm:text-sm text-gray-600">Collective Vision</p>
+                      <p className="font-semibold text-gray-900">BrilliantMinds Team</p>
+                      <p className="text-sm text-gray-600">Collective Vision</p>
                     </div>
                   </div>
                 </div>
@@ -367,14 +269,14 @@ const AboutPage = () => {
 
             <AnimatedSection>
               <div className="relative">
+                {/* Removed scale transform to prevent flickering */}
                 <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                   <Image
-                    src="/images/about-mission.jpg"
+                    src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
                     alt="Team collaboration"
                     width={800}
                     height={600}
-                    className="w-full h-64 sm:h-80 lg:h-96 object-cover"
-                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="w-full h-96 object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-tr from-blue-900/30 to-purple-900/30" />
                 </div>
@@ -384,15 +286,15 @@ const AboutPage = () => {
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.8, delay: 0.3 }}
                   viewport={{ once: true }}
-                  className="absolute -bottom-4 -right-4 sm:-bottom-6 sm:-right-6 bg-white rounded-2xl p-4 sm:p-6 shadow-xl border border-gray-100"
+                  className="absolute -bottom-6 -right-6 bg-white rounded-2xl p-6 shadow-xl border border-gray-100"
                 >
-                  <div className="flex items-center space-x-3 sm:space-x-4">
-                    <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-green-400 to-teal-500 rounded-full flex items-center justify-center">
-                      <CheckCircle className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
+                  <div className="flex items-center space-x-4">
+                    <div className="w-16 h-16 bg-gradient-to-r from-green-400 to-teal-500 rounded-full flex items-center justify-center">
+                      <CheckCircle className="w-8 h-8 text-white" />
                     </div>
                     <div>
-                      <p className="text-xl sm:text-2xl font-bold text-gray-900">2.5M+</p>
-                      <p className="text-xs sm:text-sm text-gray-600">Lives Impacted</p>
+                      <p className="text-2xl font-bold text-gray-900">2.5M+</p>
+                      <p className="text-sm text-gray-600">Lives Impacted</p>
                     </div>
                   </div>
                 </motion.div>
@@ -401,18 +303,16 @@ const AboutPage = () => {
           </div>
 
           {/* Vision Section */}
-          <AnimatedSection className="mt-16 sm:mt-20">
+          <AnimatedSection className="mt-20">
             <div className="text-center max-w-4xl mx-auto">
-              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">
-                What We Aspire To
-              </h3>
-              <div className="w-20 sm:w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto mb-6 sm:mb-8" />
-              <p className="text-lg sm:text-xl text-gray-700 leading-relaxed mb-8 sm:mb-12 px-4">
+              <h3 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">What We Aspire To</h3>
+              <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto mb-8" />
+              <p className="text-xl text-gray-700 leading-relaxed mb-12">
                 A world where access to technology, education, and dignified work is universal and impactful for every
                 individual and community.
               </p>
 
-              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
+              <div className="grid md:grid-cols-3 gap-8">
                 {[
                   {
                     icon: Globe,
@@ -432,17 +332,17 @@ const AboutPage = () => {
                 ].map((item, index) => (
                   <motion.div
                     key={index}
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: index * 0.2 }}
                     viewport={{ once: true }}
-                    className="bg-white rounded-xl p-4 sm:p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300"
+                    className="bg-white rounded-xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300"
                   >
-                    <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                      <item.icon className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
+                    <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <item.icon className="w-8 h-8 text-white" />
                     </div>
-                    <h4 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">{item.title}</h4>
-                    <p className="text-gray-600 text-sm sm:text-base">{item.description}</p>
+                    <h4 className="text-xl font-bold text-gray-900 mb-3">{item.title}</h4>
+                    <p className="text-gray-600">{item.description}</p>
                   </motion.div>
                 ))}
               </div>
@@ -452,57 +352,48 @@ const AboutPage = () => {
       </section>
 
       {/* Core Values Section */}
-      <section className="py-16 sm:py-20 relative overflow-hidden">
+      <section className="py-20 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900" />
         <div className="absolute inset-0 bg-black/50" />
 
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <AnimatedSection className="text-center mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6">What We Stand For</h2>
-            <div className="w-20 sm:w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto mb-6 sm:mb-8" />
-            <p className="text-lg sm:text-xl text-gray-200 max-w-3xl mx-auto px-4">
+        <div className="container mx-auto px-4 relative z-10">
+          <AnimatedSection className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">What We Stand For</h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto mb-6" />
+            <p className="text-xl text-gray-200 max-w-3xl mx-auto">
               Our core values define how we work and guide our decisions as we pursue our mission of digital equity.
             </p>
           </AnimatedSection>
 
-          <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Dynamic Value Display */}
-            <div className="relative h-80 sm:h-96 lg:h-[500px]">
+            <div className="relative h-96 lg:h-[500px]">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentValueIndex}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 1.1 }}
                   transition={{ duration: 0.8 }}
                   className="absolute inset-0 rounded-2xl overflow-hidden"
                 >
-                  <Image
-                    src={coreValues[currentValueIndex].bgImage || "/placeholder.svg"}
-                    alt={coreValues[currentValueIndex].title}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 50vw"
+                  <div
+                    className="absolute inset-0 bg-cover bg-center"
+                    style={{ backgroundImage: `url(${coreValues[currentValueIndex].bgImage})` }}
                   />
                   <div
                     className={`absolute inset-0 bg-gradient-to-br ${coreValues[currentValueIndex].color} opacity-80`}
                   />
-                  <div className="absolute inset-0 flex items-center justify-center p-6 sm:p-8">
+                  <div className="absolute inset-0 flex items-center justify-center p-8">
                     <div className="text-center text-white">
-                      <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white/20 backdrop-blur-lg rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
-                        {React.createElement(coreValues[currentValueIndex].icon, {
-                          className: "w-8 h-8 sm:w-10 sm:h-10",
-                        })}
+                      <div className="w-20 h-20 bg-white/20 backdrop-blur-lg rounded-full flex items-center justify-center mx-auto mb-6">
+                        {React.createElement(coreValues[currentValueIndex].icon, { className: "w-10 h-10" })}
                       </div>
-                      <h3 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">
-                        {coreValues[currentValueIndex].title}
-                      </h3>
-                      <p className="text-base sm:text-lg mb-4 sm:mb-6 max-w-md mx-auto">
-                        {coreValues[currentValueIndex].description}
-                      </p>
-                      <div className="inline-flex items-center bg-white/20 backdrop-blur-lg rounded-full px-3 py-1.5 sm:px-4 sm:py-2">
-                        <Star className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
-                        <span className="text-xs sm:text-sm font-semibold">{coreValues[currentValueIndex].stats}</span>
+                      <h3 className="text-3xl font-bold mb-4">{coreValues[currentValueIndex].title}</h3>
+                      <p className="text-lg mb-6 max-w-md mx-auto">{coreValues[currentValueIndex].description}</p>
+                      <div className="inline-flex items-center bg-white/20 backdrop-blur-lg rounded-full px-4 py-2">
+                        <Star className="w-4 h-4 mr-2" />
+                        <span className="text-sm font-semibold">{coreValues[currentValueIndex].stats}</span>
                       </div>
                     </div>
                   </div>
@@ -511,35 +402,33 @@ const AboutPage = () => {
             </div>
 
             {/* Value Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {coreValues.map((value, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
-                  whileHover={{ scale: 1.02 }}
+                  whileHover={{ y: -5 }}
                   onClick={() => setCurrentValueIndex(index)}
-                  className={`p-4 sm:p-6 rounded-xl cursor-pointer transition-all duration-300 backdrop-blur-lg border ${
+                  className={`p-6 rounded-xl cursor-pointer transition-all duration-300 backdrop-blur-lg border ${
                     currentValueIndex === index
                       ? "bg-white/20 border-white/30 shadow-lg"
                       : "bg-white/10 border-white/20 hover:bg-white/15"
                   }`}
                 >
-                  <div className="flex items-center mb-3 sm:mb-4">
+                  <div className="flex items-center mb-4">
                     <div
-                      className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-r ${value.color} flex items-center justify-center mr-3 sm:mr-4`}
+                      className={`w-12 h-12 rounded-full bg-gradient-to-r ${value.color} flex items-center justify-center mr-4`}
                     >
-                      {React.createElement(value.icon, { className: "w-5 h-5 sm:w-6 sm:h-6 text-white" })}
+                      {React.createElement(value.icon, { className: "w-6 h-6 text-white" })}
                     </div>
-                    <h4 className="text-lg sm:text-xl font-bold text-white">{value.title}</h4>
+                    <h4 className="text-xl font-bold text-white">{value.title}</h4>
                   </div>
-                  <p className="text-gray-200 text-xs sm:text-sm mb-3 sm:mb-4">
-                    {value.description.substring(0, 100)}...
-                  </p>
-                  <div className="flex items-center text-blue-300 text-xs sm:text-sm font-medium">
+                  <p className="text-gray-200 text-sm mb-4">{value.description.substring(0, 100)}...</p>
+                  <div className="flex items-center text-blue-300 text-sm font-medium">
                     <span>Learn More</span>
-                    <ArrowRight className="ml-1 w-3 h-3 sm:w-4 sm:h-4" />
+                    <ArrowRight className="ml-1 w-4 h-4" />
                   </div>
                 </motion.div>
               ))}
@@ -549,64 +438,60 @@ const AboutPage = () => {
       </section>
 
       {/* Team Section */}
-      <section className="py-16 sm:py-20 bg-gray-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">
-              Meet The Brilliant Minds
-            </h2>
-            <div className="w-20 sm:w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto mb-6 sm:mb-8" />
-            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-4">
+      <section id="team" className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <AnimatedSection className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Meet The Brilliant Minds</h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto mb-6" />
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Our diverse team brings together expertise in technology, community development, education, and social
               impact.
             </p>
           </AnimatedSection>
 
-          <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center mb-12 sm:mb-16">
+          <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
             {/* Featured Team Member */}
             <AnimatedSection>
               <div className="relative">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={currentTeamMember}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
+                    initial={{ opacity: 0, x: 100 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -100 }}
                     transition={{ duration: 0.8 }}
                     className="bg-white rounded-2xl shadow-xl overflow-hidden"
                   >
-                    <div className="relative h-64 sm:h-80">
+                    <div className="relative h-80">
                       <Image
                         src={teamMembers[currentTeamMember].image || "/placeholder.svg"}
                         alt={teamMembers[currentTeamMember].name}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 100vw, 50vw"
+                        width={800}
+                        height={600}
+                        className="w-full h-full object-cover"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                      <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 text-white">
-                        <h3 className="text-xl sm:text-2xl font-bold mb-1">{teamMembers[currentTeamMember].name}</h3>
-                        <p className="text-blue-200 text-sm sm:text-base">{teamMembers[currentTeamMember].role}</p>
+                      <div className="absolute bottom-6 left-6 text-white">
+                        <h3 className="text-2xl font-bold mb-1">{teamMembers[currentTeamMember].name}</h3>
+                        <p className="text-blue-200">{teamMembers[currentTeamMember].role}</p>
                       </div>
                     </div>
-                    <div className="p-6 sm:p-8">
-                      <p className="text-gray-700 mb-4 sm:mb-6 text-sm sm:text-base">
-                        {teamMembers[currentTeamMember].bio}
-                      </p>
-                      <div className="space-y-3 sm:space-y-4">
+                    <div className="p-8">
+                      <p className="text-gray-700 mb-6">{teamMembers[currentTeamMember].bio}</p>
+                      <div className="space-y-4">
                         <div className="flex items-center text-gray-600">
-                          <MapPin className="w-3 h-3 sm:w-4 sm:h-4 mr-2 text-blue-500" />
-                          <span className="text-xs sm:text-sm">{teamMembers[currentTeamMember].location}</span>
+                          <MapPin className="w-4 h-4 mr-2 text-blue-500" />
+                          <span className="text-sm">{teamMembers[currentTeamMember].location}</span>
                         </div>
                         <div className="flex items-center text-gray-600">
-                          <Award className="w-3 h-3 sm:w-4 sm:h-4 mr-2 text-purple-500" />
-                          <span className="text-xs sm:text-sm">{teamMembers[currentTeamMember].achievements}</span>
+                          <Award className="w-4 h-4 mr-2 text-purple-500" />
+                          <span className="text-sm">{teamMembers[currentTeamMember].achievements}</span>
                         </div>
                         <div className="flex flex-wrap gap-2">
                           {teamMembers[currentTeamMember].expertise.map((skill, idx) => (
                             <span
                               key={idx}
-                              className="px-2 py-1 sm:px-3 sm:py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded-full"
+                              className="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded-full"
                             >
                               {skill}
                             </span>
@@ -620,30 +505,30 @@ const AboutPage = () => {
             </AnimatedSection>
 
             {/* Team Grid */}
-            <div className="grid grid-cols-2 gap-3 sm:gap-4">
+            <div className="grid grid-cols-2 gap-4">
               {teamMembers.map((member, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
-                  whileHover={{ scale: 1.02 }}
+                  whileHover={{ y: -5 }}
                   onClick={() => setCurrentTeamMember(index)}
                   className={`cursor-pointer rounded-xl overflow-hidden transition-all duration-300 ${
                     currentTeamMember === index ? "ring-4 ring-blue-500 shadow-lg" : "hover:shadow-md"
                   }`}
                 >
-                  <div className="relative h-32 sm:h-48">
+                  <div className="relative h-48">
                     <Image
                       src={member.image || "/placeholder.svg"}
                       alt={member.name}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 50vw, 25vw"
+                      width={400}
+                      height={300}
+                      className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                    <div className="absolute bottom-2 sm:bottom-3 left-2 sm:left-3 text-white">
-                      <h4 className="font-bold text-xs sm:text-sm">{member.name}</h4>
+                    <div className="absolute bottom-3 left-3 text-white">
+                      <h4 className="font-bold text-sm">{member.name}</h4>
                       <p className="text-xs text-gray-200">{member.role}</p>
                     </div>
                   </div>
@@ -655,34 +540,31 @@ const AboutPage = () => {
           {/* Video Section */}
           <AnimatedSection>
             <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-              <div className="relative h-64 sm:h-80 lg:h-96">
+              <div className="relative h-96">
                 <video
                   ref={videoRef}
                   className="w-full h-full object-cover"
-                  poster="/images/about-team-1.jpg"
+                  poster="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
                   autoPlay={isVideoPlaying}
                 >
-                  <source src="/assets/team.mp4" type="video/mp4" />
+                  <source
+                    src="/assets/team.mp4"
+                    type="video/mp4"
+                  />
                 </video>
                 <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
                   <motion.button
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                     onClick={toggleVideo}
-                    className="w-16 h-16 sm:w-20 sm:h-20 bg-white/20 backdrop-blur-lg rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300"
+                    className="w-20 h-20 bg-white/20 backdrop-blur-lg rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300"
                   >
-                    {isVideoPlaying ? (
-                      <Pause className="w-6 h-6 sm:w-8 sm:h-8" />
-                    ) : (
-                      <Play className="w-6 h-6 sm:w-8 sm:h-8 ml-1" />
-                    )}
+                    {isVideoPlaying ? <Pause className="w-8 h-8" /> : <Play className="w-8 h-8 ml-1" />}
                   </motion.button>
                 </div>
-                <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 text-white">
-                  <h3 className="text-xl sm:text-2xl font-bold mb-2">Meet Our Team</h3>
-                  <p className="text-gray-200 text-sm sm:text-base">
-                    Discover the passionate individuals driving our mission forward
-                  </p>
+                <div className="absolute bottom-6 left-6 text-white">
+                  <h3 className="text-2xl font-bold mb-2">Meet Our Team</h3>
+                  <p className="text-gray-200">Discover the passionate individuals driving our mission forward</p>
                 </div>
               </div>
             </div>
@@ -691,12 +573,12 @@ const AboutPage = () => {
       </section>
 
       {/* Timeline Section */}
-      <section className="py-16 sm:py-20 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">Our Journey</h2>
-            <div className="w-20 sm:w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto mb-6 sm:mb-8" />
-            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-4">
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <AnimatedSection className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Our Journey</h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto mb-6" />
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               From humble beginnings to global impact - the milestones that shaped our mission.
             </p>
           </AnimatedSection>
@@ -706,29 +588,29 @@ const AboutPage = () => {
 
             {milestones.map((milestone, index) => (
               <AnimatedSection key={index}>
-                <div className={`flex items-center mb-8 sm:mb-12 ${index % 2 === 0 ? "flex-row" : "flex-row-reverse"}`}>
-                  <div className={`w-1/2 ${index % 2 === 0 ? "pr-6 sm:pr-8 text-right" : "pl-6 sm:pl-8"}`}>
+                <div className={`flex items-center mb-12 ${index % 2 === 0 ? "flex-row" : "flex-row-reverse"}`}>
+                  <div className={`w-1/2 ${index % 2 === 0 ? "pr-8 text-right" : "pl-8"}`}>
                     <motion.div
-                      whileHover={{ scale: 1.02 }}
-                      className="bg-white rounded-xl p-4 sm:p-6 shadow-lg border border-gray-100"
+                      whileHover={{ y: -5 }}
+                      className="bg-white rounded-xl p-6 shadow-lg border border-gray-100"
                     >
-                      <div className="flex items-center mb-3 sm:mb-4">
+                      <div className="flex items-center mb-4">
                         <div
-                          className={`w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center ${index % 2 === 0 ? "ml-auto mr-3 sm:mr-4" : "mr-auto ml-3 sm:ml-4"}`}
+                          className={`w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center ${index % 2 === 0 ? "ml-auto mr-4" : "mr-auto ml-4"}`}
                         >
-                          {React.createElement(milestone.icon, { className: "w-5 h-5 sm:w-6 sm:h-6 text-white" })}
+                          {React.createElement(milestone.icon, { className: "w-6 h-6 text-white" })}
                         </div>
                         <div className={index % 2 === 0 ? "text-right" : ""}>
-                          <h3 className="text-lg sm:text-xl font-bold text-gray-900">{milestone.title}</h3>
-                          <p className="text-blue-600 font-semibold text-sm sm:text-base">{milestone.year}</p>
+                          <h3 className="text-xl font-bold text-gray-900">{milestone.title}</h3>
+                          <p className="text-blue-600 font-semibold">{milestone.year}</p>
                         </div>
                       </div>
-                      <p className="text-gray-600 text-sm sm:text-base">{milestone.description}</p>
+                      <p className="text-gray-600">{milestone.description}</p>
                     </motion.div>
                   </div>
 
                   <div className="relative z-10">
-                    <div className="w-4 h-4 sm:w-6 sm:h-6 bg-white border-4 border-blue-500 rounded-full" />
+                    <div className="w-6 h-6 bg-white border-4 border-blue-500 rounded-full" />
                   </div>
 
                   <div className="w-1/2" />
@@ -740,33 +622,39 @@ const AboutPage = () => {
       </section>
 
       {/* Impact Metrics */}
-      <section className="py-16 sm:py-20 relative overflow-hidden">
+      <section className="py-20 relative overflow-hidden">
         <div className="absolute inset-0">
-          <Image src="/images/about-team-1.jpg" alt="Impact background" fill className="object-cover" sizes="100vw" />
+          <Image
+            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+            alt="Impact background"
+            width={1920}
+            height={1080}
+            className="w-full h-full object-cover"
+          />
           <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-purple-900/90" />
         </div>
 
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <AnimatedSection className="text-center mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6">Making A Difference</h2>
-            <div className="w-20 sm:w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto mb-6 sm:mb-8" />
-            <p className="text-lg sm:text-xl text-gray-200 max-w-3xl mx-auto px-4">
+        <div className="container mx-auto px-4 relative z-10">
+          <AnimatedSection className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">Making A Difference</h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto mb-6" />
+            <p className="text-xl text-gray-200 max-w-3xl mx-auto">
               Real numbers that demonstrate the positive change we&apos;re creating in communities worldwide.
             </p>
           </AnimatedSection>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {impactMetrics.map((metric, index) => (
               <AnimatedSection key={index}>
                 <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  className="text-center p-6 sm:p-8 bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20"
+                  whileHover={{ y: -10, scale: 1.05 }}
+                  className="text-center p-8 bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20"
                 >
-                  <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                    {React.createElement(metric.icon, { className: "w-6 h-6 sm:w-8 sm:h-8 text-white" })}
+                  <div className="w-16 h-16 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                    {React.createElement(metric.icon, { className: "w-8 h-8 text-white" })}
                   </div>
-                  <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-2">{metric.number}</h3>
-                  <p className="text-gray-200 font-medium text-sm sm:text-base">{metric.label}</p>
+                  <h3 className="text-4xl font-bold text-white mb-2">{metric.number}</h3>
+                  <p className="text-gray-200 font-medium">{metric.label}</p>
                 </motion.div>
               </AnimatedSection>
             ))}
@@ -775,28 +663,25 @@ const AboutPage = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 sm:py-20 bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
+        <div className="container mx-auto px-4">
           <AnimatedSection className="text-center">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6">
-              Join Us In Making a Difference
-            </h2>
-            <div className="w-20 sm:w-24 h-1 bg-gradient-to-r from-purple-400 to-blue-500 mx-auto mb-6 sm:mb-8" />
-            <p className="text-lg sm:text-xl text-gray-200 mb-8 sm:mb-10 max-w-3xl mx-auto px-4">
+            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">Join Us In Making a Difference</h2>
+            <p className="text-xl text-gray-200 mb-10 max-w-3xl mx-auto">
               Together, we can bridge digital divides and create opportunities for underserved communities.
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-4 bg-white text-purple-900 font-bold text-sm sm:text-base rounded-full hover:bg-gray-100 transition-all duration-300 shadow-lg"
+                className="px-8 py-4 bg-white text-purple-900 font-bold rounded-full hover:bg-gray-100 transition-all duration-300 shadow-lg"
               >
                 Start Your Journey
               </motion.button>
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-4 border-2 border-white text-white font-bold text-sm sm:text-base rounded-full hover:bg-white hover:text-purple-900 transition-all duration-300"
+                className="px-8 py-4 border-2 border-white text-white font-bold rounded-full hover:bg-white hover:text-purple-900 transition-all duration-300"
               >
                 Support Our Mission
               </motion.button>
