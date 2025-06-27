@@ -1,7 +1,8 @@
 "use client"
 
-import React, { useEffect, useState, useRef } from "react"
-import { motion, useInView, AnimatePresence } from "framer-motion"
+import React from "react"
+
+import { useEffect, useState } from "react"
 import {
   Wifi,
   BookOpen,
@@ -23,17 +24,17 @@ import {
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import Image from "next/image"
+import "@/styles/solutions-animations.scss"
 
 const SolutionsPage = () => {
   const [currentHeroIndex, setCurrentHeroIndex] = useState(0)
   const [currentSolutionIndex, setCurrentSolutionIndex] = useState(0)
-  const [, setCurrentFeatureIndex] = useState(0)
 
   const heroImages = [
-    "https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-    "https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-    "https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-    "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+    "/images/solutions-hero-1.jpg",
+    "/images/solutions-hero-2.jpg",
+    "/images/solutions-hero-3.jpg",
+    "/images/solutions-hero-4.jpg",
   ]
 
   const solutions = [
@@ -44,10 +45,9 @@ const SolutionsPage = () => {
       subtitle: "Bridging the Digital Divide",
       description:
         "Providing devices, internet connectivity, and access to co-working spaces for marginalized communities to enable digital participation.",
-      image:
-        "https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      image: "/images/digital-inclusion-solution.jpg",
       color: "from-blue-500 to-cyan-500",
-      bgGradient: "from-blue-900/40 to-cyan-900/90",
+      bgColor: "bg-blue-50",
       features: [
         {
           icon: Smartphone,
@@ -71,10 +71,6 @@ const SolutionsPage = () => {
         },
       ],
       stats: { number: "2.5M+", label: "People Connected" },
-      ctas: [
-        { text: "Partner with Us", href: "/solutions/digital-inclusion/partner" },
-        { text: "Donate a Device", href: "/solutions/digital-inclusion/donate" },
-      ],
     },
     {
       id: "e-learning",
@@ -83,10 +79,9 @@ const SolutionsPage = () => {
       subtitle: "Transforming Education",
       description:
         "Developing innovative microlearning platforms for fun and engaging education that makes quality learning accessible to everyone.",
-      image:
-        "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      image: "/images/elearning-solution.jpg",
       color: "from-green-500 to-emerald-500",
-      bgGradient: "from-green-900/90 to-emerald-900/90",
+      bgColor: "bg-green-50",
       features: [
         {
           icon: Clock,
@@ -110,10 +105,6 @@ const SolutionsPage = () => {
         },
       ],
       stats: { number: "150K+", label: "Skills Certified" },
-      ctas: [
-        { text: "Try a Demo", href: "/solutions/e-learning/demo" },
-        { text: "Explore Content", href: "/solutions/e-learning/content" },
-      ],
     },
     {
       id: "gig-economy",
@@ -122,9 +113,9 @@ const SolutionsPage = () => {
       subtitle: "Verified Work Opportunities",
       description:
         "AI-powered platforms to provide equitable and verified work opportunities for freelancers with scam prevention and skill matching.",
-      image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      image: "/images/gig-economy-solution.jpg",
       color: "from-purple-500 to-violet-500",
-      bgGradient: "from-purple-900/90 to-violet-900/90",
+      bgColor: "bg-purple-50",
       features: [
         {
           icon: MapPin,
@@ -148,10 +139,6 @@ const SolutionsPage = () => {
         },
       ],
       stats: { number: "95%", label: "Success Rate" },
-      ctas: [
-        { text: "Join Platform", href: "/solutions/gig-economy/join" },
-        { text: "Explore Opportunities", href: "/solutions/gig-economy/opportunities" },
-      ],
     },
     {
       id: "skill-development",
@@ -160,10 +147,9 @@ const SolutionsPage = () => {
       subtitle: "Market-Relevant Training",
       description:
         "Self-paced, tailored sessions designed to equip freelancers with market-relevant skills through courses and webinars.",
-      image:
-        "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      image: "/images/skill-development-solution.jpg",
       color: "from-orange-500 to-red-500",
-      bgGradient: "from-orange-900/90 to-red-900/90",
+      bgColor: "bg-orange-50",
       features: [
         {
           icon: BookOpen,
@@ -187,10 +173,6 @@ const SolutionsPage = () => {
         },
       ],
       stats: { number: "50+", label: "Countries Served" },
-      ctas: [
-        { text: "Sign Up for Course", href: "/solutions/skill-development/courses" },
-        { text: "View Webinars", href: "/solutions/skill-development/webinars" },
-      ],
     },
   ]
 
@@ -198,41 +180,37 @@ const SolutionsPage = () => {
     {
       title: "Real-World Transformation",
       description: "AI enables communities to improve their efficiency, profitability and sustainability outcomes.",
-      image:
-        "https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      image: "/images/impact-transformation.jpg",
       gradient: "from-blue-600/30 to-purple-600/50",
     },
     {
       title: "Digital Innovation Hub",
       description: "Creating comprehensive digital solutions that address real community challenges.",
-      image: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      image: "/images/innovation-hub.jpg",
       gradient: "from-green-600/30 to-teal-600/50",
     },
     {
       title: "Enterprise-Grade Solutions",
       description: "Scalable platforms designed to grow with communities and organizations.",
-      image:
-        "https://images.unsplash.com/photo-1531973576160-7125cd663d86?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image: "/images/enterprise-solutions.jpg",
       gradient: "from-purple-600/30 to-pink-600/50",
     },
     {
       title: "Smart Community Solutions",
       description: "IoT and AI solutions for building smarter, more connected communities.",
-      image:
-        "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      image: "/images/smart-community.jpg",
       gradient: "from-orange-600/30 to-red-600/50",
     },
     {
       title: "Global Business Services",
       description: "Comprehensive consulting and implementation services worldwide.",
-      image:
-        "https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      image: "/images/global-services.jpg",
       gradient: "from-indigo-600/30 to-blue-600/50",
     },
     {
       title: "Future-Ready Infrastructure",
       description: "Building tomorrow's digital infrastructure for sustainable growth.",
-      image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      image: "/images/future-infrastructure.jpg",
       gradient: "from-teal-600/30 to-cyan-600/50",
     },
   ]
@@ -242,8 +220,7 @@ const SolutionsPage = () => {
       title: "Rural School Transformation",
       description:
         "A remote village school gained access to high-speed internet and digital devices, increasing student engagement by 300%.",
-      image:
-        "https://images.unsplash.com/photo-1536337005238-94b997371b40?q=80&w=869&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image: "/images/rural-school-success.jpg",
       impact: "300% increase in engagement",
       location: "Rural Kenya",
     },
@@ -251,8 +228,7 @@ const SolutionsPage = () => {
       title: "From Student to Developer",
       description:
         "Our e-learning platform helped Maria transition from unemployment to becoming a senior software developer in 8 months.",
-      image:
-        "https://images.unsplash.com/photo-1577375729152-4c8b5fcda381?q=80&w=580&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image: "/images/developer-success.jpg",
       impact: "Career transformation",
       location: "São Paulo, Brazil",
     },
@@ -260,88 +236,79 @@ const SolutionsPage = () => {
       title: "Community Tech Hub",
       description:
         "A local community center became a thriving tech hub, providing digital services to over 5,000 residents monthly.",
-      image:
-        "https://images.unsplash.com/photo-1639472628910-ef02c5404b9c?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image: "/images/tech-hub-success.jpg",
       impact: "5,000+ monthly users",
       location: "Nairobi, Kenya",
     },
   ]
 
+  // Hero image rotation
   useEffect(() => {
-    const heroInterval = setInterval(() => {
+    const interval = setInterval(() => {
       setCurrentHeroIndex((prev) => (prev + 1) % heroImages.length)
-    }, 3000) // Changed from 5000 to 3000 for faster cycling
+    }, 5000)
 
-    const solutionInterval = setInterval(() => {
+    return () => clearInterval(interval)
+  }, [heroImages.length])
+
+  // Solution rotation
+  useEffect(() => {
+    const interval = setInterval(() => {
       setCurrentSolutionIndex((prev) => (prev + 1) % solutions.length)
     }, 6000)
 
-    const featureInterval = setInterval(() => {
-      setCurrentFeatureIndex((prev) => (prev + 1) % impactCards.length)
-    }, 4000)
+    return () => clearInterval(interval)
+  }, [solutions.length])
 
-    return () => {
-      clearInterval(heroInterval)
-      clearInterval(solutionInterval)
-      clearInterval(featureInterval)
-    }
-  }, [heroImages.length, impactCards.length, solutions.length])
-
-  const AnimatedSection = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {
-    const ref = useRef(null)
-    const isInView = useInView(ref, { once: true, margin: "-100px" })
-
-    return (
-      <motion.div
-        ref={ref}
-        initial={{ opacity: 0, y: 50 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        viewport={{ once: true }}
-        className={className}
-      >
-        {children}
-      </motion.div>
+  // Scroll reveal
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible")
+          }
+        })
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
     )
-  }
+
+    const sections = document.querySelectorAll(".section-reveal")
+    sections.forEach((section) => observer.observe(section))
+
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
 
-      {/* Hero Section with Quick Animated Background */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Quick Animated Background Images */}
+      {/* Hero Section */}
+      <section className="stable-layout relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Background Images */}
         <div className="absolute inset-0">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentHeroIndex}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.15, ease: "easeInOut" }}
-              className="absolute inset-0"
-            >
-              <div
-                className="w-full h-full bg-cover bg-center"
-                style={{ backgroundImage: `url(${heroImages[currentHeroIndex]})` }}
+          {heroImages.map((image, index) => (
+            <div key={index} className={`hero-background ${index === currentHeroIndex ? "active" : ""}`}>
+              <Image
+                src={image || "/placeholder.svg"}
+                alt="Hero background"
+                fill
+                sizes="100vw"
+                className="object-cover"
+                priority={index === 0}
+                quality={85}
               />
-            </motion.div>
-          </AnimatePresence>
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 via-purple-900/80 to-indigo-900/80" />
+            </div>
+          ))}
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/70 via-purple-900/60 to-indigo-900/70" />
         </div>
 
         {/* Hero Content */}
         <div className="container mx-auto px-4 relative z-10 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.3 }}
-            className="max-w-5xl mx-auto"
-          >
+          <div className="content-animate max-w-5xl mx-auto">
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight">
               Our{" "}
-              <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
                 Solutions
               </span>
             </h1>
@@ -350,197 +317,132 @@ const SolutionsPage = () => {
               solutions designed to create lasting change.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-              <motion.a
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                href="#solutions"
+              <a
+                href="#solutions-overview"
                 className="px-10 py-5 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-lg hover:shadow-2xl transition-all duration-300"
               >
                 Explore Solutions
-              </motion.a>
-              <motion.a
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                href="#impact"
-                className="px-10 py-5 rounded-full bg-transparent border-2 border-white text-white font-bold text-lg hover:bg-white hover:text-blue-900 transition-all duration-300"
+              </a>
+              <a
+                href="#success-stories"
+                className="px-10 py-5 rounded-full bg-white/20 backdrop-blur-lg border-2 border-white/30 text-white font-bold text-lg hover:bg-white/30 transition-all duration-300"
               >
-                View Impact
-              </motion.a>
+                View Success Stories
+              </a>
             </div>
-          </motion.div>
+          </div>
         </div>
 
-        {/* Scroll Indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.5 }}
-          className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
-        >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ repeat: Number.POSITIVE_INFINITY, duration: 2 }}
-            className="w-6 h-10 border-2 border-white rounded-full flex justify-center p-1"
-          >
-            <motion.div
-              animate={{ y: [0, 12, 0] }}
-              transition={{ repeat: Number.POSITIVE_INFINITY, duration: 2 }}
-              className="w-1.5 h-3 bg-white rounded-full"
+        {/* Navigation Dots */}
+        <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 flex space-x-3">
+          {heroImages.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentHeroIndex(index)}
+              className={`nav-dot ${index === currentHeroIndex ? "active" : ""}`}
             />
-          </motion.div>
-        </motion.div>
+          ))}
+        </div>
       </section>
 
       {/* Solutions Overview */}
-      <section className="py-20 bg-white">
+      <section id="solutions-overview" className="py-20 bg-white">
         <div className="container mx-auto px-4">
-          <AnimatedSection className="text-center mb-16">
+          <div className="section-reveal text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Comprehensive Digital Transformation</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto mb-8" />
-            <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+            <p className="text-xl text-gray-600 max-w-4xl mx-auto">
               A holistic approach to digital inclusion that addresses the key challenges facing underserved communities
               through innovative technology solutions.
             </p>
-          </AnimatedSection>
+          </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {solutions.map((solution) => (
-              <AnimatedSection key={solution.id}>
-                <motion.div
-                  whileHover={{ y: -10, scale: 1.02 }}
-                  className="bg-white  shadow-lg border border-gray-100 overflow-hidden group cursor-pointer"
+            {solutions.map((solution, index) => (
+              <div
+                key={index}
+                className={`section-reveal card-hover ${solution.bgColor} rounded-2xl p-8 text-center border border-gray-100 shadow-lg`}
+              >
+                <div
+                  className={`w-16 h-16 bg-gradient-to-r ${solution.color} rounded-full flex items-center justify-center mx-auto mb-6`}
                 >
-                  <div className="relative h-48">
-                    <Image
-                      src={solution.image || "/placeholder.svg"}
-                      alt={solution.title}
-                      width={800}
-                      height={300}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                    />
-                    <div className={`absolute inset-0`} />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                    
-                    </div>
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">{solution.title}</h3>
-                    <p className="text-gray-600 text-sm mb-4">{solution.description.substring(0, 100)}...</p>
-                    <div className="flex items-center justify-between">
-                      <div className="text-sm">
-                        <span
-                          className={`font-bold text-2xl bg-gradient-to-r ${solution.color} bg-clip-text text-transparent`}
-                        >
-                          {solution.stats.number}
-                        </span>
-                        <p className="text-gray-500 text-xs">{solution.stats.label}</p>
-                      </div>
-                      <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-blue-500 transition-colors" />
-                    </div>
-                  </div>
-                </motion.div>
-              </AnimatedSection>
+                  <solution.icon className="w-8 h-8 text-white" />
+                </div>
+                <div className="text-4xl font-bold text-gray-900 mb-2">{solution.stats.number}</div>
+                <h3 className="text-xl font-semibold text-gray-800 mb-3">{solution.title}</h3>
+                <p className="text-gray-600 text-sm">{solution.description.substring(0, 100)}...</p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
       {/* Dynamic Solutions Showcase */}
-      <section id="solutions" className="py-20 bg-gray-50">
+      <section className="py-20 bg-gradient-to-br from-blue-50 to-purple-50">
         <div className="container mx-auto px-4">
+          <div className="section-reveal text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Our Solutions in Detail</h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto mb-8" />
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Explore each solution and see how we're creating lasting impact in communities worldwide
+            </p>
+          </div>
+
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             {/* Dynamic Content */}
             <div className="space-y-8">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={currentSolutionIndex}
-                  initial={{ opacity: 0, x: -50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 50 }}
-                  transition={{ duration: 0.8 }}
-                  className="space-y-6"
+              <div className="flex items-center space-x-4">
+                <div
+                  className={`w-16 h-16 bg-gradient-to-r ${solutions[currentSolutionIndex].color} rounded-2xl flex items-center justify-center`}
                 >
-                  <div className="flex items-center space-x-4">
-                    <div
-                      className={`w-16 h-16 bg-gradient-to-r ${solutions[currentSolutionIndex].color} flex items-center justify-center`}
-                    >
-                      {React.createElement(solutions[currentSolutionIndex].icon, { className: "w-8 h-8 text-white" })}
+                  {React.createElement(solutions[currentSolutionIndex].icon, { className: "w-8 h-8 text-white" })}
+                </div>
+                <div>
+                  <h3 className="text-3xl font-bold text-gray-900">{solutions[currentSolutionIndex].title}</h3>
+                  <p className="text-lg text-blue-600 font-semibold">{solutions[currentSolutionIndex].subtitle}</p>
+                </div>
+              </div>
+
+              <p className="text-xl text-gray-700 leading-relaxed">{solutions[currentSolutionIndex].description}</p>
+
+              <div className="grid grid-cols-2 gap-4">
+                {solutions[currentSolutionIndex].features.map((feature, idx) => (
+                  <div key={idx} className="flex items-start space-x-3">
+                    <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                      {React.createElement(feature.icon, { className: "w-4 h-4 text-blue-600" })}
                     </div>
                     <div>
-                      <h3 className="text-3xl font-bold text-gray-900">{solutions[currentSolutionIndex].title}</h3>
-                      <p className="text-lg text-blue-600 font-semibold">{solutions[currentSolutionIndex].subtitle}</p>
+                      <h4 className="font-semibold text-gray-900 text-sm">{feature.title}</h4>
+                      <p className="text-gray-600 text-xs">{feature.description}</p>
                     </div>
                   </div>
+                ))}
+              </div>
 
-                  <p className="text-xl text-gray-700 leading-relaxed">{solutions[currentSolutionIndex].description}</p>
-
-                  <div className="grid grid-cols-2 gap-4">
-                    {solutions[currentSolutionIndex].features.map((feature, idx) => (
-                      <div key={idx} className="flex items-start space-x-3">
-                        <div className="w-8 h-8 bg-blue-100  flex items-center justify-center flex-shrink-0 mt-1">
-                          {React.createElement(feature.icon, { className: "w-4 h-4 text-blue-600" })}
-                        </div>
-                        <div>
-                          <h4 className="font-semibold text-gray-900 text-sm">{feature.title}</h4>
-                          <p className="text-gray-600 text-xs">{feature.description}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="flex flex-wrap gap-4">
-                    {solutions[currentSolutionIndex].ctas.map((cta, idx) => (
-                      <motion.a
-                        key={idx}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        href={cta.href}
-                        className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
-                          idx === 0
-                            ? `bg-gradient-to-r ${solutions[currentSolutionIndex].color} text-white hover:shadow-lg`
-                            : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                        }`}
-                      >
-                        {cta.text}
-                      </motion.a>
-                    ))}
-                  </div>
-                </motion.div>
-              </AnimatePresence>
+              <div className="flex items-center space-x-3 mb-3">
+                <div className="w-12 h-12 bg-white/20 backdrop-blur-lg rounded-full flex items-center justify-center">
+                  {React.createElement(solutions[currentSolutionIndex].icon, { className: "w-6 h-6 text-blue-600" })}
+                </div>
+                <div>
+                  <p className="text-2xl font-bold text-gray-900">{solutions[currentSolutionIndex].stats.number}</p>
+                  <p className="text-sm text-gray-600">{solutions[currentSolutionIndex].stats.label}</p>
+                </div>
+              </div>
             </div>
 
             {/* Dynamic Image */}
             <div className="relative h-96 lg:h-[500px]">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={currentSolutionIndex}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 1.1 }}
-                  transition={{ duration: 0.8 }}
-                  className="absolute inset-0  overflow-hidden shadow-2xl"
-                >
-                  <Image
-                    src={solutions[currentSolutionIndex].image || "/placeholder.svg"}
-                    alt={solutions[currentSolutionIndex].title}
-                    width={800}
-                    height={500}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className={`absolute inset-0`} />
-                  <div className="absolute bottom-6 left-6 text-white">
-                    <div className="flex items-center space-x-3 mb-3">
-                      <div className="w-12 h-12 bg-white/20 backdrop-blur-lg rounded-full flex items-center justify-center">
-                        {React.createElement(solutions[currentSolutionIndex].icon, { className: "w-6 h-6" })}
-                      </div>
-                      <div>
-                        <p className="text-2xl font-bold">{solutions[currentSolutionIndex].stats.number}</p>
-                        <p className="text-sm text-gray-200">{solutions[currentSolutionIndex].stats.label}</p>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              </AnimatePresence>
+              <div className="absolute inset-0 rounded-2xl overflow-hidden shadow-2xl">
+                <Image
+                  src={solutions[currentSolutionIndex].image || "/placeholder.svg"}
+                  alt={solutions[currentSolutionIndex].title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover"
+                  quality={85}
+                />
+                <div className="absolute inset-0 bg-gradient-to-tr from-black/30 to-transparent" />
+              </div>
             </div>
           </div>
 
@@ -560,91 +462,88 @@ const SolutionsPage = () => {
       </section>
 
       {/* Impact Cards Grid */}
-      <section id="impact" className="py-20 bg-white">
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
-          <AnimatedSection className="text-center mb-16">
+          <div className="section-reveal text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Real Impact Solutions</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto mb-8" />
             <p className="text-xl text-gray-600 max-w-4xl mx-auto">
               Discover how our comprehensive solutions create measurable impact across communities worldwide
             </p>
-          </AnimatedSection>
+          </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {impactCards.map((card, index) => (
-              <AnimatedSection key={index}>
-                <motion.div
-                  whileHover={{ y: -10 }}
-                  className="relative h-80  overflow-hidden shadow-xl group cursor-pointer"
-                >
-                  <div
-                    className="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-700"
-                    style={{ backgroundImage: `url(${card.image})` }}
-                  />
-                  <div className={`absolute inset-0 bg-gradient-to-br ${card.gradient}`} />
-                  <div className="absolute inset-0 p-8 flex flex-col justify-end">
-                    <h3 className="text-2xl font-bold text-white mb-3">{card.title}</h3>
-                    <p className="text-gray-200 mb-4">{card.description}</p>
-                    <div className="flex items-center text-white font-semibold">
-                      <span className="text-sm">Find Out More</span>
-                      <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-2 transition-transform" />
-                    </div>
+              <div
+                key={index}
+                className="section-reveal card-hover relative h-80 rounded-2xl overflow-hidden shadow-xl group cursor-pointer"
+              >
+                <Image
+                  src={card.image || "/placeholder.svg"}
+                  alt={card.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-cover"
+                  quality={85}
+                />
+                <div className={`absolute inset-0 bg-gradient-to-br ${card.gradient}`} />
+                <div className="absolute inset-0 p-8 flex flex-col justify-end">
+                  <h3 className="text-2xl font-bold text-white mb-3">{card.title}</h3>
+                  <p className="text-gray-200 mb-4">{card.description}</p>
+                  <div className="flex items-center text-white font-semibold">
+                    <span className="text-sm">Find Out More</span>
+                    <ArrowRight className="ml-2 w-4 h-4" />
                   </div>
-                </motion.div>
-              </AnimatedSection>
+                </div>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
       {/* Success Stories */}
-      <section className="py-20 bg-gradient-to-br from-blue-50 to-purple-50">
+      <section id="success-stories" className="py-20 bg-gradient-to-br from-blue-50 to-purple-50">
         <div className="container mx-auto px-4">
-          <AnimatedSection className="text-center mb-16">
+          <div className="section-reveal text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Success Stories</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto mb-8" />
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Real transformations happening in communities around the world through our solutions
             </p>
-          </AnimatedSection>
+          </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {successStories.map((story, index) => (
-              <AnimatedSection key={index}>
-                <motion.div
-                  whileHover={{ y: -5 }}
-                  className="bg-white shadow-lg overflow-hidden border border-gray-100"
-                >
-                  <div className="relative h-48">
-                    <Image
-                      src={story.image || "/placeholder.svg"}
-                      alt={story.title}
-                      width={800}
-                      height={300}
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1">
-                      <span className="text-xs font-semibold text-gray-700">{story.location}</span>
-                    </div>
+              <div
+                key={index}
+                className="section-reveal card-hover bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 h-full"
+              >
+                <div className="relative h-48">
+                  <Image
+                    src={story.image || "/placeholder.svg"}
+                    alt={story.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover"
+                  />
+                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1">
+                    <span className="text-xs font-semibold text-gray-700">{story.location}</span>
                   </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold text-gray-900 mb-3">{story.title}</h3>
-                    <p className="text-gray-600 mb-4">{story.description}</p>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
-                        <CheckCircle className="w-5 h-5 text-green-500" />
-                        <span className="text-sm font-semibold text-green-600">{story.impact}</span>
-                      </div>
-                      <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        className="text-blue-600 font-semibold text-sm hover:text-blue-700 transition-colors"
-                      >
-                        Read Full Story →
-                      </motion.button>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">{story.title}</h3>
+                  <p className="text-gray-600 mb-4">{story.description}</p>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <CheckCircle className="w-5 h-5 text-green-500" />
+                      <span className="text-sm font-semibold text-green-600">{story.impact}</span>
                     </div>
+                    <button className="text-blue-600 font-semibold text-sm hover:text-blue-700 transition-colors">
+                      Read Full Story →
+                    </button>
                   </div>
-                </motion.div>
-              </AnimatedSection>
+                </div>
+              </div>
             ))}
           </div>
         </div>
@@ -654,39 +553,32 @@ const SolutionsPage = () => {
       <section className="py-20 relative overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+            src="/images/solutions-cta-bg.jpg"
             alt="Transform your community"
-            width={1920}
-            height={1080}
-            className="w-full h-full object-cover"
+            fill
+            sizes="100vw"
+            className="object-cover"
+            quality={85}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 via-purple-900/90 to-indigo-900/90" />
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
-          <AnimatedSection className="text-center">
+          <div className="section-reveal text-center">
             <h2 className="text-4xl lg:text-6xl font-bold text-white mb-8">Ready to Transform Your Community?</h2>
             <p className="text-xl text-gray-200 mb-12 max-w-4xl mx-auto leading-relaxed">
               Partner with BrilliantMinds to bring digital empowerment, education, and economic opportunities to your
               community. Let&apos;s create lasting change together.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-10 py-5 bg-white text-blue-900 font-bold text-lg rounded-full hover:bg-gray-100 transition-all duration-300 shadow-lg"
-              >
+              <button className="px-10 py-5 bg-white text-blue-900 font-bold text-lg rounded-full hover:bg-gray-100 transition-all duration-300 shadow-lg">
                 Start Your Transformation
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-10 py-5 border-2 border-white text-white font-bold text-lg rounded-full hover:bg-white hover:text-blue-900 transition-all duration-300"
-              >
+              </button>
+              <button className="px-10 py-5 border-2 border-white text-white font-bold text-lg rounded-full hover:bg-white hover:text-blue-900 transition-all duration-300">
                 Schedule Consultation
-              </motion.button>
+              </button>
             </div>
-          </AnimatedSection>
+          </div>
         </div>
       </section>
 

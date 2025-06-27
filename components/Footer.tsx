@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Mail, Phone, MapPin, Twitter, Linkedin, Github } from 'lucide-react';
-import "@/sass/Footer.scss"
+import "@/styles/Footer.scss"
 import Image from 'next/image';
 const Footer = () => {
   const currentYear = new Date().getFullYear();
