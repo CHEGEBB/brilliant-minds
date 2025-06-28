@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, Suspense } from "react"
 import {
   Search,
   Filter,
@@ -20,7 +20,8 @@ import Image from "next/image"
 import { useSearchParams } from "next/navigation"
 import "@/styles/search-animations.scss"
 
-const SearchPage = () => {
+// Separate component for the search functionality
+const SearchContent = () => {
   const searchParams = useSearchParams()
   const [searchQuery, setSearchQuery] = useState("")
   const [filteredResults, setFilteredResults] = useState<typeof searchData>([])
@@ -287,9 +288,7 @@ const SearchPage = () => {
   const displayResults = getFilteredResults()
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Navbar />
-
+    <>
       {/* Search Header */}
       <section className="pt-24 pb-12 bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-900">
         <div className="container mx-auto px-4">
@@ -576,7 +575,55 @@ const SearchPage = () => {
           )}
         </div>
       </section>
+    </>
+  )
+}
 
+// Loading fallback component
+const SearchFallback = () => (
+  <div className="min-h-screen bg-gray-50">
+    <div className="pt-24 pb-12 bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-900">
+      <div className="container mx-auto px-4">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="h-12 bg-white/20 rounded-lg mb-6 animate-pulse"></div>
+          <div className="h-6 bg-white/20 rounded-lg mb-8 max-w-md mx-auto animate-pulse"></div>
+          <div className="max-w-2xl mx-auto">
+            <div className="h-16 bg-white/20 rounded-full animate-pulse"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div className="py-8 bg-white border-b border-gray-200">
+      <div className="container mx-auto px-4">
+        <div className="flex gap-3">
+          {[...Array(4)].map((_, i) => (
+            <div key={i} className="h-12 w-24 bg-gray-200 rounded-full animate-pulse"></div>
+          ))}
+        </div>
+      </div>
+    </div>
+    <div className="py-12">
+      <div className="container mx-auto px-4">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="bg-white rounded-2xl shadow-lg p-12">
+            <div className="w-24 h-24 bg-gray-200 rounded-full mx-auto mb-6 animate-pulse"></div>
+            <div className="h-8 bg-gray-200 rounded-lg mb-4 max-w-sm mx-auto animate-pulse"></div>
+            <div className="h-6 bg-gray-200 rounded-lg mb-8 max-w-lg mx-auto animate-pulse"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+)
+
+// Main SearchPage component with Suspense
+const SearchPage = () => {
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <Navbar />
+      <Suspense fallback={<SearchFallback />}>
+        <SearchContent />
+      </Suspense>
       <Footer />
     </div>
   )
