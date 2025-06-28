@@ -23,7 +23,7 @@ import "@/styles/search-animations.scss"
 const SearchPage = () => {
   const searchParams = useSearchParams()
   const [searchQuery, setSearchQuery] = useState("")
-  const [filteredResults, setFilteredResults] = useState<any[]>([])
+  const [filteredResults, setFilteredResults] = useState<typeof searchData>([])
   const [selectedCategory, setSelectedCategory] = useState("All")
   const [isLoading, setIsLoading] = useState(true)
 
@@ -464,7 +464,7 @@ const SearchPage = () => {
                 </div>
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">No results found</h2>
                 <p className="text-gray-600 mb-8">
-                  We couldn't find anything matching "{currentQuery}". Try adjusting your search or browse our
+                  We couldn&apos;t find anything matching "{currentQuery}". Try adjusting your search or browse our
                   suggestions below.
                 </p>
 
