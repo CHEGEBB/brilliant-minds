@@ -185,7 +185,6 @@ const SearchContent = () => {
       setCurrentQuery(query)
       setSearchQuery(query)
 
-      // Simulate loading
       setIsLoading(true)
       setTimeout(() => {
         performSearch(query)
