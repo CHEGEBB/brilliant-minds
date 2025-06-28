@@ -187,6 +187,7 @@ const SearchPage = () => {
       performSearch(query)
       setIsLoading(false)
     }, 800)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams])
 
   const performSearch = (query: string) => {
