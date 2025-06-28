@@ -193,7 +193,7 @@ const PrivacyPage = () => {
       </section>
 
       {/* Navigation Sections */}
-      <section className="py-12 bg-white border-b border-gray-200 sticky top-0 z-40 backdrop-blur-lg bg-white/95">
+      <section className="py-12 border-b border-gray-200 sticky top-0 z-40 backdrop-blur-lg bg-white/95">
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap justify-center gap-4">
             {navigationSections.map((section) => (

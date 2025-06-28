@@ -558,7 +558,7 @@ const CareersPage = () => {
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Our Values</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-indigo-600 mx-auto mb-8" />
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              These core values guide everything we do and shape the culture we've built together
+              These core values guide everything we do and shape the culture we&apos;ve built together
             </p>
           </div>
 
@@ -623,7 +623,7 @@ const CareersPage = () => {
                       ))}
                     </div>
                   </div>
-                  <p className="text-gray-700 italic leading-relaxed">"{testimonial.quote}"</p>
+                  <p className="text-gray-700 italic leading-relaxed">&ldquo;{testimonial.quote}&rdquo;</p>
                 </div>
               </div>
             ))}
@@ -638,7 +638,7 @@ const CareersPage = () => {
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">Ready to Join Our Mission?</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-indigo-500 mx-auto mb-8" />
             <p className="text-xl text-gray-200 max-w-4xl mx-auto mb-12 leading-relaxed">
-              Take the next step in your career and be part of a team that's making a real difference in the world.
+              Take the next step in your career and be part of a team that&apos;s making a real difference in the world.
               Apply today and help us build the future of digital transformation.
             </p>
 
