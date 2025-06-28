@@ -403,7 +403,7 @@ const CareersPage = () => {
                 className="section-reveal card-hover text-center p-8 bg-gradient-to-br from-gray-50 to-white shadow-xl border border-gray-100"
               >
                 <div
-                  className={`w-20 h-20 bg-gradient-to-r ${reason.color} flex items-center justify-center mx-auto mb-6`}
+                  className={`w-20 h-20 bg-gradient-to-r ${reason.color} flex items-center justify-center mx-auto rounded-full mb-6`}
                 >
                   {React.createElement(reason.icon, { className: "w-10 h-10 text-white" })}
                 </div>
