@@ -192,6 +192,7 @@ const SearchContent = () => {
         setIsLoading(false)
       }, 800)
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const performSearch = (query: string) => {
