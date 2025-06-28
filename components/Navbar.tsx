@@ -1,10 +1,10 @@
 "use client"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronDown, Menu, Search, X, Home, Users, Lightbulb, HandHeart, TrendingUp, Mail, Building2, Briefcase, Newspaper } from "lucide-react"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -12,7 +12,11 @@ const Navbar = () => {
   const [isSolutionsOpen, setIsSolutionsOpen] = useState(false)
   const [isAboutOpen, setIsAboutOpen] = useState(false)
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
+  const [searchQuery, setSearchQuery] = useState("")
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const searchInputRef = useRef<HTMLInputElement>(null)
   const pathname = usePathname()
+  const router = useRouter()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,6 +30,25 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
+
+  useEffect(() => {
+    // Focus the search input when the search is opened
+    if (isSearchOpen && searchInputRef.current) {
+      searchInputRef.current.focus()
+    }
+  }, [isSearchOpen])
+
+  // Close search if Escape key is pressed
+  useEffect(() => {
+    const handleEscKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isSearchOpen) {
+        setIsSearchOpen(false)
+      }
+    }
+
+    document.addEventListener('keydown', handleEscKey)
+    return () => document.removeEventListener('keydown', handleEscKey)
+  }, [isSearchOpen])
 
   const solutionsItems = [
     { title: "Digital Inclusion", href: "/solutions/digital-inclusion", icon: Lightbulb },
@@ -68,6 +91,23 @@ const Navbar = () => {
       setHoveredItem(itemTitle)
     } else {
       setHoveredItem(null)
+    }
+  }
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (searchQuery.trim()) {
+      router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`)
+      setIsSearchOpen(false)
+      setSearchQuery("")
+    }
+  }
+
+  const toggleSearch = () => {
+    setIsSearchOpen(!isSearchOpen)
+    if (!isSearchOpen) {
+      // Close mobile menu if it's open
+      setIsMobileMenuOpen(false)
     }
   }
 
@@ -243,23 +283,94 @@ const Navbar = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onClick={toggleSearch}
               className="ml-4 px-4 py-2.5 bg-transparent border-2 border-white/30 text-white font-medium rounded-full hover:bg-gradient-to-r hover:from-cyan-500/20 hover:to-blue-500/20 hover:border-cyan-400/50 transition-all duration-300 backdrop-blur-sm group"
+              aria-label="Search"
             >
               <Search size={18} className="group-hover:text-cyan-400 transition-colors" />
             </motion.button>
           </div>
 
           {/* Mobile Menu Button */}
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            className="md:hidden text-white p-2 rounded-lg hover:bg-white/10 transition-all duration-300"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </motion.button>
+          <div className="flex items-center md:hidden">
+            {/* Mobile Search Button */}
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={toggleSearch}
+              className="text-white p-2 mr-2 rounded-lg hover:bg-white/10 transition-all duration-300"
+              aria-label="Search"
+            >
+              <Search size={24} />
+            </motion.button>
+            
+            {/* Mobile Menu Toggle */}
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="text-white p-2 rounded-lg hover:bg-white/10 transition-all duration-300"
+              onClick={() => {
+                setIsMobileMenuOpen(!isMobileMenuOpen)
+                setIsSearchOpen(false) // Close search when opening menu
+              }}
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </motion.button>
+          </div>
         </div>
       </div>
+
+      {/* Search Overlay */}
+      <AnimatePresence>
+        {isSearchOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.2 }}
+            className="absolute top-full left-0 right-0 bg-white/10 backdrop-blur-xl border-b border-white/20 shadow-2xl"
+          >
+            <div className="container mx-auto px-4 py-4">
+              <form onSubmit={handleSearchSubmit} className="relative">
+                <input
+                  ref={searchInputRef}
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search for solutions, news, careers..."
+                  className="w-full pl-12 pr-12 py-4 text-lg bg-white/10 backdrop-blur-sm border-2 border-white/20 text-white placeholder-white/70 rounded-full focus:outline-none focus:border-cyan-400/50 transition-all duration-300"
+                />
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/70 w-5 h-5" />
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  type="button"
+                  onClick={() => setIsSearchOpen(false)}
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white/70 hover:text-white transition-colors"
+                >
+                  <X size={20} />
+                </motion.button>
+              </form>
+              <div className="mt-3 text-sm text-white/70 flex flex-wrap gap-2">
+                <span>Popular searches:</span>
+                {["Digital inclusion", "E-learning", "Skill development", "Career opportunities"].map((term) => (
+                  <button
+                    key={term}
+                    onClick={() => {
+                      setSearchQuery(term)
+                      router.push(`/search?q=${encodeURIComponent(term)}`)
+                      setIsSearchOpen(false)
+                    }}
+                    className="hover:text-cyan-400 transition-colors"
+                  >
+                    {term}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Mobile Menu */}
       <AnimatePresence>
@@ -384,8 +495,8 @@ const Navbar = () => {
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
+                  onClick={toggleSearch}
                   className="flex items-center justify-center w-full px-5 py-3 rounded-full bg-transparent border-2 border-white/30 text-white font-medium hover:bg-gradient-to-r hover:from-cyan-500/20 hover:to-blue-500/20 hover:border-cyan-400/50 transition-all duration-300"
-                  onClick={() => setIsMobileMenuOpen(false)}
                 >
                   <Search size={18} className="mr-2" />
                   Search

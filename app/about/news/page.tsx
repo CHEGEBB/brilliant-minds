@@ -420,7 +420,7 @@ const NewsPage = () => {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredNews.map((article, index) => (
+            {filteredNews.map((article) => (
               <article
                 key={article.id}
                 className="section-reveal card-hover bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden"
