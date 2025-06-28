@@ -151,13 +151,13 @@ const Footer = () => {
               © {currentYear} BrilliantMinds. All rights reserved.
             </div>
             <div className="flex space-x-6">
-              <Link href="/privacy-policy" className="text-sm text-gray-500 hover:text-blue-400 transition-colors duration-200">
+              <Link href="/privacy" className="text-sm text-gray-500 hover:text-blue-400 transition-colors duration-200">
                 Privacy Policy
               </Link>
-              <Link href="/terms-of-service" className="text-sm text-gray-500 hover:text-blue-400 transition-colors duration-200">
+              <Link href="/privacy" className="text-sm text-gray-500 hover:text-blue-400 transition-colors duration-200">
                 Terms of Service
               </Link>
-              <Link href="/cookie-policy" className="text-sm text-gray-500 hover:text-blue-400 transition-colors duration-200">
+              <Link href="/privacy" className="text-sm text-gray-500 hover:text-blue-400 transition-colors duration-200">
                 Cookie Policy
               </Link>
             </div>
