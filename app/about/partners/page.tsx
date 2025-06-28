@@ -86,7 +86,7 @@ const PartnersPage = () => {
       description: "Integrate and enhance our platform capabilities through technology collaboration",
       image:
         "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2126&q=80",
-      gradient: "from-blue-600/90 to-cyan-600/90",
+      gradient: "from-blue-600/20 to-cyan-600/50",
       features: [
         "API integration and development",
         "White-label solutions",
@@ -101,7 +101,7 @@ const PartnersPage = () => {
       description: "Expand market reach through our extensive distribution and sales network",
       image:
         "https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80",
-      gradient: "from-green-600/90 to-emerald-600/90",
+      gradient: "from-green-600/20 to-emerald-600/50",
       features: [
         "Sales enablement tools",
         "Marketing co-op programs",
@@ -116,7 +116,7 @@ const PartnersPage = () => {
       description: "Create positive social impact through mission-aligned partnerships and initiatives",
       image:
         "https://images.unsplash.com/photo-1559027615-cd4628902d4a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80",
-      gradient: "from-purple-600/90 to-violet-600/90",
+      gradient: "from-purple-600/20 to-violet-600/50",
       features: [
         "Social impact initiatives",
         "Community development programs",
