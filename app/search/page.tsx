@@ -464,7 +464,7 @@ const SearchPage = () => {
                 </div>
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">No results found</h2>
                 <p className="text-gray-600 mb-8">
-                  We couldn&apos;t find anything matching "{currentQuery}". Try adjusting your search or browse our
+                  We couldn&apos;t find anything matching &ldquo;{currentQuery}&rdquo;. Try adjusting your search or browse our
                   suggestions below.
                 </p>
 
