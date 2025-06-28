@@ -248,10 +248,10 @@ const CareersPage = () => {
 
   const testimonials = [
     {
-      name: "Sarah Chen",
+      name: "Sarah Brown",
       role: "Senior Software Engineer",
       image:
-        "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       quote:
         "The learning opportunities here are incredible. I've grown more in 2 years than I did in my previous 5 years combined. The team truly cares about your development.",
       rating: 5,
@@ -569,7 +569,7 @@ const CareersPage = () => {
                 className="section-reveal card-hover bg-white p-8 text-center shadow-xl border border-gray-100"
               >
                 <div
-                  className={`w-20 h-20 bg-gradient-to-r ${value.color} flex items-center justify-center mx-auto mb-6`}
+                  className={`w-20 h-20 bg-gradient-to-r ${value.color} flex items-center justify-center mx-auto mb-6 rounded-xl`}
                 >
                   {React.createElement(value.icon, { className: "w-10 h-10 text-white" })}
                 </div>
