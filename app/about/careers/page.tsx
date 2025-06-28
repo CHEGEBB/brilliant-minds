@@ -436,8 +436,8 @@ const CareersPage = () => {
                 }`}
               >
                 <div className={`space-y-6 ${index % 2 === 1 ? "lg:col-start-2" : ""}`}>
-                  <div className="flex items-center space-x-4">
-                    <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center">
+                  <div className="flex items-center space-x-4 ">
+                    <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-600  flex items-center justify-center rounded-md">
                       {React.createElement(benefit.icon, { className: "w-8 h-8 text-white" })}
                     </div>
                     <div>
@@ -464,10 +464,10 @@ const CareersPage = () => {
                       alt={benefit.title}
                       fill
                       sizes="(max-width: 768px) 100vw, 50vw"
-                      className="object-cover"
+                      className="object-cover "
                       quality={85}
                     />
-                    <div className={`absolute inset-0 bg-gradient-to-br ${benefit.gradient}`} />
+                    <div className={`absolute inset-0 `} />
                   </div>
                 </div>
               </div>
@@ -480,7 +480,7 @@ const CareersPage = () => {
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {perks.map((perk, index) => (
                 <div key={index} className="card-hover bg-white p-6 shadow-lg border border-gray-100 text-center">
-                  <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center mx-auto mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center mx-auto mb-4 rounded-xl">
                     {React.createElement(perk.icon, { className: "w-6 h-6 text-white" })}
                   </div>
                   <h4 className="text-lg font-bold text-gray-900 mb-2">{perk.title}</h4>
