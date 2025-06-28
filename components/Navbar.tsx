@@ -3,13 +3,14 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
-import { ChevronDown, Menu, Search, X, Home, Users, Lightbulb, HandHeart, TrendingUp, Mail } from "lucide-react"
+import { ChevronDown, Menu, Search, X, Home, Users, Lightbulb, HandHeart, TrendingUp, Mail, Building2, Briefcase, Newspaper } from "lucide-react"
 import { usePathname } from "next/navigation"
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isSolutionsOpen, setIsSolutionsOpen] = useState(false)
+  const [isAboutOpen, setIsAboutOpen] = useState(false)
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
   const pathname = usePathname()
 
@@ -33,9 +34,16 @@ const Navbar = () => {
     { title: "Skill Development", href: "/solutions/skill-development", icon: HandHeart },
   ]
 
+  const aboutItems = [
+    { title: "About Us", href: "/about", icon: Users },
+    { title: "Partners", href: "/about/partners", icon: Building2 },
+    { title: "Careers", href: "/about/careers", icon: Briefcase },
+    { title: "News", href: "/about/news", icon: Newspaper },
+  ]
+
   const navItems = [
     { title: "Home", href: "/", hasDropdown: false, icon: Home },
-    { title: "About", href: "/about", hasDropdown: false, icon: Users },
+    { title: "About", href: "/about", hasDropdown: true, icon: Users },
     { title: "Solutions", href: "/solutions", hasDropdown: true, icon: Lightbulb },
     { title: "Get-Involved", href: "/get-involved", hasDropdown: false, icon: HandHeart },
     { title: "Impact", href: "/impact", hasDropdown: false, icon: TrendingUp },
@@ -47,6 +55,20 @@ const Navbar = () => {
       return pathname === "/"
     }
     return pathname.startsWith(href)
+  }
+
+  const handleDropdownHover = (itemTitle: string, isEntering: boolean) => {
+    if (itemTitle === "Solutions") {
+      setIsSolutionsOpen(isEntering)
+    } else if (itemTitle === "About") {
+      setIsAboutOpen(isEntering)
+    }
+    
+    if (isEntering) {
+      setHoveredItem(itemTitle)
+    } else {
+      setHoveredItem(null)
+    }
   }
 
   return (
@@ -85,21 +107,16 @@ const Navbar = () => {
                             ? "text-white hover:text-cyan-400"
                             : "text-white hover:text-cyan-400"
                       } hover:bg-white/10`}
-                      onMouseEnter={() => {
-                        setIsSolutionsOpen(true)
-                        setHoveredItem(item.title)
-                      }}
-                      onMouseLeave={() => {
-                        setIsSolutionsOpen(false)
-                        setHoveredItem(null)
-                      }}
+                      onMouseEnter={() => handleDropdownHover(item.title, true)}
+                      onMouseLeave={() => handleDropdownHover(item.title, false)}
                     >
                       <item.icon size={18} className="mr-2" />
                       {item.title}
                       <ChevronDown
                         size={16}
                         className={`ml-2 transition-transform duration-300 ${
-                          isSolutionsOpen ? "rotate-180" : "rotate-0"
+                          (item.title === "Solutions" && isSolutionsOpen) || (item.title === "About" && isAboutOpen)
+                            ? "rotate-180" : "rotate-0"
                         }`}
                       />
 
@@ -150,8 +167,43 @@ const Navbar = () => {
                   </Link>
                 )}
 
+                {/* About Dropdown */}
+                {item.hasDropdown && item.title === "About" && (
+                  <AnimatePresence>
+                    {isAboutOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute left-0 mt-2 w-72 rounded-2xl shadow-2xl bg-white/10 backdrop-blur-xl border border-white/20 ring-1 ring-black/5 focus:outline-none overflow-hidden"
+                        onMouseEnter={() => setIsAboutOpen(true)}
+                        onMouseLeave={() => setIsAboutOpen(false)}
+                      >
+                        <div className="py-2">
+                          {aboutItems.map((aboutItem) => (
+                            <Link
+                              key={aboutItem.title}
+                              href={aboutItem.href}
+                              className="flex items-center px-4 py-3 text-sm text-white hover:bg-gradient-to-r hover:from-cyan-500/20 hover:to-blue-500/20 transition-all duration-300 group"
+                            >
+                              <aboutItem.icon
+                                size={16}
+                                className="mr-3 text-cyan-400 group-hover:text-white transition-colors"
+                              />
+                              <div>
+                                <div className="font-medium">{aboutItem.title}</div>
+                              </div>
+                            </Link>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                )}
+
                 {/* Solutions Dropdown */}
-                {item.hasDropdown && (
+                {item.hasDropdown && item.title === "Solutions" && (
                   <AnimatePresence>
                     {isSolutionsOpen && (
                       <motion.div
@@ -240,40 +292,77 @@ const Navbar = () => {
                         <motion.button
                           whileTap={{ scale: 0.9 }}
                           className="text-white hover:text-cyan-400 transition-colors p-2 rounded-lg hover:bg-white/10"
-                          onClick={() => setIsSolutionsOpen(!isSolutionsOpen)}
+                          onClick={() => {
+                            if (item.title === "Solutions") {
+                              setIsSolutionsOpen(!isSolutionsOpen)
+                            } else if (item.title === "About") {
+                              setIsAboutOpen(!isAboutOpen)
+                            }
+                          }}
                         >
                           <ChevronDown
                             size={16}
                             className={`transition-transform duration-300 ${
-                              isSolutionsOpen ? "rotate-180" : "rotate-0"
+                              (item.title === "Solutions" && isSolutionsOpen) || (item.title === "About" && isAboutOpen)
+                                ? "rotate-180" : "rotate-0"
                             }`}
                           />
                         </motion.button>
                       </div>
 
-                      <AnimatePresence>
-                        {isSolutionsOpen && (
-                          <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: "auto" }}
-                            exit={{ opacity: 0, height: 0 }}
-                            transition={{ duration: 0.2 }}
-                            className="pl-4 mt-2 space-y-1"
-                          >
-                            {solutionsItems.map((solution) => (
-                              <Link
-                                key={solution.title}
-                                href={solution.href}
-                                className="flex items-center py-2 px-3 text-gray-300 hover:text-cyan-400 hover:bg-white/10 rounded-lg transition-all duration-300"
-                                onClick={() => setIsMobileMenuOpen(false)}
-                              >
-                                <solution.icon size={16} className="mr-3" />
-                                {solution.title}
-                              </Link>
-                            ))}
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
+                      {/* About Mobile Dropdown */}
+                      {item.title === "About" && (
+                        <AnimatePresence>
+                          {isAboutOpen && (
+                            <motion.div
+                              initial={{ opacity: 0, height: 0 }}
+                              animate={{ opacity: 1, height: "auto" }}
+                              exit={{ opacity: 0, height: 0 }}
+                              transition={{ duration: 0.2 }}
+                              className="pl-4 mt-2 space-y-1"
+                            >
+                              {aboutItems.map((aboutItem) => (
+                                <Link
+                                  key={aboutItem.title}
+                                  href={aboutItem.href}
+                                  className="flex items-center py-2 px-3 text-gray-300 hover:text-cyan-400 hover:bg-white/10 rounded-lg transition-all duration-300"
+                                  onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                  <aboutItem.icon size={16} className="mr-3" />
+                                  {aboutItem.title}
+                                </Link>
+                              ))}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      )}
+
+                      {/* Solutions Mobile Dropdown */}
+                      {item.title === "Solutions" && (
+                        <AnimatePresence>
+                          {isSolutionsOpen && (
+                            <motion.div
+                              initial={{ opacity: 0, height: 0 }}
+                              animate={{ opacity: 1, height: "auto" }}
+                              exit={{ opacity: 0, height: 0 }}
+                              transition={{ duration: 0.2 }}
+                              className="pl-4 mt-2 space-y-1"
+                            >
+                              {solutionsItems.map((solution) => (
+                                <Link
+                                  key={solution.title}
+                                  href={solution.href}
+                                  className="flex items-center py-2 px-3 text-gray-300 hover:text-cyan-400 hover:bg-white/10 rounded-lg transition-all duration-300"
+                                  onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                  <solution.icon size={16} className="mr-3" />
+                                  {solution.title}
+                                </Link>
+                              ))}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      )}
                     </div>
                   ) : (
                     <Link
