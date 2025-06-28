@@ -17,13 +17,12 @@ import {
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import Image from "next/image"
-import { useSearchParams } from "next/navigation"
 import "@/styles/search-animations.scss"
 
-// Separate component for the search functionality
+// This component handles the search params safely
 const SearchContent = () => {
-  const searchParams = useSearchParams()
   const [searchQuery, setSearchQuery] = useState("")
+  const [currentQuery, setCurrentQuery] = useState("")
   const [filteredResults, setFilteredResults] = useState<typeof searchData>([])
   const [selectedCategory, setSelectedCategory] = useState("All")
   const [isLoading, setIsLoading] = useState(true)
@@ -178,18 +177,22 @@ const SearchContent = () => {
     "Try 'AI' or 'technology solutions'",
   ]
 
+  // Get search query from URL on client side
   useEffect(() => {
-    const query = searchParams.get("q") || ""
-    setSearchQuery(query)
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search)
+      const query = urlParams.get("q") || ""
+      setCurrentQuery(query)
+      setSearchQuery(query)
 
-    // Simulate loading
-    setIsLoading(true)
-    setTimeout(() => {
-      performSearch(query)
-      setIsLoading(false)
-    }, 800)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams])
+      // Simulate loading
+      setIsLoading(true)
+      setTimeout(() => {
+        performSearch(query)
+        setIsLoading(false)
+      }, 800)
+    }
+  }, [])
 
   const performSearch = (query: string) => {
     if (!query.trim()) {
@@ -228,7 +231,16 @@ const SearchContent = () => {
   const handleNewSearch = (e: React.FormEvent) => {
     e.preventDefault()
     if (searchQuery.trim()) {
-      window.location.href = `/search?q=${encodeURIComponent(searchQuery.trim())}`
+      const url = `/search?q=${encodeURIComponent(searchQuery.trim())}`
+      window.history.pushState({}, '', url)
+      setCurrentQuery(searchQuery.trim())
+      
+      // Simulate loading
+      setIsLoading(true)
+      setTimeout(() => {
+        performSearch(searchQuery.trim())
+        setIsLoading(false)
+      }, 800)
     }
   }
 
@@ -284,7 +296,6 @@ const SearchContent = () => {
     return () => observer.disconnect()
   }, [filteredResults])
 
-  const currentQuery = searchParams.get("q") || ""
   const displayResults = getFilteredResults()
 
   return (
@@ -491,7 +502,14 @@ const SearchContent = () => {
                           key={index}
                           onClick={() => {
                             setSearchQuery(search)
-                            window.location.href = `/search?q=${encodeURIComponent(search)}`
+                            const url = `/search?q=${encodeURIComponent(search)}`
+                            window.history.pushState({}, '', url)
+                            setCurrentQuery(search)
+                            setIsLoading(true)
+                            setTimeout(() => {
+                              performSearch(search)
+                              setIsLoading(false)
+                            }, 800)
                           }}
                           className="px-4 py-2 bg-gray-100 hover:bg-blue-100 text-gray-700 hover:text-blue-700 rounded-full transition-colors text-sm"
                         >
@@ -527,7 +545,14 @@ const SearchContent = () => {
                           key={index}
                           onClick={() => {
                             setSearchQuery(search)
-                            window.location.href = `/search?q=${encodeURIComponent(search)}`
+                            const url = `/search?q=${encodeURIComponent(search)}`
+                            window.history.pushState({}, '', url)
+                            setCurrentQuery(search)
+                            setIsLoading(true)
+                            setTimeout(() => {
+                              performSearch(search)
+                              setIsLoading(false)
+                            }, 800)
                           }}
                           className="block w-full text-left px-4 py-2 bg-gray-50 hover:bg-blue-50 text-gray-700 hover:text-blue-700 rounded-lg transition-colors"
                         >
