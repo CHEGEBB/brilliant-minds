@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react"
 import {
-  Briefcase,
   Users,
   Globe,
   TrendingUp,
@@ -337,10 +336,7 @@ const CareersPage = () => {
               key={currentHeroIndex}
               className={`hero-content-slide space-y-4 sm:space-y-6 ${currentHeroIndex >= 0 ? "active" : ""}`}
             >
-              <div className="inline-flex items-center bg-white/20 backdrop-blur-md px-3 py-1.5 sm:px-4 sm:py-2 mb-2 sm:mb-4 shadow-lg rounded-md">
-                <Briefcase className="w-3 h-3 sm:w-4 sm:h-4 mr-2 text-blue-400" />
-                <span className=" text-xs sm:text-sm font-medium">{heroContent[currentHeroIndex].highlight}</span>
-              </div>
+            
 
               <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
                 {heroContent[currentHeroIndex].title}

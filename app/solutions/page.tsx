@@ -571,13 +571,19 @@ const SolutionsPage = () => {
               community. Let&apos;s create lasting change together.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-              <button className="px-10 py-5 bg-white text-blue-900 font-bold text-lg rounded-full hover:bg-gray-100 transition-all duration-300 shadow-lg">
-                Start Your Transformation
-              </button>
-              <button className="px-10 py-5 border-2 border-white text-white font-bold text-lg rounded-full hover:bg-white hover:text-blue-900 transition-all duration-300">
-                Schedule Consultation
-              </button>
-            </div>
+            <button 
+              onClick={() => window.location.href = '/contact'}
+              className="px-10 py-5 bg-white text-blue-900 font-bold text-lg rounded-full hover:bg-gray-100 transition-all duration-300 shadow-lg cursor-pointer"
+            >
+              Start Your Transformation
+            </button>
+            <button 
+              onClick={() => window.location.href = '/contact'}
+              className="px-10 py-5 border-2 border-white text-white font-bold text-lg rounded-full hover:bg-white hover:text-blue-900 transition-all duration-300"
+            >
+              Schedule Consultation
+            </button>
+          </div>
           </div>
         </div>
       </section>

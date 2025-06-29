@@ -1,7 +1,6 @@
 "use client"
 
-import React, { useState, useRef } from "react"
-import { motion, useInView } from "framer-motion"
+import React, { useState, useEffect } from "react"
 import {
   Phone,
   Mail,
@@ -23,11 +22,13 @@ import {
   Shield,
   Zap,
 } from "lucide-react"
-import HeroSection from "@/components/HeroSection"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
+import Image from "next/image"
+import "@/styles/contact-animations.scss"
 
 const ContactPage = () => {
+  const [currentHeroIndex, setCurrentHeroIndex] = useState(0)
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -36,6 +37,39 @@ const ContactPage = () => {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+
+  const heroContent = [
+    {
+      title: "Get In Touch With Us",
+      subtitle: "Your Success is Our Priority",
+      description:
+        "We're here to help and answer any questions you might have. Connect with our team and discover how we can transform your digital journey together.",
+      image:
+        "https://images.unsplash.com/photo-1556761175-b413da4baf72?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80",
+      stats: "24/7 Support Available",
+      highlight: "Contact Us",
+    },
+    {
+      title: "Let's Build Something Amazing",
+      subtitle: "Partnership & Collaboration",
+      description:
+        "Join forces with BrilliantMinds to create innovative solutions that make a real difference in communities across Kenya and beyond.",
+      image:
+        "https://images.unsplash.com/photo-1521737711867-e3b97375f902?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      stats: "200+ Partnerships",
+      highlight: "Collaborate",
+    },
+    {
+      title: "Expert Support & Guidance",
+      subtitle: "We're Here to Help",
+      description:
+        "Our dedicated team of experts is ready to provide you with personalized support and guidance for all your digital transformation needs.",
+      image:
+        "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      stats: "Expert Team Ready",
+      highlight: "Get Support",
+    },
+  ]
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
@@ -55,80 +89,150 @@ const ContactPage = () => {
     setIsSubmitting(false)
     setIsSubmitted(true)
 
-    // Reset form after 3 seconds
+    // Reset form after 5 seconds
     setTimeout(() => {
       setIsSubmitted(false)
       setFormData({ name: "", email: "", message: "", purpose: "" })
-    }, 3000)
+    }, 5000)
   }
 
-  const AnimatedSection = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {
-    const ref = useRef(null)
-    const isInView = useInView(ref, { once: true, margin: "-100px" })
+  useEffect(() => {
+    const heroInterval = setInterval(() => {
+      setCurrentHeroIndex((prev) => (prev + 1) % heroContent.length)
+    }, 5000)
 
-    return (
-      <motion.div
-        ref={ref}
-        initial={{ opacity: 0, y: 50 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className={className}
-      >
-        {children}
-      </motion.div>
+    return () => clearInterval(heroInterval)
+  }, [heroContent.length])
+
+  // Scroll reveal
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible")
+          }
+        })
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
     )
-  }
+
+    const sections = document.querySelectorAll(".section-reveal")
+    sections.forEach((section) => observer.observe(section))
+
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
 
-      {/* Hero Section */}
-      <HeroSection
-        title="Contact Us"
-        subtitle="We're here to help and answer any questions you might have. We look forward to hearing from you."
-        primaryCTA={{
-          text: "Get In Touch",
-          href: "#contact-form",
-        }}
-        secondaryCTA={{
-          text: "View FAQ",
-          href: "#faq",
-        }}
-        backgroundType="image"
-        backgroundSrc="https://images.unsplash.com/photo-1484807352052-23338990c6c6?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-      />
+      {/* Contact Hero */}
+      <section className="stable-layout relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Background Images */}
+        <div className="absolute inset-0">
+          {heroContent.map((content, index) => (
+            <div key={index} className={`hero-background ${index === currentHeroIndex ? "active" : ""}`}>
+              <Image
+                src={content.image || "/placeholder.svg"}
+                alt={content.title}
+                fill
+                sizes="100vw"
+                className="object-cover"
+                priority={index === 0}
+                quality={85}
+              />
+            </div>
+          ))}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-gray-900/90 to-black/85" />
+        </div>
+
+        {/* Content */}
+        <div className="container mx-auto px-4 relative z-10 pt-20 sm:pt-0 sm:text-center text-left">
+          <div className="content-animate max-w-4xl mx-auto text-white [text-shadow:_0_2px_10px_rgb(0_0_0_/_50%)]">
+            <div
+              key={currentHeroIndex}
+              className={`hero-content-slide space-y-4 sm:space-y-6 ${currentHeroIndex >= 0 ? "active" : ""}`}
+            >
+              <div className="inline-flex items-center bg-white/20 backdrop-blur-md rounded-full px-3 py-1.5 sm:px-4 sm:py-2 mb-2 sm:mb-4 shadow-lg">
+                <Mail className="w-3 h-3 sm:w-4 sm:h-4 mr-2 text-blue-400" />
+                <span className="text-xs sm:text-sm font-medium">{heroContent[currentHeroIndex].highlight}</span>
+              </div>
+
+              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+                {heroContent[currentHeroIndex].title}
+              </h1>
+
+              <p className="text-base sm:text-xl md:text-2xl text-blue-300 font-semibold">
+                {heroContent[currentHeroIndex].subtitle}
+              </p>
+
+              <p className="text-sm sm:text-lg md:text-xl text-gray-200 leading-relaxed max-w-3xl sm:mx-auto">
+                {heroContent[currentHeroIndex].description}
+              </p>
+
+              <div className="flex items-center sm:justify-center space-x-4 sm:space-x-6 py-2 sm:py-4">
+                <div className="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full px-4 py-2 sm:px-6 sm:py-3">
+                  <span className="text-sm sm:text-lg font-bold text-white">{heroContent[currentHeroIndex].stats}</span>
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 sm:justify-center pt-2 sm:pt-4">
+                <button
+                  onClick={() => document.getElementById("contact-form")?.scrollIntoView({ behavior: "smooth" })}
+                  className="px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold text-sm sm:text-base rounded-full hover:shadow-2xl transition-all duration-300 btn-hover"
+                >
+                  Get In Touch
+                </button>
+                <button
+                  onClick={() => document.getElementById("faq")?.scrollIntoView({ behavior: "smooth" })}
+                  className="px-6 py-3 sm:px-8 sm:py-4 bg-white/20 backdrop-blur-lg border-2 border-white/30 text-white font-bold text-sm sm:text-base rounded-full hover:bg-white/30 transition-all duration-300 btn-hover"
+                >
+                  View FAQ
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Navigation Dots */}
+        <div className="absolute bottom-8 sm:bottom-20 left-1/2 transform -translate-x-1/2 flex space-x-2 sm:space-x-3">
+          {heroContent.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentHeroIndex(index)}
+              className={`nav-dot ${index === currentHeroIndex ? "active" : ""}`}
+            />
+          ))}
+        </div>
+      </section>
 
       {/* Contact Form and Information */}
       <section id="contact-form" className="py-20 bg-gradient-to-br from-blue-50 to-purple-50">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Contact Form */}
-            <AnimatedSection>
+            <div className="section-reveal">
               <div className="bg-white rounded-2xl p-8 shadow-xl border border-gray-100">
                 <div className="mb-8">
                   <h2 className="text-3xl font-bold text-gray-900 mb-4">Get In Touch</h2>
                   <p className="text-gray-600">
-                    Fill out the form below and we&apos;ll get back to you as soon as possible.
+                    Fill out the form below and we'll get back to you as soon as possible.
                   </p>
                 </div>
 
                 {isSubmitted ? (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="text-center py-12"
-                  >
+                  <div className="success-message text-center py-12">
                     <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
                       <CheckCircle className="w-10 h-10 text-green-600" />
                     </div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-2">Message Sent!</h3>
-                    <p className="text-gray-600">Thank you for contacting us. We&apos;ll get back to you soon.</p>
-                  </motion.div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-2">Message Sent Successfully!</h3>
+                    <p className="text-gray-600">Thank you for contacting us. We'll get back to you within 24 hours.</p>
+                  </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid md:grid-cols-2 gap-6">
-                      <div>
+                      <div className="form-field">
                         <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
                           Full Name *
                         </label>
@@ -139,11 +243,11 @@ const ContactPage = () => {
                           value={formData.name}
                           onChange={handleInputChange}
                           required
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 bg-white text-gray-900 placeholder-gray-500"
                           placeholder="Your full name"
                         />
                       </div>
-                      <div>
+                      <div className="form-field">
                         <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
                           Email Address *
                         </label>
@@ -154,13 +258,12 @@ const ContactPage = () => {
                           value={formData.email}
                           onChange={handleInputChange}
                           required
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 bg-white text-gray-900 placeholder-gray-500"
                           placeholder="your.email@example.com"
                         />
                       </div>
                     </div>
-
-                    <div>
+                    <div className="form-field">
                       <label htmlFor="purpose" className="block text-sm font-medium text-gray-700 mb-2">
                         Purpose of Inquiry *
                       </label>
@@ -170,16 +273,16 @@ const ContactPage = () => {
                         value={formData.purpose}
                         onChange={handleInputChange}
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 bg-white text-gray-900"
                       >
                         <option value="">Select a purpose</option>
                         <option value="Partnership">Partnership</option>
-                        <option value="General">General</option>
-                        <option value="Support">Support</option>
+                        <option value="General">General Inquiry</option>
+                        <option value="Support">Technical Support</option>
+                        <option value="Business">Business Inquiry</option>
                       </select>
                     </div>
-
-                    <div>
+                    <div className="form-field">
                       <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
                         Your Message *
                       </label>
@@ -190,17 +293,14 @@ const ContactPage = () => {
                         onChange={handleInputChange}
                         required
                         rows={6}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 resize-none"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 resize-none bg-white text-gray-900 placeholder-gray-500"
                         placeholder="Tell us how we can help you..."
                       />
                     </div>
-
-                    <motion.button
+                    <button
                       type="submit"
                       disabled={isSubmitting}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="w-full px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold rounded-lg hover:shadow-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                      className="w-full px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold rounded-lg hover:shadow-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center btn-hover"
                     >
                       {isSubmitting ? (
                         <div className="flex items-center">
@@ -213,14 +313,14 @@ const ContactPage = () => {
                           Send Message
                         </div>
                       )}
-                    </motion.button>
+                    </button>
                   </form>
                 )}
               </div>
-            </AnimatedSection>
+            </div>
 
             {/* Office Information */}
-            <AnimatedSection>
+            <div className="section-reveal">
               <div className="space-y-8">
                 <div className="bg-white rounded-2xl p-8 shadow-xl border border-gray-100">
                   <h3 className="text-2xl font-bold text-gray-900 mb-6">Office Information</h3>
@@ -232,35 +332,32 @@ const ContactPage = () => {
                       <div>
                         <h4 className="font-semibold text-gray-900 mb-1">Address</h4>
                         <p className="text-gray-600">
-                          123 Innovation Drive
+                          Westlands Business Center
                           <br />
-                          Suite 400
+                          Suite 205, 2nd Floor
                           <br />
-                          San Francisco, CA 94107
+                          Nairobi, Kenya 00100
                         </p>
                       </div>
                     </div>
-
                     <div className="flex items-start space-x-4">
                       <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
                         <Phone className="w-6 h-6 text-green-600" />
                       </div>
                       <div>
                         <h4 className="font-semibold text-gray-900 mb-1">Phone</h4>
-                        <p className="text-gray-600">+1 (555) 123-4567</p>
+                        <p className="text-gray-600">+254 (0) 700 123 456</p>
                       </div>
                     </div>
-
                     <div className="flex items-start space-x-4">
                       <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
                         <Mail className="w-6 h-6 text-purple-600" />
                       </div>
                       <div>
                         <h4 className="font-semibold text-gray-900 mb-1">Email</h4>
-                        <p className="text-gray-600">hello@brilliantminds.com</p>
+                        <p className="text-gray-600">hello@brilliantminds.co.ke</p>
                       </div>
                     </div>
-
                     <div className="flex items-start space-x-4">
                       <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0">
                         <Clock className="w-6 h-6 text-orange-600" />
@@ -268,9 +365,11 @@ const ContactPage = () => {
                       <div>
                         <h4 className="font-semibold text-gray-900 mb-1">Business Hours</h4>
                         <p className="text-gray-600">
-                          Monday - Friday: 9:00 AM - 6:00 PM
+                          Monday - Friday: 8:00 AM - 6:00 PM EAT
                           <br />
-                          Saturday - Sunday: Closed
+                          Saturday: 9:00 AM - 2:00 PM EAT
+                          <br />
+                          Sunday: Closed
                         </p>
                       </div>
                     </div>
@@ -304,7 +403,7 @@ const ContactPage = () => {
                   </div>
                 </div>
               </div>
-            </AnimatedSection>
+            </div>
           </div>
         </div>
       </section>
@@ -312,46 +411,44 @@ const ContactPage = () => {
       {/* Why Choose Us */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
-          <AnimatedSection className="text-center mb-16">
+          <div className="section-reveal text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Why Choose BrilliantMinds?</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto mb-8" />
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We&apos;re committed to delivering exceptional results and building lasting partnerships
+              We're committed to delivering exceptional results and building lasting partnerships across Kenya and
+              beyond
             </p>
-          </AnimatedSection>
+          </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
                 icon: Shield,
                 title: "Trusted Partner",
-                description: "Over 200+ successful partnerships worldwide",
+                description: "Over 200+ successful partnerships across East Africa",
                 color: "from-blue-500 to-cyan-500",
               },
               {
                 icon: Zap,
                 title: "Fast Response",
-                description: "Quick turnaround times for all inquiries",
+                description: "Quick turnaround times for all inquiries and projects",
                 color: "from-green-500 to-emerald-500",
               },
               {
                 icon: Globe,
-                title: "Global Reach",
-                description: "Serving clients across 53 countries",
+                title: "Local Expertise",
+                description: "Deep understanding of Kenyan and African markets",
                 color: "from-purple-500 to-violet-500",
               },
               {
                 icon: Building,
                 title: "Expert Team",
-                description: "Industry-leading professionals at your service",
+                description: "Industry-leading professionals based in Nairobi",
                 color: "from-orange-500 to-red-500",
               },
             ].map((feature, index) => (
-              <AnimatedSection key={index}>
-                <motion.div
-                  whileHover={{ y: -10, scale: 1.02 }}
-                  className="text-center p-8 bg-gradient-to-br from-gray-50 to-white rounded-2xl shadow-lg border border-gray-100"
-                >
+              <div key={index} className="section-reveal">
+                <div className="card-hover text-center p-8 bg-gradient-to-br from-gray-50 to-white rounded-2xl shadow-lg border border-gray-100">
                   <div
                     className={`w-16 h-16 bg-gradient-to-r ${feature.color} rounded-full flex items-center justify-center mx-auto mb-6`}
                   >
@@ -359,8 +456,8 @@ const ContactPage = () => {
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
                   <p className="text-gray-600">{feature.description}</p>
-                </motion.div>
-              </AnimatedSection>
+                </div>
+              </div>
             ))}
           </div>
         </div>
@@ -369,101 +466,98 @@ const ContactPage = () => {
       {/* Map Section */}
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
-          <AnimatedSection className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">Find Us</h2>
+          <div className="section-reveal text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 mb-6">Find Us in Nairobi</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Located in the heart of San Francisco&apos;s innovation district
+              Located in the heart of Nairobi's business district, Westlands
             </p>
-          </AnimatedSection>
+          </div>
 
-          <AnimatedSection>
+          <div className="section-reveal">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <div className="h-96 bg-gradient-to-br from-blue-900 to-purple-900 flex items-center justify-center">
                 <div className="text-center text-white">
                   <MapPin className="w-16 h-16 mx-auto mb-4" />
-                  <h3 className="text-3xl font-bold mb-2">San Francisco</h3>
-                  <p className="text-xl">123 Innovation Drive, Suite 400</p>
+                  <h3 className="text-3xl font-bold mb-2">Nairobi, Kenya</h3>
+                  <p className="text-xl">Westlands Business Center, Suite 205</p>
                 </div>
               </div>
               <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-lg px-4 py-2">
                 <div className="flex items-center">
                   <MapPin className="w-4 h-4 text-blue-600 mr-2" />
-                  <span className="text-sm font-semibold text-gray-700">We&apos;re Here!</span>
+                  <span className="text-sm font-semibold text-gray-700">We're Here!</span>
                 </div>
               </div>
             </div>
-          </AnimatedSection>
+          </div>
         </div>
       </section>
 
       {/* FAQ Section */}
       <section id="faq" className="py-20 bg-white">
         <div className="container mx-auto px-4">
-          <AnimatedSection className="text-center mb-16">
+          <div className="section-reveal text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto mb-8" />
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Quick answers to common questions about BrilliantMinds
             </p>
-          </AnimatedSection>
+          </div>
 
           <div className="max-w-4xl mx-auto space-y-6">
             {[
               {
-                question: "What services does BrilliantMinds offer?",
+                question: "What services does BrilliantMinds offer in Kenya?",
                 answer:
-                  "BrilliantMinds offers a comprehensive range of digital inclusion, e-learning, gig economy integration, and skill development services designed to help communities transform and thrive in the digital age.",
+                  "BrilliantMinds offers comprehensive digital inclusion, e-learning platforms, gig economy integration, and skill development services specifically designed for Kenyan communities and businesses looking to thrive in the digital age.",
               },
               {
                 question: "How quickly can I expect a response to my inquiry?",
                 answer:
-                  "We strive to respond to all inquiries within 24 hours during business days. For urgent matters, we recommend calling our support line directly.",
+                  "We strive to respond to all inquiries within 24 hours during business days (Monday-Friday, 8 AM - 6 PM EAT). For urgent matters, we recommend calling our Nairobi office directly.",
               },
               {
-                question: "Do you offer remote consultations?",
+                question: "Do you offer remote consultations across Kenya?",
                 answer:
-                  "Yes, we provide both in-person and remote consultations to accommodate your needs and preferences. Our virtual meetings are conducted via secure platforms.",
+                  "Yes, we provide both in-person consultations in Nairobi and remote consultations to serve clients across Kenya. Our virtual meetings are conducted via secure platforms and can accommodate different time zones.",
               },
               {
-                question: "How can I join the BrilliantMinds team?",
+                question: "How can I join the BrilliantMinds team in Nairobi?",
                 answer:
-                  "We're always looking for talented individuals to join our team. Visit our Careers page to view current openings or submit your resume for future opportunities.",
+                  "We're always looking for talented individuals to join our growing team in Nairobi. Visit our Careers page to view current openings or submit your resume for future opportunities in our Westlands office.",
               },
             ].map((faq, index) => (
-              <AnimatedSection key={index}>
-                <motion.div
-                  whileHover={{ scale: 1.01 }}
-                  className="bg-gradient-to-br from-gray-50 to-white rounded-xl p-6 shadow-lg border border-gray-100"
-                >
+              <div key={index} className="section-reveal">
+                <div className="card-hover bg-gradient-to-br from-gray-50 to-white rounded-xl p-6 shadow-lg border border-gray-100">
                   <h3 className="text-xl font-bold text-gray-900 mb-3">{faq.question}</h3>
                   <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
-                </motion.div>
-              </AnimatedSection>
+                </div>
+              </div>
             ))}
           </div>
 
-          <AnimatedSection className="text-center mt-12">
+          <div className="section-reveal text-center mt-12">
             <p className="text-gray-600 mb-6">Still have questions?</p>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold rounded-full hover:shadow-lg transition-all duration-300"
+            <button
+              onClick={() => document.getElementById("contact-form")?.scrollIntoView({ behavior: "smooth" })}
+              className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold rounded-full hover:shadow-lg transition-all duration-300 btn-hover"
             >
               Contact our support team
               <ArrowRight className="ml-2 w-5 h-5" />
-            </motion.button>
-          </AnimatedSection>
+            </button>
+          </div>
         </div>
       </section>
 
       {/* Connect Section */}
       <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
         <div className="container mx-auto px-4">
-          <AnimatedSection className="text-center">
+          <div className="section-reveal text-center">
             <h2 className="text-4xl font-bold mb-6">Connect With Us</h2>
             <p className="text-xl mb-12 max-w-3xl mx-auto">
-              Follow us on social media for the latest updates and insights
+              Follow us on social media for the latest updates and insights from Kenya's tech scene
             </p>
+
             <div className="flex justify-center space-x-6">
               {[
                 { icon: Mail, label: "Email" },
@@ -473,17 +567,15 @@ const ContactPage = () => {
                 { icon: Instagram, label: "Instagram" },
                 { icon: Youtube, label: "YouTube" },
               ].map((social, index) => (
-                <motion.button
+                <button
                   key={index}
-                  whileHover={{ scale: 1.1, y: -5 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="w-16 h-16 bg-white/20 backdrop-blur-lg rounded-full flex items-center justify-center hover:bg-white/30 transition-all duration-300"
+                  className="social-icon w-16 h-16 bg-white/20 backdrop-blur-lg rounded-full flex items-center justify-center hover:bg-white/30 transition-all duration-300"
                 >
                   {React.createElement(social.icon, { className: "w-6 h-6 text-white" })}
-                </motion.button>
+                </button>
               ))}
             </div>
-          </AnimatedSection>
+          </div>
         </div>
       </section>
 
