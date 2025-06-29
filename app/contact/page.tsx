@@ -217,7 +217,7 @@ const ContactPage = () => {
                 <div className="mb-8">
                   <h2 className="text-3xl font-bold text-gray-900 mb-4">Get In Touch</h2>
                   <p className="text-gray-600">
-                    Fill out the form below and we'll get back to you as soon as possible.
+                    Fill out the form below and we&apos;ll get back to you as soon as possible.
                   </p>
                 </div>
 
@@ -227,7 +227,7 @@ const ContactPage = () => {
                       <CheckCircle className="w-10 h-10 text-green-600" />
                     </div>
                     <h3 className="text-2xl font-bold text-gray-900 mb-2">Message Sent Successfully!</h3>
-                    <p className="text-gray-600">Thank you for contacting us. We'll get back to you within 24 hours.</p>
+                    <p className="text-gray-600">Thank you for contacting us. We&apos;ll get back to you within 24 hours.</p>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-6">

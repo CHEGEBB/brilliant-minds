@@ -5,7 +5,6 @@ import {
   BookOpen,
   Users,
   Globe,
-  Calendar,
   Award,
   TrendingUp,
   Video,
