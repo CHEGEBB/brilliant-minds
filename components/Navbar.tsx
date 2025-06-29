@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
-import { ChevronDown, Menu, Search, X, Home, Users, Lightbulb, HandHeart, TrendingUp, Mail, Building2, Briefcase, Newspaper } from "lucide-react"
+import { ChevronDown, Menu, Search, X, Home, Users, Lightbulb, HandHeart, TrendingUp, Mail, Building2, Briefcase, Newspaper, BrainCircuitIcon } from "lucide-react"
 import { usePathname, useRouter } from "next/navigation"
 
 const Navbar = () => {
@@ -51,6 +51,7 @@ const Navbar = () => {
   }, [isSearchOpen])
 
   const solutionsItems = [
+    {title:"Solutions overview" , href: "/solutions", icon: BrainCircuitIcon },
     { title: "Digital Inclusion", href: "/solutions/digital-inclusion", icon: Lightbulb },
     { title: "E-Learning", href: "/solutions/e-learning", icon: Users },
     { title: "Gig Economy", href: "/solutions/gig-economy", icon: TrendingUp },

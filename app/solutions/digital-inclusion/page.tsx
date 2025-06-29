@@ -265,7 +265,7 @@ const DigitalInclusionPage = () => {
               />
             </div>
           ))}
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-900/85 via-cyan-800/80 to-purple-900/85" />
+          <div className="absolute z-10 inset-0 bg-gradient-to-br from-blue-900/85 via-cyan-800/80 to-purple-900/85" />
         </div>
 
         {/* Floating Elements */}
@@ -317,13 +317,19 @@ const DigitalInclusionPage = () => {
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                  <button className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold rounded-full hover:shadow-2xl transition-all duration-300 btn-hover">
-                    Partner with Us
-                  </button>
-                  <button className="px-8 py-4 bg-white/20 backdrop-blur-lg border-2 border-white/30 text-white font-bold rounded-full hover:bg-white/30 transition-all duration-300 btn-hover">
-                    Donate a Device
-                  </button>
-                </div>
+  <button 
+    onClick={() => window.location.href = '/about/partners'}
+    className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold rounded-full hover:shadow-2xl transition-all duration-300 btn-hover"
+  >
+    Partner with Us
+  </button>
+  <button 
+    onClick={() => window.location.href = '/get-involved'}
+    className="px-8 py-4 bg-white/20 backdrop-blur-lg border-2 border-white/30 text-white font-bold rounded-full hover:bg-white/30 transition-all duration-300 btn-hover"
+  >
+    Donate a Device
+  </button>
+</div>
               </div>
             </div>
 
@@ -617,17 +623,26 @@ const DigitalInclusionPage = () => {
           </div>
 
           <div className="section-reveal text-center">
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-              <button className="px-10 py-5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-lg rounded-full hover:shadow-2xl transition-all duration-300 btn-hover">
-                Become a Partner
-              </button>
-              <button className="px-10 py-5 border-2 border-white text-white font-bold text-lg rounded-full hover:bg-white hover:text-blue-900 transition-all duration-300 btn-hover">
-                Donate a Device
-              </button>
-              <button className="px-10 py-5 bg-white/20 backdrop-blur-lg text-white font-bold text-lg rounded-full hover:bg-white/30 transition-all duration-300 btn-hover">
-                Find a Co-Working Space
-              </button>
-            </div>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+          <button 
+            onClick={() => window.location.href = '/about/partners'}
+            className="px-10 py-5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-lg rounded-full hover:shadow-2xl transition-all duration-300 btn-hover"
+          >
+            Become a Partner
+          </button>
+          <button 
+            onClick={() => window.location.href = '/get-involved'}
+            className="px-10 py-5 border-2 border-white text-white font-bold text-lg rounded-full hover:bg-white hover:text-blue-900 transition-all duration-300 btn-hover"
+          >
+            Donate a Device
+          </button>
+          <button 
+            onClick={() => window.location.href = '/contact'}
+            className="px-10 py-5 bg-white/20 backdrop-blur-lg text-white font-bold text-lg rounded-full hover:bg-white/30 transition-all duration-300 btn-hover"
+          >
+            Find a Co-Working Space
+          </button>
+        </div>
           </div>
         </div>
       </section>
