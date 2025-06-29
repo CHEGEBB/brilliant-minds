@@ -65,7 +65,7 @@ const ContactPage = () => {
       description:
         "Our dedicated team of experts is ready to provide you with personalized support and guidance for all your digital transformation needs.",
       image:
-        "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+        "https://images.unsplash.com/photo-1484807352052-23338990c6c6?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       stats: "Expert Team Ready",
       highlight: "Get Support",
     },
