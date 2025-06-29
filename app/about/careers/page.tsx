@@ -357,13 +357,24 @@ const CareersPage = () => {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 sm:justify-center pt-2 sm:pt-4">
-                <button className="px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold text-sm sm:text-base hover:shadow-2xl transition-all duration-300 btn-hover">
-                  View Open Positions
-                </button>
-                <button className="px-6 py-3 sm:px-8 sm:py-4 bg-white/20 backdrop-blur-lg border-2 border-white/30 text-white font-bold text-sm sm:text-base hover:bg-white/30 transition-all duration-300 btn-hover">
-                  Learn About Culture
-                </button>
-              </div>
+  <button 
+    onClick={() => {
+      const openPositionsSection = document.querySelector('section.py-20.bg-white');
+      if (openPositionsSection) {
+        openPositionsSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }}
+    className="px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold text-sm sm:text-base hover:shadow-2xl transition-all duration-300 btn-hover"
+  >
+    View Open Positions
+  </button>
+  <button 
+    onClick={() => window.location.href = '/about'}
+    className="px-6 py-3 sm:px-8 sm:py-4 bg-white/20 backdrop-blur-lg border-2 border-white/30 text-white font-bold text-sm sm:text-base hover:bg-white/30 transition-all duration-300 btn-hover"
+  >
+    Learn About Culture
+  </button>
+</div>
             </div>
           </div>
         </div>
@@ -637,15 +648,25 @@ const CareersPage = () => {
               Take the next step in your career and be part of a team that&apos;s making a real difference in the world.
               Apply today and help us build the future of digital transformation.
             </p>
-
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-              <button className="px-10 py-5 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold text-lg hover:shadow-2xl transition-all duration-300 btn-hover">
-                View All Positions
-              </button>
-              <button className="px-10 py-5 border-2 border-white text-white font-bold text-lg hover:bg-white hover:text-indigo-900 transition-all duration-300 btn-hover">
-                Learn About Culture
-              </button>
-            </div>
+            <button 
+              onClick={() => {
+                const openPositionsSection = document.querySelector('section.py-20.bg-white');
+                if (openPositionsSection) {
+                  openPositionsSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              className="px-10 py-5 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold text-lg hover:shadow-2xl transition-all duration-300 btn-hover"
+            >
+              View All Positions
+            </button>
+            <button 
+              onClick={() => window.location.href = '/about'}
+              className="px-10 py-5 border-2 border-white text-white font-bold text-lg hover:bg-white hover:text-indigo-900 transition-all duration-300 btn-hover"
+            >
+              Learn About Culture
+            </button>
+          </div>
           </div>
         </div>
       </section>

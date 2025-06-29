@@ -624,13 +624,19 @@ const AboutPage = () => {
               Together, we can bridge digital divides and create opportunities for underserved communities.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-              <button className="px-8 py-4 bg-white text-purple-900 font-bold rounded-full hover:bg-gray-100 transition-all duration-300 shadow-lg btn-hover">
-                Start Your Journey
-              </button>
-              <button className="px-8 py-4 border-2 border-white text-white font-bold rounded-full hover:bg-white hover:text-purple-900 transition-all duration-300 btn-hover">
-                Support Our Mission
-              </button>
-            </div>
+            <button 
+              onClick={() => window.location.href = '/get-involved'}
+              className="px-8 py-4 bg-white text-purple-900 font-bold rounded-full hover:bg-gray-100 transition-all duration-300 shadow-lg btn-hover"
+            >
+              Start Your Journey
+            </button>
+            <button 
+              onClick={() => window.location.href = '/get-involved'}
+              className="px-8 py-4 border-2 border-white text-white font-bold rounded-full hover:bg-white hover:text-purple-900 transition-all duration-300 btn-hover"
+            >
+              Support Our Mission
+            </button>
+          </div>
           </div>
         </div>
       </section>

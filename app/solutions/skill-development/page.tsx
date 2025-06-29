@@ -360,13 +360,19 @@ const SkillDevelopmentPage = () => {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 sm:justify-center pt-2 sm:pt-4">
-                <button className="px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold text-sm sm:text-base rounded-full hover:shadow-2xl transition-all duration-300 btn-hover">
-                  Start Learning
-                </button>
-                <button className="px-6 py-3 sm:px-8 sm:py-4 bg-white/20 backdrop-blur-lg border-2 border-white/30 text-white font-bold text-sm sm:text-base rounded-full hover:bg-white/30 transition-all duration-300 btn-hover">
-                  View Courses
-                </button>
-              </div>
+  <button 
+    onClick={() => window.location.href = '/solutions/e-learning'}
+    className="px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold text-sm sm:text-base rounded-full hover:shadow-2xl transition-all duration-300 btn-hover"
+  >
+    Start Learning
+  </button>
+  <button 
+    onClick={() => window.location.href = '/solutions/e-learning'}
+    className="px-6 py-3 sm:px-8 sm:py-4 bg-white/20 backdrop-blur-lg border-2 border-white/30 text-white font-bold text-sm sm:text-base rounded-full hover:bg-white/30 transition-all duration-300 btn-hover"
+  >
+    View Courses
+  </button>
+</div>
             </div>
           </div>
         </div>
@@ -581,10 +587,12 @@ const SkillDevelopmentPage = () => {
                   ))}
                 </div>
 
-                <button className="px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold rounded-full hover:shadow-xl transition-all duration-300 btn-hover">
-                  View Upcoming Webinars
-                  <Calendar className="w-5 h-5 inline ml-2" />
-                </button>
+                <button 
+              onClick={() => window.location.href = '/contact'}
+              className="px-10 py-5 border-2 border-emerald bg-emerald-500 text-white font-bold text-lg rounded-full hover:bg-white hover:text-emerald-900 transition-all duration-300 btn-hover"
+            >
+              View Upcoming Webinars
+            </button>
               </div>
             </div>
           </div>
@@ -742,13 +750,19 @@ const SkillDevelopmentPage = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-              <button className="px-10 py-5 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold text-lg rounded-full hover:shadow-2xl transition-all duration-300 btn-hover">
-                Sign Up for a Course
-              </button>
-              <button className="px-10 py-5 border-2 border-white text-white font-bold text-lg rounded-full hover:bg-white hover:text-emerald-900 transition-all duration-300 btn-hover">
-                View Upcoming Webinars
-              </button>
-            </div>
+            <button 
+              onClick={() => window.location.href = '/contact'}
+              className="px-10 py-5 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold text-lg rounded-full hover:shadow-2xl transition-all duration-300 btn-hover"
+            >
+              Sign Up for a Course
+            </button>
+            <button 
+              onClick={() => window.location.href = '/contact'}
+              className="px-10 py-5 border-2 border-white text-white font-bold text-lg rounded-full hover:bg-white hover:text-emerald-900 transition-all duration-300 btn-hover"
+            >
+              View Upcoming Webinars
+            </button>
+          </div>
           </div>
         </div>
       </section>

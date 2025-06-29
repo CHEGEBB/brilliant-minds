@@ -587,13 +587,19 @@ const GigEconomyPage = () => {
               Join thousands of professionals who have found meaningful work through our AI-powered gig economy platform
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-              <button className="px-10 py-5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-lg rounded-full hover:shadow-2xl transition-all duration-300 btn-hover">
-                Join the Platform
-              </button>
-              <button className="px-10 py-5 border-2 border-white text-white font-bold text-lg rounded-full hover:bg-white hover:text-purple-900 transition-all duration-300 btn-hover">
-                Explore Opportunities
-              </button>
-            </div>
+  <button 
+    onClick={() => window.location.href = '/contact'}
+    className="px-10 py-5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-lg rounded-full hover:shadow-2xl transition-all duration-300 btn-hover"
+  >
+    Join the Platform
+  </button>
+  <button 
+    onClick={() => window.location.href = '/solutions/gig-economy'}
+    className="px-10 py-5 border-2 border-white text-white font-bold text-lg rounded-full hover:bg-white hover:text-purple-900 transition-all duration-300 btn-hover"
+  >
+    Explore Opportunities
+  </button>
+</div>
           </div>
         </div>
       </section>
