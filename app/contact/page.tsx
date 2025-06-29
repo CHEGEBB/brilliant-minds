@@ -415,7 +415,7 @@ const ContactPage = () => {
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Why Choose BrilliantMinds?</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto mb-8" />
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We're committed to delivering exceptional results and building lasting partnerships across Kenya and
+              We&apos;re committed to delivering exceptional results and building lasting partnerships across Kenya and
               beyond
             </p>
           </div>
@@ -469,7 +469,7 @@ const ContactPage = () => {
           <div className="section-reveal text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-900 mb-6">Find Us in Nairobi</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Located in the heart of Nairobi's business district, Westlands
+              Located in the heart of Nairobi&apos;s business district, Westlands
             </p>
           </div>
 
@@ -485,7 +485,7 @@ const ContactPage = () => {
               <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-lg px-4 py-2">
                 <div className="flex items-center">
                   <MapPin className="w-4 h-4 text-blue-600 mr-2" />
-                  <span className="text-sm font-semibold text-gray-700">We're Here!</span>
+                  <span className="text-sm font-semibold text-gray-700">We&apos;re Here!</span>
                 </div>
               </div>
             </div>
@@ -555,7 +555,7 @@ const ContactPage = () => {
           <div className="section-reveal text-center">
             <h2 className="text-4xl font-bold mb-6">Connect With Us</h2>
             <p className="text-xl mb-12 max-w-3xl mx-auto">
-              Follow us on social media for the latest updates and insights from Kenya's tech scene
+              Follow us on social media for the latest updates and insights from Kenya&apos;s tech scene
             </p>
 
             <div className="flex justify-center space-x-6">
