@@ -144,7 +144,7 @@ const ContactPage = () => {
               />
             </div>
           ))}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-gray-900/90 to-black/85" />
+          <div className="absolute z-10 inset-0 bg-gradient-to-r from-black/55 via-gray-900/60 to-black/65" />
         </div>
 
         {/* Content */}
