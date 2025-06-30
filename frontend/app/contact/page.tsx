@@ -6,10 +6,8 @@ import {
   Mail,
   MapPin,
   Clock,
-  Send,
   MessageCircle,
   Users,
-  CheckCircle,
   ArrowRight,
   Headphones,
   Linkedin,
@@ -24,19 +22,12 @@ import {
 } from "lucide-react"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
+import ContactForm from "@/components/ContactForm"
 import Image from "next/image"
 import "@/styles/contact-animations.scss"
 
 const ContactPage = () => {
   const [currentHeroIndex, setCurrentHeroIndex] = useState(0)
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-    purpose: "",
-  })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
 
   const heroContent = [
     {
@@ -71,31 +62,6 @@ const ContactPage = () => {
     },
   ]
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }))
-  }
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 2000))
-
-    setIsSubmitting(false)
-    setIsSubmitted(true)
-
-    // Reset form after 5 seconds
-    setTimeout(() => {
-      setIsSubmitted(false)
-      setFormData({ name: "", email: "", message: "", purpose: "" })
-    }, 5000)
-  }
-
   useEffect(() => {
     const heroInterval = setInterval(() => {
       setCurrentHeroIndex((prev) => (prev + 1) % heroContent.length)
@@ -119,7 +85,6 @@ const ContactPage = () => {
 
     const sections = document.querySelectorAll(".section-reveal")
     sections.forEach((section) => observer.observe(section))
-
     return () => observer.disconnect()
   }, [])
 
@@ -213,110 +178,7 @@ const ContactPage = () => {
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Contact Form */}
             <div className="section-reveal">
-              <div className="bg-white rounded-2xl p-8 shadow-xl border border-gray-100">
-                <div className="mb-8">
-                  <h2 className="text-3xl font-bold text-gray-900 mb-4">Get In Touch</h2>
-                  <p className="text-gray-600">
-                    Fill out the form below and we&apos;ll get back to you as soon as possible.
-                  </p>
-                </div>
-
-                {isSubmitted ? (
-                  <div className="success-message text-center py-12">
-                    <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                      <CheckCircle className="w-10 h-10 text-green-600" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-2">Message Sent Successfully!</h3>
-                    <p className="text-gray-600">Thank you for contacting us. We&apos;ll get back to you within 24 hours.</p>
-                  </div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div className="form-field">
-                        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                          Full Name *
-                        </label>
-                        <input
-                          type="text"
-                          id="name"
-                          name="name"
-                          value={formData.name}
-                          onChange={handleInputChange}
-                          required
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 bg-white text-gray-900 placeholder-gray-500"
-                          placeholder="Your full name"
-                        />
-                      </div>
-                      <div className="form-field">
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                          Email Address *
-                        </label>
-                        <input
-                          type="email"
-                          id="email"
-                          name="email"
-                          value={formData.email}
-                          onChange={handleInputChange}
-                          required
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 bg-white text-gray-900 placeholder-gray-500"
-                          placeholder="your.email@example.com"
-                        />
-                      </div>
-                    </div>
-                    <div className="form-field">
-                      <label htmlFor="purpose" className="block text-sm font-medium text-gray-700 mb-2">
-                        Purpose of Inquiry *
-                      </label>
-                      <select
-                        id="purpose"
-                        name="purpose"
-                        value={formData.purpose}
-                        onChange={handleInputChange}
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 bg-white text-gray-900"
-                      >
-                        <option value="">Select a purpose</option>
-                        <option value="Partnership">Partnership</option>
-                        <option value="General">General Inquiry</option>
-                        <option value="Support">Technical Support</option>
-                        <option value="Business">Business Inquiry</option>
-                      </select>
-                    </div>
-                    <div className="form-field">
-                      <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                        Your Message *
-                      </label>
-                      <textarea
-                        id="message"
-                        name="message"
-                        value={formData.message}
-                        onChange={handleInputChange}
-                        required
-                        rows={6}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 resize-none bg-white text-gray-900 placeholder-gray-500"
-                        placeholder="Tell us how we can help you..."
-                      />
-                    </div>
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold rounded-lg hover:shadow-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center btn-hover"
-                    >
-                      {isSubmitting ? (
-                        <div className="flex items-center">
-                          <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
-                          Sending...
-                        </div>
-                      ) : (
-                        <div className="flex items-center">
-                          <Send className="w-5 h-5 mr-2" />
-                          Send Message
-                        </div>
-                      )}
-                    </button>
-                  </form>
-                )}
-              </div>
+              <ContactForm />
             </div>
 
             {/* Office Information */}

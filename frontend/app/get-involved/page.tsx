@@ -25,6 +25,7 @@ import {
 } from "lucide-react"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
+import DonationModal from "@/components/DonationModal"
 import Image from "next/image"
 import "@/styles/get-involved-animations.scss"
 
@@ -32,6 +33,7 @@ const GetInvolvedPage = () => {
   const [currentImpactIndex, setCurrentImpactIndex] = useState(0)
   const [currentVolunteerIndex, setCurrentVolunteerIndex] = useState(0)
   const [donationAmount, setDonationAmount] = useState(50)
+  const [isDonationModalOpen, setIsDonationModalOpen] = useState(false)
 
   const involvementWays = [
     {
@@ -51,7 +53,8 @@ const GetInvolvedPage = () => {
       subtitle: "Share Your Skills",
       description: "Join our global community of volunteers and contribute your expertise to meaningful projects.",
       color: "from-blue-500 to-cyan-500",
-      bgImage: "https://images.unsplash.com/photo-1461532257246-777de18cd58b?q=80&w=1176&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      bgImage:
+        "https://images.unsplash.com/photo-1461532257246-777de18cd58b?q=80&w=1176&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       stats: "5,000+ Volunteers",
       features: ["Skill-Based Volunteering", "Remote Opportunities", "Local Chapters", "Leadership Roles"],
     },
@@ -61,7 +64,8 @@ const GetInvolvedPage = () => {
       subtitle: "Strategic Collaboration",
       description: "Partner with BrilliantMinds to create meaningful impact through strategic collaboration.",
       color: "from-purple-500 to-indigo-500",
-      bgImage: "https://images.unsplash.com/photo-1521790797524-b2497295b8a0?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      bgImage:
+        "https://images.unsplash.com/photo-1521790797524-b2497295b8a0?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       stats: "200+ Partners",
       features: ["Corporate Partnerships", "NGO Collaboration", "Government Relations", "Academic Alliances"],
     },
@@ -240,7 +244,6 @@ const GetInvolvedPage = () => {
 
     const sections = document.querySelectorAll(".section-reveal")
     sections.forEach((section) => observer.observe(section))
-
     return () => observer.disconnect()
   }, [])
 
@@ -313,6 +316,11 @@ const GetInvolvedPage = () => {
               <div
                 key={index}
                 className="section-reveal involvement-card relative h-112 rounded-2xl overflow-hidden shadow-2xl group cursor-pointer"
+                onClick={() => {
+                  if (way.title === "Donate") {
+                    setIsDonationModalOpen(true)
+                  }
+                }}
               >
                 <div className="absolute inset-0">
                   <Image
@@ -509,7 +517,10 @@ const GetInvolvedPage = () => {
                   ))}
                 </div>
 
-                <button className="w-full py-4 bg-gradient-to-r from-pink-500 to-red-500 text-white font-bold rounded-full hover:shadow-lg transition-all duration-300 btn-hover">
+                <button
+                  onClick={() => setIsDonationModalOpen(true)}
+                  className="w-full py-4 bg-gradient-to-r from-pink-500 to-red-500 text-white font-bold rounded-full hover:shadow-lg transition-all duration-300 btn-hover"
+                >
                   Donate Now
                 </button>
               </div>
@@ -806,28 +817,31 @@ const GetInvolvedPage = () => {
               worldwide. Your contribution, no matter the size, makes a real difference.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-            <button 
-              onClick={() => window.location.href = '/contact'}
-              className="px-10 py-5 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white font-bold text-lg rounded-full hover:shadow-2xl transition-all duration-300 btn-hover"
-            >
-              Get Started Today
-            </button>
-            <button 
-              onClick={() => window.location.href = '/contact'}
-              className="px-10 py-5 border-2 border-white text-white font-bold text-lg rounded-full hover:bg-white hover:text-purple-900 transition-all duration-300 btn-hover"
-            >
-              Contact Us
-            </button>
-            <button 
-              onClick={() => window.location.href = '/contact'}
-              className="px-10 py-5 bg-white/20 backdrop-blur-lg text-white font-bold text-lg rounded-full hover:bg-white/30 transition-all duration-300 btn-hover"
-            >
-              Learn More
-            </button>
-          </div>
+              <button
+                onClick={() => setIsDonationModalOpen(true)}
+                className="px-10 py-5 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white font-bold text-lg rounded-full hover:shadow-2xl transition-all duration-300 btn-hover"
+              >
+                Get Started Today
+              </button>
+              <button
+                onClick={() => (window.location.href = "/contact")}
+                className="px-10 py-5 border-2 border-white text-white font-bold text-lg rounded-full hover:bg-white hover:text-purple-900 transition-all duration-300 btn-hover"
+              >
+                Contact Us
+              </button>
+              <button
+                onClick={() => (window.location.href = "/contact")}
+                className="px-10 py-5 bg-white/20 backdrop-blur-lg text-white font-bold text-lg rounded-full hover:bg-white/30 transition-all duration-300 btn-hover"
+              >
+                Learn More
+              </button>
+            </div>
           </div>
         </div>
       </section>
+
+      {/* Donation Modal */}
+      <DonationModal isOpen={isDonationModalOpen} onClose={() => setIsDonationModalOpen(false)} />
 
       <Footer />
     </div>
