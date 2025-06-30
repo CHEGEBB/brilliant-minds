@@ -18,8 +18,7 @@ const contactSchema = new mongoose.Schema(
     purpose: {
       type: String,
       required: [true, "Purpose is required"],
-      enum: ["Partnership", "General", "Support", "Business"],
-      default: "General",
+      enum: ["Partnership", "General", "Support", "Business", "Volunteer", "Donation"],
     },
     message: {
       type: String,
@@ -27,9 +26,17 @@ const contactSchema = new mongoose.Schema(
       trim: true,
       maxlength: [1000, "Message cannot exceed 1000 characters"],
     },
+    phone: {
+      type: String,
+      trim: true,
+    },
+    company: {
+      type: String,
+      trim: true,
+    },
     status: {
       type: String,
-      enum: ["new", "in-progress", "resolved"],
+      enum: ["new", "in-progress", "resolved", "closed"],
       default: "new",
     },
     priority: {
@@ -37,17 +44,25 @@ const contactSchema = new mongoose.Schema(
       enum: ["low", "medium", "high", "urgent"],
       default: "medium",
     },
-    adminNotes: {
-      type: String,
-      trim: true,
-    },
-    respondedAt: {
-      type: Date,
-    },
-    respondedBy: {
+    assignedTo: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Admin",
     },
+    notes: [
+      {
+        note: String,
+        addedBy: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Admin",
+        },
+        addedAt: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
+    ipAddress: String,
+    userAgent: String,
   },
   {
     timestamps: true,
@@ -55,8 +70,8 @@ const contactSchema = new mongoose.Schema(
 )
 
 // Index for better query performance
-contactSchema.index({ email: 1 })
 contactSchema.index({ status: 1 })
+contactSchema.index({ purpose: 1 })
 contactSchema.index({ createdAt: -1 })
 
 module.exports = mongoose.model("Contact", contactSchema)

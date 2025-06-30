@@ -38,7 +38,7 @@ const ContactForm = () => {
     setError("")
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}/api/contact/submit`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}/api/contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -74,7 +74,7 @@ const ContactForm = () => {
             <CheckCircle className="w-10 h-10 text-green-600" />
           </div>
           <h3 className="text-2xl font-bold text-gray-900 mb-2">Message Sent Successfully!</h3>
-          <p className="text-gray-600">Thank you for contacting us. We'll get back to you within 24 hours.</p>
+          <p className="text-gray-600">Thank you for contacting us. We&apos;ll get back to you within 24 hours.</p>
         </div>
       </div>
     )
@@ -84,7 +84,7 @@ const ContactForm = () => {
     <div className="bg-white rounded-2xl p-8 shadow-xl border border-gray-100">
       <div className="mb-8">
         <h2 className="text-3xl font-bold text-gray-900 mb-4">Get In Touch</h2>
-        <p className="text-gray-600">Fill out the form below and we'll get back to you as soon as possible.</p>
+        <p className="text-gray-600">Fill out the form below and we&apos;ll get back to you as soon as possible.</p>
       </div>
 
       {error && (

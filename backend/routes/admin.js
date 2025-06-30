@@ -5,51 +5,50 @@ const News = require("../models/News")
 const Contact = require("../models/Contact")
 const Donation = require("../models/Donation")
 const { body, validationResult } = require("express-validator")
-const rateLimit = require("express-rate-limit")
 
 const router = express.Router()
 
-// Rate limiting for login attempts
-const loginLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 5, // limit each IP to 5 requests per windowMs
-  message: {
-    success: false,
-    message: "Too many login attempts, please try again later.",
-  },
-})
+// JWT Secret
+const JWT_SECRET = process.env.JWT_SECRET || "your-super-secret-jwt-key-change-in-production"
 
-// JWT middleware
-const authenticateToken = (req, res, next) => {
-  const authHeader = req.headers["authorization"]
-  const token = authHeader && authHeader.split(" ")[1]
+// Auth middleware
+const authenticateAdmin = async (req, res, next) => {
+  try {
+    const token = req.header("Authorization")?.replace("Bearer ", "")
 
-  if (!token) {
-    return res.status(401).json({
-      success: false,
-      message: "Access token required",
-    })
-  }
-
-  jwt.verify(token, process.env.JWT_SECRET || "your-secret-key", (err, user) => {
-    if (err) {
-      return res.status(403).json({
+    if (!token) {
+      return res.status(401).json({
         success: false,
-        message: "Invalid or expired token",
+        message: "Access denied. No token provided.",
       })
     }
-    req.user = user
+
+    const decoded = jwt.verify(token, JWT_SECRET)
+    const admin = await Admin.findById(decoded.id).select("-password")
+
+    if (!admin || !admin.isActive) {
+      return res.status(401).json({
+        success: false,
+        message: "Invalid token or inactive account.",
+      })
+    }
+
+    req.admin = admin
     next()
-  })
+  } catch (error) {
+    res.status(401).json({
+      success: false,
+      message: "Invalid token.",
+    })
+  }
 }
 
 // Admin login
 router.post(
   "/login",
-  loginLimiter,
   [
-    body("username").trim().notEmpty().withMessage("Username is required"),
-    body("password").notEmpty().withMessage("Password is required"),
+    body("email").isEmail().normalizeEmail().withMessage("Please enter a valid email"),
+    body("password").isLength({ min: 6 }).withMessage("Password must be at least 6 characters"),
   ],
   async (req, res) => {
     try {
@@ -62,35 +61,45 @@ router.post(
         })
       }
 
-      const { username, password } = req.body
+      const { email, password } = req.body
 
-      // Find admin by username or email
-      const admin = await Admin.findOne({
-        $or: [{ username }, { email: username }],
-        isActive: true,
-      })
-
-      if (!admin || !(await admin.comparePassword(password))) {
+      const admin = await Admin.findOne({ email })
+      if (!admin) {
         return res.status(401).json({
           success: false,
-          message: "Invalid credentials",
+          message: "Invalid email or password",
         })
       }
 
-      // Update last login
-      admin.lastLogin = new Date()
-      await admin.save()
+      // Check if account is locked
+      if (admin.isLocked) {
+        return res.status(423).json({
+          success: false,
+          message: "Account is temporarily locked due to too many failed login attempts",
+        })
+      }
 
-      // Generate JWT token
-      const token = jwt.sign(
-        {
-          id: admin._id,
-          username: admin.username,
-          role: admin.role,
-        },
-        process.env.JWT_SECRET || "your-secret-key",
-        { expiresIn: "24h" },
-      )
+      // Check if account is active
+      if (!admin.isActive) {
+        return res.status(401).json({
+          success: false,
+          message: "Account is deactivated",
+        })
+      }
+
+      const isPasswordValid = await admin.comparePassword(password)
+      if (!isPasswordValid) {
+        await admin.incLoginAttempts()
+        return res.status(401).json({
+          success: false,
+          message: "Invalid email or password",
+        })
+      }
+
+      // Reset login attempts on successful login
+      await admin.resetLoginAttempts()
+
+      const token = jwt.sign({ id: admin._id, email: admin.email, role: admin.role }, JWT_SECRET, { expiresIn: "24h" })
 
       res.json({
         success: true,
@@ -99,12 +108,11 @@ router.post(
           token,
           admin: {
             id: admin._id,
-            username: admin.username,
-            email: admin.email,
             firstName: admin.firstName,
             lastName: admin.lastName,
+            email: admin.email,
             role: admin.role,
-            lastLogin: admin.lastLogin,
+            permissions: admin.permissions,
           },
         },
       })
@@ -118,17 +126,26 @@ router.post(
   },
 )
 
+// Get admin profile
+router.get("/profile", authenticateAdmin, async (req, res) => {
+  res.json({
+    success: true,
+    data: req.admin,
+  })
+})
+
 // Create news article
 router.post(
   "/news",
-  authenticateToken,
+  authenticateAdmin,
   [
     body("title").trim().isLength({ min: 5, max: 200 }).withMessage("Title must be between 5 and 200 characters"),
     body("excerpt").trim().isLength({ min: 10, max: 300 }).withMessage("Excerpt must be between 10 and 300 characters"),
     body("content").trim().isLength({ min: 50 }).withMessage("Content must be at least 50 characters"),
     body("category")
-      .isIn(["announcement", "partnership", "achievement", "event", "technology", "community"])
+      .isIn(["Technology", "Business", "Education", "Economics", "Innovation"])
       .withMessage("Invalid category"),
+    body("author.name").trim().isLength({ min: 2 }).withMessage("Author name is required"),
   ],
   async (req, res) => {
     try {
@@ -141,35 +158,13 @@ router.post(
         })
       }
 
-      const {
-        title,
-        excerpt,
-        content,
-        featuredImage,
-        category,
-        tags,
-        status = "draft",
-        featured = false,
-        seoTitle,
-        seoDescription,
-      } = req.body
+      const newsData = {
+        ...req.body,
+        createdBy: req.admin._id,
+      }
 
-      const news = new News({
-        title,
-        excerpt,
-        content,
-        featuredImage,
-        category,
-        tags: tags ? tags.split(",").map((tag) => tag.trim()) : [],
-        author: req.user.id,
-        status,
-        featured,
-        seoTitle,
-        seoDescription,
-      })
-
+      const news = new News(newsData)
       await news.save()
-      await news.populate("author", "firstName lastName")
 
       res.status(201).json({
         success: true,
@@ -186,52 +181,151 @@ router.post(
   },
 )
 
-// Get admin dashboard stats
-router.get("/dashboard/stats", authenticateToken, async (req, res) => {
+// Get all news (including drafts) for admin
+router.get("/news", authenticateAdmin, async (req, res) => {
   try {
-    const [totalContacts, newContacts, totalDonations, totalNews, publishedNews] = await Promise.all([
-      Contact.countDocuments(),
-      Contact.countDocuments({ status: "new" }),
-      Donation.countDocuments({ paymentStatus: "completed" }),
-      News.countDocuments(),
-      News.countDocuments({ status: "published" }),
-    ])
+    const page = Number.parseInt(req.query.page) || 1
+    const limit = Number.parseInt(req.query.limit) || 10
+    const status = req.query.status
+    const category = req.query.category
+    const skip = (page - 1) * limit
 
-    const donationStats = await Donation.aggregate([
-      { $match: { paymentStatus: "completed" } },
-      {
-        $group: {
-          _id: null,
-          totalAmount: { $sum: "$amount" },
-          avgDonation: { $avg: "$amount" },
-        },
-      },
-    ])
+    const query = {}
+    if (status) query.status = status
+    if (category && category !== "All") query.category = category
+
+    const news = await News.find(query)
+      .populate("createdBy", "firstName lastName")
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit)
+
+    const total = await News.countDocuments(query)
 
     res.json({
       success: true,
       data: {
-        contacts: {
-          total: totalContacts,
-          new: newContacts,
-        },
-        donations: {
-          total: totalDonations,
-          totalAmount: donationStats[0]?.totalAmount || 0,
-          avgDonation: donationStats[0]?.avgDonation || 0,
-        },
-        news: {
-          total: totalNews,
-          published: publishedNews,
-          draft: totalNews - publishedNews,
+        news,
+        pagination: {
+          current: page,
+          pages: Math.ceil(total / limit),
+          total,
         },
       },
     })
   } catch (error) {
-    console.error("Get dashboard stats error:", error)
+    console.error("Get admin news error:", error)
     res.status(500).json({
       success: false,
-      message: "Failed to retrieve dashboard statistics",
+      message: "Failed to retrieve news",
+    })
+  }
+})
+
+// Update news article
+router.put("/news/:id", authenticateAdmin, async (req, res) => {
+  try {
+    const news = await News.findById(req.params.id)
+    if (!news) {
+      return res.status(404).json({
+        success: false,
+        message: "News article not found",
+      })
+    }
+
+    Object.assign(news, req.body)
+    await news.save()
+
+    res.json({
+      success: true,
+      message: "News article updated successfully",
+      data: news,
+    })
+  } catch (error) {
+    console.error("Update news error:", error)
+    res.status(500).json({
+      success: false,
+      message: "Failed to update news article",
+    })
+  }
+})
+
+// Delete news article
+router.delete("/news/:id", authenticateAdmin, async (req, res) => {
+  try {
+    const news = await News.findById(req.params.id)
+    if (!news) {
+      return res.status(404).json({
+        success: false,
+        message: "News article not found",
+      })
+    }
+
+    await News.findByIdAndDelete(req.params.id)
+
+    res.json({
+      success: true,
+      message: "News article deleted successfully",
+    })
+  } catch (error) {
+    console.error("Delete news error:", error)
+    res.status(500).json({
+      success: false,
+      message: "Failed to delete news article",
+    })
+  }
+})
+
+// Dashboard statistics
+router.get("/dashboard", authenticateAdmin, async (req, res) => {
+  try {
+    const [totalNews, publishedNews, draftNews, totalContacts, newContacts, totalDonations, pendingDonations] =
+      await Promise.all([
+        News.countDocuments(),
+        News.countDocuments({ status: "published" }),
+        News.countDocuments({ status: "draft" }),
+        Contact.countDocuments(),
+        Contact.countDocuments({ status: "new" }),
+        Donation.countDocuments(),
+        Donation.countDocuments({ status: "pending" }),
+      ])
+
+    const recentNews = await News.find()
+      .populate("createdBy", "firstName lastName")
+      .sort({ createdAt: -1 })
+      .limit(5)
+      .select("title status createdAt views")
+
+    const recentContacts = await Contact.find()
+      .sort({ createdAt: -1 })
+      .limit(5)
+      .select("name email purpose status createdAt")
+
+    const recentDonations = await Donation.find()
+      .sort({ createdAt: -1 })
+      .limit(5)
+      .select("donorName donationType status createdAt")
+
+    res.json({
+      success: true,
+      data: {
+        stats: {
+          news: { total: totalNews, published: publishedNews, draft: draftNews },
+          contacts: { total: totalContacts, new: newContacts },
+          donations: { total: totalDonations, pending: pendingDonations },
+        },
+        recent: {
+          news: recentNews,
+          contacts: recentContacts,
+          donations: recentDonations,
+        },
+      },
+    })
+  } catch (error) {
+    console.error("Dashboard error:", error)
+    res.status(500).json({
+      success: false,
+      message: "Failed to load dashboard data",
     })
   }
 })

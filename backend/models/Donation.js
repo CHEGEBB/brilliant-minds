@@ -18,83 +18,162 @@ const donationSchema = new mongoose.Schema(
     donorPhone: {
       type: String,
       trim: true,
-      match: [/^[+]?[1-9][\d]{0,15}$/, "Please enter a valid phone number"],
-    },
-    amount: {
-      type: Number,
-      required: [true, "Donation amount is required"],
-      min: [1, "Minimum donation amount is $1"],
-      max: [100000, "Maximum donation amount is $100,000"],
-    },
-    currency: {
-      type: String,
-      default: "USD",
-      enum: ["USD", "KES", "EUR", "GBP"],
     },
     donationType: {
       type: String,
       required: [true, "Donation type is required"],
-      enum: ["one-time", "monthly", "yearly"],
-      default: "one-time",
+      enum: ["financial", "device", "volunteer-time", "skills", "resources", "other"],
     },
-    purpose: {
-      type: String,
-      enum: ["general", "education", "technology", "community", "emergency"],
-      default: "general",
+
+    // Financial donation (pledge/commitment - no actual payment processing)
+    financialDetails: {
+      amount: {
+        type: Number,
+        min: [1, "Amount must be at least 1"],
+      },
+      currency: {
+        type: String,
+        enum: ["USD", "KES", "EUR", "GBP"],
+        default: "USD",
+      },
+      frequency: {
+        type: String,
+        enum: ["one-time", "monthly", "quarterly", "annually"],
+        default: "one-time",
+      },
+      pledgeDate: Date,
+      preferredPaymentMethod: {
+        type: String,
+        enum: ["bank-transfer", "mobile-money", "check", "other"],
+      },
     },
-    paymentMethod: {
-      type: String,
-      enum: ["card", "paypal", "bank-transfer", "mobile-money"],
-      required: [true, "Payment method is required"],
+
+    // Device donation
+    deviceDetails: {
+      deviceType: {
+        type: String,
+        enum: ["laptop", "desktop", "tablet", "smartphone", "router", "other"],
+      },
+      brand: String,
+      model: String,
+      condition: {
+        type: String,
+        enum: ["excellent", "good", "fair", "needs-repair"],
+      },
+      specifications: String,
+      quantity: {
+        type: Number,
+        min: [1, "Quantity must be at least 1"],
+      },
+      estimatedValue: Number,
     },
-    paymentStatus: {
-      type: String,
-      enum: ["pending", "completed", "failed", "refunded"],
-      default: "pending",
+
+    // Volunteer time donation
+    volunteerDetails: {
+      skillsOffered: [String],
+      hoursPerWeek: {
+        type: Number,
+        min: [1, "Hours per week must be at least 1"],
+      },
+      duration: {
+        type: String,
+        enum: ["1-month", "3-months", "6-months", "1-year", "ongoing"],
+      },
+      availability: {
+        type: String,
+        enum: ["weekdays", "weekends", "evenings", "flexible"],
+      },
+      remote: {
+        type: Boolean,
+        default: true,
+      },
+      location: String,
     },
-    transactionId: {
-      type: String,
-      unique: true,
-      sparse: true,
+
+    // Skills donation (pro-bono services)
+    skillsDetails: {
+      serviceType: {
+        type: String,
+        enum: [
+          "web-development",
+          "graphic-design",
+          "marketing",
+          "legal",
+          "accounting",
+          "consulting",
+          "training",
+          "other",
+        ],
+      },
+      description: String,
+      estimatedHours: Number,
+      estimatedValue: Number,
+      timeline: String,
     },
-    paymentReference: {
-      type: String,
-      trim: true,
+
+    // Resources donation
+    resourcesDetails: {
+      resourceType: {
+        type: String,
+        enum: ["software-licenses", "books", "training-materials", "office-supplies", "other"],
+      },
+      description: String,
+      quantity: Number,
+      estimatedValue: Number,
     },
+
+    // General fields
     message: {
       type: String,
       trim: true,
       maxlength: [500, "Message cannot exceed 500 characters"],
     },
-    isAnonymous: {
+    status: {
+      type: String,
+      enum: ["pending", "approved", "in-progress", "completed", "declined"],
+      default: "pending",
+    },
+    priority: {
+      type: String,
+      enum: ["low", "medium", "high"],
+      default: "medium",
+    },
+    assignedTo: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Admin",
+    },
+    notes: [
+      {
+        note: String,
+        addedBy: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Admin",
+        },
+        addedAt: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
+    anonymous: {
       type: Boolean,
       default: false,
     },
-    receiptSent: {
+    receiptRequested: {
       type: Boolean,
       default: false,
     },
-    receiptSentAt: {
-      type: Date,
-    },
+    ipAddress: String,
+    userAgent: String,
   },
   {
     timestamps: true,
   },
 )
 
-// Generate transaction ID before saving
-donationSchema.pre("save", function (next) {
-  if (!this.transactionId) {
-    this.transactionId = "TXN-" + Date.now() + "-" + Math.random().toString(36).substr(2, 9).toUpperCase()
-  }
-  next()
-})
-
 // Index for better query performance
-donationSchema.index({ donorEmail: 1 })
-donationSchema.index({ paymentStatus: 1 })
+donationSchema.index({ donationType: 1 })
+donationSchema.index({ status: 1 })
 donationSchema.index({ createdAt: -1 })
-donationSchema.index({ transactionId: 1 })
 
 module.exports = mongoose.model("Donation", donationSchema)

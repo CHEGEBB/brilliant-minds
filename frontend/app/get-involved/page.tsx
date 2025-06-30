@@ -841,7 +841,7 @@ const GetInvolvedPage = () => {
       </section>
 
       {/* Donation Modal */}
-      <DonationModal isOpen={isDonationModalOpen} onClose={() => setIsDonationModalOpen(false)} />
+      <DonationModal isOpen={isDonationModalOpen} onClose={() => setIsDonationModalOpen(false)} donationType={"financial"} />
 
       <Footer />
     </div>

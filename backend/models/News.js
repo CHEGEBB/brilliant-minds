@@ -33,8 +33,8 @@ const newsSchema = new mongoose.Schema(
     category: {
       type: String,
       required: [true, "Category is required"],
-      enum: ["announcement", "partnership", "achievement", "event", "technology", "community"],
-      default: "announcement",
+      enum: ["Technology", "Business", "Education", "Economics", "Innovation", "All"],
+      default: "Technology",
     },
     tags: [
       {
@@ -44,9 +44,16 @@ const newsSchema = new mongoose.Schema(
       },
     ],
     author: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Admin",
-      required: true,
+      name: {
+        type: String,
+        required: true,
+      },
+      bio: String,
+      avatar: String,
+      social: {
+        twitter: String,
+        linkedin: String,
+      },
     },
     status: {
       type: String,
@@ -64,6 +71,14 @@ const newsSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    breaking: {
+      type: Boolean,
+      default: false,
+    },
+    readTime: {
+      type: String,
+      default: "5 min read",
+    },
     seoTitle: {
       type: String,
       trim: true,
@@ -73,6 +88,26 @@ const newsSchema = new mongoose.Schema(
       type: String,
       trim: true,
       maxlength: [160, "SEO description cannot exceed 160 characters"],
+    },
+    comments: [
+      {
+        name: String,
+        email: String,
+        message: String,
+        approved: {
+          type: Boolean,
+          default: false,
+        },
+        createdAt: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Admin",
+      required: true,
     },
   },
   {
@@ -104,5 +139,6 @@ newsSchema.index({ status: 1 })
 newsSchema.index({ publishedAt: -1 })
 newsSchema.index({ category: 1 })
 newsSchema.index({ featured: 1 })
+newsSchema.index({ breaking: 1 })
 
 module.exports = mongoose.model("News", newsSchema)

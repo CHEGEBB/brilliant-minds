@@ -11,11 +11,13 @@ router.get("/", async (req, res) => {
     const limit = Number.parseInt(req.query.limit) || 10
     const category = req.query.category
     const featured = req.query.featured
+    const breaking = req.query.breaking
+    const search = req.query.search
     const skip = (page - 1) * limit
 
     const query = { status: "published" }
 
-    if (category) {
+    if (category && category !== "All") {
       query.category = category
     }
 
@@ -23,12 +25,20 @@ router.get("/", async (req, res) => {
       query.featured = true
     }
 
-    const news = await News.find(query)
-      .populate("author", "firstName lastName")
-      .sort({ publishedAt: -1 })
-      .skip(skip)
-      .limit(limit)
-      .select("-content") // Exclude full content for list view
+    if (breaking === "true") {
+      query.breaking = true
+    }
+
+    if (search) {
+      query.$or = [
+        { title: { $regex: search, $options: "i" } },
+        { excerpt: { $regex: search, $options: "i" } },
+        { content: { $regex: search, $options: "i" } },
+        { tags: { $in: [new RegExp(search, "i")] } },
+      ]
+    }
+
+    const news = await News.find(query).sort({ publishedAt: -1 }).skip(skip).limit(limit).select("-content") // Exclude full content for list view
 
     const total = await News.countDocuments(query)
 
@@ -58,7 +68,7 @@ router.get("/:slug", async (req, res) => {
     const news = await News.findOne({
       slug: req.params.slug,
       status: "published",
-    }).populate("author", "firstName lastName")
+    })
 
     if (!news) {
       return res.status(404).json({
@@ -87,13 +97,12 @@ router.get("/:slug", async (req, res) => {
 // Get featured news
 router.get("/featured/articles", async (req, res) => {
   try {
-    const limit = Number.parseInt(req.query.limit) || 5
+    const limit = Number.parseInt(req.query.limit) || 3
 
     const featuredNews = await News.find({
       status: "published",
       featured: true,
     })
-      .populate("author", "firstName lastName")
       .sort({ publishedAt: -1 })
       .limit(limit)
       .select("-content")
@@ -107,6 +116,96 @@ router.get("/featured/articles", async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Failed to retrieve featured news",
+    })
+  }
+})
+
+// Get breaking news
+router.get("/breaking/articles", async (req, res) => {
+  try {
+    const limit = Number.parseInt(req.query.limit) || 5
+
+    const breakingNews = await News.find({
+      status: "published",
+      breaking: true,
+    })
+      .sort({ publishedAt: -1 })
+      .limit(limit)
+      .select("title slug publishedAt")
+
+    res.json({
+      success: true,
+      data: breakingNews,
+    })
+  } catch (error) {
+    console.error("Get breaking news error:", error)
+    res.status(500).json({
+      success: false,
+      message: "Failed to retrieve breaking news",
+    })
+  }
+})
+
+// Get news categories with counts
+router.get("/categories/list", async (req, res) => {
+  try {
+    const categories = await News.aggregate([
+      { $match: { status: "published" } },
+      { $group: { _id: "$category", count: { $sum: 1 } } },
+      { $sort: { count: -1 } },
+    ])
+
+    // Add "All" category with total count
+    const totalCount = await News.countDocuments({ status: "published" })
+    const categoriesWithAll = [{ _id: "All", count: totalCount }, ...categories]
+
+    res.json({
+      success: true,
+      data: categoriesWithAll,
+    })
+  } catch (error) {
+    console.error("Get categories error:", error)
+    res.status(500).json({
+      success: false,
+      message: "Failed to retrieve categories",
+    })
+  }
+})
+
+// Get news statistics
+router.get("/stats/overview", async (req, res) => {
+  try {
+    const totalArticles = await News.countDocuments({ status: "published" })
+    const totalViews = await News.aggregate([
+      { $match: { status: "published" } },
+      { $group: { _id: null, totalViews: { $sum: "$views" } } },
+    ])
+
+    const categoryStats = await News.aggregate([
+      { $match: { status: "published" } },
+      { $group: { _id: "$category", count: { $sum: 1 } } },
+      { $sort: { count: -1 } },
+    ])
+
+    const recentArticles = await News.find({ status: "published" })
+      .sort({ publishedAt: -1 })
+      .limit(5)
+      .select("title slug publishedAt views")
+
+    res.json({
+      success: true,
+      data: {
+        totalArticles,
+        totalViews: totalViews[0]?.totalViews || 0,
+        categoryStats,
+        recentArticles,
+      },
+    })
+  } catch (error) {
+    console.error("Get news stats error:", error)
+    res.status(500).json({
+      success: false,
+      message: "Failed to retrieve news statistics",
     })
   }
 })
