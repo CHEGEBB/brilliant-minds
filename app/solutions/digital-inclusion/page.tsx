@@ -248,7 +248,6 @@ const DigitalInclusionPage = () => {
     <div className="min-h-screen bg-gray-50">
       <Navbar />
 
-      {/* Enhanced Hero Section */}
       <section className="stable-layout relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Dynamic Background Images */}
         <div className="absolute inset-0">
